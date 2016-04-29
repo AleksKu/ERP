@@ -4,6 +4,14 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
+
+    "repositories": [
+        {
+            "url": "https://github.com/ElMiKu/Bit8_test.git",
+            "type": "git"
+        }
+    ],
+
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*"

@@ -4,6 +4,8 @@ namespace App\Erp\Catalog;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Erp\Stocks\Stock;
+
 
 /**
  * AQAL\Stocks\Product

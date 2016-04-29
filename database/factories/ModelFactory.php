@@ -40,3 +40,32 @@ $factory->define(App\Erp\Catalog\ProductCategory::class, function (Faker\Generat
         'product_count'=>0
     ];
 });
+
+
+$factory->define(App\Erp\Organizations\Organization::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->company,
+        'code'=>$faker->randomNumber(2),
+
+    ];
+});
+
+$factory->define(App\Erp\Organizations\Warehouse::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->company,
+        'code'=>$faker->sentence(2),
+        'organization_id' => factory(App\Erp\Organizations\Organization::class)->create()->id,
+
+    ];
+});
+
+
+$factory->define(App\Erp\Stocks\Stock::class, function (Faker\Generator $faker) {
+    return [
+        'product_id' => factory(App\Erp\Catalog\Product::class)->create()->id,
+        'warehouse_id' => factory(App\Erp\Organizations\Warehouse::class)->create()->id,
+        'organization_id' => factory(App\Erp\Organizations\Organization::class)->create()->id,
+        'stock_code'=>$faker->sentence(2),
+
+    ];
+});

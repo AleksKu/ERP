@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Erp\Organizations;
+
+use Illuminate\Database\Eloquent\Model;
+
+use App\Erp\Stocks\Stock;
+
+
+
+/**
+ * AQAL\Stocks\Warehouse
+ *
+ * @property-read Organization $organization
+ * @property integer $id
+ * @property string $title
+ * @property string $code
+ * @property boolean $is_default_for_organization
+ * @property integer $organization_id
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $deleted_at
+ */
+class Warehouse extends Model
+{
+
+    protected $attributes = array(
+        'is_default_for_organization' => false,
+
+    );
+
+    protected $casts = [
+        'is_default_for_organization' => 'boolean',
+    ];
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+}
