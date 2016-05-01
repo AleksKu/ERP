@@ -142,5 +142,12 @@ class StockTest extends TestCase
         return $stock;
     }
 
+    /**
+     * Изменить склад можно только в пределах организации
+     */
+    public function testChangeWarehouseWithoutOrganization()
+    {
+        $this->assertTrue(false);
+    }
 
 }

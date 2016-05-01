@@ -24,6 +24,8 @@ use App\Erp\Stocks\Stock;
 class Warehouse extends Model
 {
 
+    protected $with = ['organization'];
+
     protected $attributes = array(
         'is_default_for_organization' => false,
 

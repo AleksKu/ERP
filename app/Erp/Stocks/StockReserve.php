@@ -5,7 +5,7 @@ namespace App\Erp\Stocks;
 use App\Erp\Catalog\Product;
 use App\Erp\Organizations\Organization as Organization;
 use App\Erp\Organizations\Warehouse;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
@@ -33,34 +33,24 @@ use App\Erp\Organizations\Warehouse;
 class StockReserve extends  StockDocument
 {
 
+    use SoftDeletes;
+
 
     protected $table = 'stock_reserves';
 
     public static $codePrefix = 'Резерв';
 
-
-
-    public function items()
-    {
-        return $this->hasMany(StockReserveItem::class);
-    }
+    public static $rules = [];
+    
+    protected $fillable = ['code', 'desc', 'status'];
 
 
 
+  public static $itemInstance = StockReserveItem::class;
 
-    /**
-     * Заполняет поля на основании документа
-     * @param StockDocument $document
-     */
-    public function populateByDocument(StockDocument $document)
-    {
-        $this->warehouse()->associate($document->warehouse);
-        $this->organization()->associate($document->organization);
-        $this->documentable()->associate($document);
 
-        $this->code = $document->codeForLinks(StockReserve::$codePrefix);
 
-    }
+
 
 
     public function codeForLinks($prefix)

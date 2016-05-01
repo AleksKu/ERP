@@ -24,16 +24,13 @@ class CreateStockReservesTable extends Migration
             $table->string('desc');
 
 
-            $table->integer('warehouse_id')->unsigned();
+            $table->integer('warehouse_id')->nullable()->unsigned();
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
-
-            $table->integer('organization_id')->unsigned();
-            $table->foreign('organization_id')->references('id')->on('organizations');
 
             $table->decimal('weight', 10, 2)->nullable()->unsigned();
             $table->decimal('volume', 10, 2)->nullable()->unsigned();
 
-            $table->decimal('total', 20, 2);  //общая стоимость прихода
+            $table->decimal('total', 20, 2)->nullable();  //общая стоимость прихода
 
             $table->timestamps();
             $table->softDeletes();
@@ -52,8 +49,8 @@ class CreateStockReservesTable extends Migration
             $table->integer('stock_id')->unsigned();
             $table->foreign('stock_id')->references('id')->on('stocks');
 
-            $table->integer('reserve_id')->unsigned();
-            $table->foreign('reserve_id')->references('id')->on('stock_reserves');
+            $table->integer('stock_reserve_id')->unsigned();
+            $table->foreign('stock_reserve_id')->references('id')->on('stock_reserves');
 
 
 

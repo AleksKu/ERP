@@ -2,10 +2,9 @@
 
 namespace App\Erp\Stocks;
 
+use App\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Catalog\Product;
-use App\Erp\Organizations\Organization as Organization;
 use App\Erp\Organizations\Warehouse;
 
 
@@ -15,7 +14,7 @@ abstract class StockDocument extends Model
     CONST STATUS_NEW = 'new';
     CONST STATUS_ACTIVATED = 'activated';
     CONST STATUS_COMPLETE = 'complete';
-    CONST STATUS_CANCELED= 'canceled';
+    CONST STATUS_CANCELED = 'canceled';
 
 
     protected static $statuses = [
@@ -24,6 +23,11 @@ abstract class StockDocument extends Model
         self::STATUS_COMPLETE,
         self::STATUS_CANCELED,
     ];
+
+    public static $codePrefix;
+
+    public static $itemInstance;
+
 
 
     protected $attributes = array(
@@ -35,7 +39,25 @@ abstract class StockDocument extends Model
 
     );
 
-    protected $with = ['items', 'warehouse', 'organization'];
+    protected $with = ['items', 'warehouse'];
+
+
+    /**
+     * Boot the model.
+     */
+    public static function boot()
+    {
+        parent::boot();
+        static::updating(function($document) {
+            $document->warehouseValidate();
+        });
+    }
+
+
+    protected function warehouseValidate()
+    {
+
+    }
 
 
     public function documentable()
@@ -44,35 +66,35 @@ abstract class StockDocument extends Model
     }
 
 
+
+
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function organization()
+
+
+
+
+    public function items()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->hasMany(static::$itemInstance);
     }
 
-
-    /**
-     * возвращает строки документв
-     * @return mixed
-     */
-    public abstract function items();
 
 
     public function activate()
     {
         $items = $this->items;
 
-        foreach ($items as $item) {
+        array_walk($items, function($item) {
             $item->activate();
-        }
+
+        });
 
         $this->status = self::STATUS_ACTIVATED;
 
-        $this->save();
 
         return $this;
     }
@@ -86,28 +108,42 @@ abstract class StockDocument extends Model
     {
         $items = $this->items;
 
-        foreach ($items as $item) {
+
+        array_walk($items, function($item) {
             $item->complete();
-        }
+
+        });
 
         $this->status = self::STATUS_COMPLETE;
 
-        $this->save();
 
         return $this;
     }
 
-    public function cancel() {
+    public function cancel()
+    {
 
     }
 
 
-
-    public function duplicate(StockDocument $newDocument) {
+    public function duplicate(StockDocument $newDocument)
+    {
 
     }
 
-    public abstract function populateByDocument(StockDocument $document);
+    /**
+     * Заполняет поля на основании документа
+     * @param StockDocument $document
+     */
+    public function populateByDocument(StockDocument $document)
+    {
+        $this->warehouse()->associate($document->warehouse);
+
+        $this->documentable()->associate($document);
+
+        $this->code = $document->codeForLinks(static::$codePrefix);
+
+    }
 
 
     public function setStatusAttribute($status)
@@ -131,9 +167,6 @@ abstract class StockDocument extends Model
     {
         return $this->status == self::STATUS_NEW;
     }
-
-
-
 
 
 }
