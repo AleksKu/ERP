@@ -18,7 +18,7 @@ class CreateOrderTable extends Migration
 
             $table->string('code');
 
-            $table->integer('status_id')->unsigned();
+            $table->integer('status_id')->unsigned()->nullable();
             $table->foreign('status_id')->references('id')->on('document_statuses');
 
 
@@ -30,18 +30,18 @@ class CreateOrderTable extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations');
 
 
-            $table->integer('customer_id')->unsigned();
+            $table->integer('customer_id')->nullable()->unsigned();
             $table->foreign('customer_id')->references('id')->on('users');
-            $table->string('customer_name');
-            $table->string('customer_email');
+            $table->string('customer_name')->nullable();
+            $table->string('customer_email')->nullable();
 
 
             $table->decimal('weight', 10, 2)->nullable()->unsigned();
             $table->decimal('volume', 10, 2)->nullable()->unsigned();
 
-            $table->decimal('total_qty', 20, 2);  //общее кол-во товаров
+            $table->decimal('total_qty', 20, 2)->default(0);  //общее кол-во товаров
 
-            $table->decimal('total', 20, 2);  //общая стоимость отгрузки
+            $table->decimal('total', 20, 2)->default(0);  //общая стоимость отгрузки
 
 
 
@@ -71,7 +71,7 @@ class CreateOrderTable extends Migration
 
             $table->decimal('price', 20, 2);
             $table->decimal('qty', 20, 4);
-            $table->decimal('total', 20, 2);  //общая стоимость строки
+            $table->decimal('total', 20, 2)->nullable();  //общая стоимость строки
 
 
             $table->decimal('weight', 10, 2)->nullable()->unsigned();

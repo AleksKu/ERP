@@ -29,7 +29,11 @@ $factory->define(App\Erp\Catalog\Product::class, function (Faker\Generator $fake
         'sku' => $faker->randomNumber(7),
         'weight' => $faker->randomNumber(2),
         'volume' => $faker->randomNumber(2),
-        'unit_id' =>1
+        'cost' => $faker->randomNumber(2),
+        'price' => $faker->randomNumber(2),
+        'unit_id' =>1,
+        'category_id' => factory(App\Erp\Catalog\ProductCategory::class)->create()->id,
+
     ];
 });
 
@@ -45,7 +49,8 @@ $factory->define(App\Erp\Catalog\ProductCategory::class, function (Faker\Generat
 $factory->define(App\Erp\Organizations\Organization::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
-        'code'=>$faker->sentence(2),
+        'code'=>$faker->sentence(2)
+
 
     ];
 });
@@ -56,6 +61,7 @@ $factory->define(App\Erp\Organizations\Warehouse::class, function (Faker\Generat
         'code'=>$faker->sentence(4),
         'organization_id' => factory(App\Erp\Organizations\Organization::class)->create()->id,
 
+
     ];
 });
 
@@ -64,7 +70,6 @@ $factory->define(App\Erp\Stocks\Stock::class, function (Faker\Generator $faker) 
     return [
         'product_id' => factory(App\Erp\Catalog\Product::class)->create()->id,
         'warehouse_id' => factory(App\Erp\Organizations\Warehouse::class)->create()->id,
-        'organization_id' => factory(App\Erp\Organizations\Organization::class)->create()->id,
         'stock_code'=>$faker->sentence(2),
 
     ];
@@ -75,6 +80,26 @@ $factory->define(App\Erp\Stocks\StockReserve::class, function (Faker\Generator $
         'code'=>$faker->sentence(2),
         'warehouse_id' => factory(App\Erp\Organizations\Warehouse::class)->create()->id,
         'status'=>\App\Erp\Stocks\StockDocument::STATUS_NEW
+
+    ];
+});
+
+$factory->define(\App\Erp\Sales\Order::class, function (Faker\Generator $faker) {
+    return [
+        'code'=>$faker->sentence(2),
+        'warehouse_id' => factory(App\Erp\Organizations\Warehouse::class)->create()->id,
+        'organization_id' => factory(App\Erp\Organizations\Organization::class)->create()->id
+
+    ];
+});
+
+$factory->define(\App\Erp\Sales\OrderItem::class, function (Faker\Generator $faker) {
+    return [
+        'product_id' => factory(App\Erp\Catalog\Product::class)->create()->id,
+        'stock_id' => factory(\App\Erp\Stocks\Stock::class)->create()->id,
+        'order_id' => factory(\App\Erp\Sales\Order::class)->create()->id,
+        'qty' => 1
+
 
     ];
 });

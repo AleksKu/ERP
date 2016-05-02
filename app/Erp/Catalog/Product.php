@@ -2,6 +2,7 @@
 
 namespace App\Erp\Catalog;
 
+use App\Erp\Contracts\OrderableInterface;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Stocks\Stock;
@@ -14,12 +15,18 @@ use App\Erp\Stocks\Stock;
  * @property-read \Illuminate\Database\Eloquent\Collection|Stock[] $stocks
  * @mixin \Eloquent
  */
-class Product extends Model
+class Product extends Model implements OrderableInterface
 {
 
+    protected $attributes = [
+        'weight'=>0,
+        'volume'=>0,
+        'price'=>0,
+        'cost'=>0
+    ];
 
 
-    protected $fillable = ['title', 'sku', 'category_id', 'description'];
+    protected $fillable = ['title', 'sku','weight', 'volume','price','cost', 'category_id', 'description'];
 
     public function category()
     {
@@ -57,4 +64,18 @@ class Product extends Model
     }
 
 
+    public function getPrice()
+    {
+       return $this->price;
+    }
+
+    public function getCost()
+    {
+        return $this->cost;
+    }
+
+    public function getSku()
+    {
+        return $this->sku;
+    }
 }

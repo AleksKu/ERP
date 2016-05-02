@@ -44,6 +44,9 @@ class CreateProductsTables extends Migration
             $table->json('barcodes')->nullable();
             $table->json('attributes')->nullable();
 
+            $table->decimal('price', 10, 2)->nullable()->unsigned();
+            $table->decimal('cost', 10, 2)->nullable()->unsigned();
+
             $table->decimal('weight', 10, 2)->nullable()->unsigned();
             $table->decimal('volume', 10, 2)->nullable()->unsigned();
 

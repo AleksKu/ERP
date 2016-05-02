@@ -34,7 +34,14 @@ class Organization extends Model
     }
 
 
-    public function defaultWarehouse() {
-        return $this->warehouses()->where('is_default_for_organization', 1)->first();
+    public function defaultWarehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'default_warehouse_id');
+    }
+
+    public function addDefaultWarehouse(Warehouse $warehouse)
+    {
+        $this->defaultWarehouse()->associate($warehouse);
+
     }
 }

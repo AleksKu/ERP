@@ -29,12 +29,11 @@ class Warehouse extends Model
     protected $with = ['organization'];
 
     protected $attributes = array(
-        'is_default_for_organization' => false,
 
     );
 
     protected $casts = [
-        'is_default_for_organization' => 'boolean',
+     
     ];
 
     public function organization()

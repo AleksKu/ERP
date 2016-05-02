@@ -19,6 +19,9 @@ class CreateOrganizationsTable extends Migration
             $table->string('code');
             $table->unique('code');
 
+            $table->integer('default_warehouse_id')->nullable()->unsigned();
+
+
             $table->timestamps();
             $table->softDeletes();
 
