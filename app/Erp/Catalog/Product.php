@@ -12,6 +12,7 @@ use App\Erp\Stocks\Stock;
  *
  * @property-read ProductCategory $category
  * @property-read \Illuminate\Database\Eloquent\Collection|Stock[] $stocks
+ * @mixin \Eloquent
  */
 class Product extends Model
 {

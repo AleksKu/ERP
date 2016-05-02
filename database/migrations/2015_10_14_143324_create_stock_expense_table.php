@@ -19,7 +19,7 @@ class CreateStockExpenseTable extends Migration
             $table->string('code');
             $table->string('status');
 
-            $table->morphs('documentable');
+            $table->morphs('reasonable');
 
             $table->string('desc');
 

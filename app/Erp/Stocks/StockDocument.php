@@ -2,14 +2,19 @@
 
 namespace App\Erp\Stocks;
 
+use App\Erp\Contracts\DocumentInterface;
 use App\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Organizations\Warehouse;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-abstract class StockDocument extends Model
+abstract class StockDocument extends Model implements DocumentInterface
 {
+
+
+    use SoftDeletes;
 
     CONST STATUS_NEW = 'new';
     CONST STATUS_ACTIVATED = 'activated';
@@ -60,7 +65,11 @@ abstract class StockDocument extends Model
     }
 
 
-    public function documentable()
+    /**
+     * Документ на основании которого был создан данный
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function reasonable()
     {
         return $this->morphTo();
     }
@@ -133,9 +142,9 @@ abstract class StockDocument extends Model
 
     /**
      * Заполняет поля на основании документа
-     * @param StockDocument $document
+     * @param DocumentInterface $document
      */
-    public function populateByDocument(StockDocument $document)
+    public function populateByDocument(DocumentInterface $document)
     {
         $this->warehouse()->associate($document->warehouse);
 

@@ -19,7 +19,7 @@ class CreateStockReservesTable extends Migration
 
             $table->string('status');
 
-            $table->morphs('documentable');
+            $table->morphs('reasonable');
 
             $table->string('desc');
 

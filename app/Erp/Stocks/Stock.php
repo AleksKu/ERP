@@ -6,14 +6,13 @@ use App\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Catalog\Product;
-use App\Erp\Organizations\Organization as Organization;
 use App\Erp\Organizations\Warehouse;
 
 use InvalidArgumentException;
 
 
 /**
- * AQAL\Stocks\Stock
+ * App\Erp\Stocks\Stock
  *
  * @property integer $id
  * @property integer $product_id
@@ -32,6 +31,11 @@ use InvalidArgumentException;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
+ * @property-read \App\Erp\Catalog\Product $product
+ * @property-read \App\Erp\Organizations\Warehouse $warehouse
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofProduct($product)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofWarehouse($warehouse)
+ * @mixin \Eloquent
  */
 class Stock extends Model
 {
@@ -68,13 +72,7 @@ class Stock extends Model
     }
 
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function organization()
-    {
-        return $this->belongsTo(Organization::class);
-    }
+
 
     /**
      * @param $query

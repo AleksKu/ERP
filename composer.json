@@ -19,7 +19,8 @@
         "laravelcollective/html": "5.2.*",
         "infyomlabs/swagger-generator": "dev-master",
         "jlapp/swaggervel": "dev-master",
-        "kirkbushell/eloquence": "~2.0"
+        "kirkbushell/eloquence": "~2.0",
+        "laravelcollective/bus": "5.2.*"
 
     },
     "require-dev": {

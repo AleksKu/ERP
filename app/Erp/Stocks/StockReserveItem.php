@@ -25,7 +25,9 @@ use App\Erp\Organizations\Warehouse;
  * @property string $deleted_at
  * @property-read Product $product
  * @property-read StockReserve $reserve
-
+ * @property-read \App\Erp\Stocks\StockReserve $document
+ * @property-read \App\Erp\Stocks\Stock $stock
+ * @mixin \Eloquent
  */
 class StockReserveItem extends StockDocumentItem
 {
@@ -36,13 +38,16 @@ class StockReserveItem extends StockDocumentItem
 
     protected $touches = ['stock'];
 
+    public static  $documentInstance = StockReserve::class;
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
 
     public function document()
     {
-        return $this->belongsTo(StockReserve::class);
+        return $this->belongsTo(static::$documentInstance, 'stock_reserve_id');
     }
 
 

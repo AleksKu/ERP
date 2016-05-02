@@ -30,8 +30,6 @@ class CreateStocksTable extends Migration
             $table->integer('warehouse_id')->unsigned();
             $table->foreign('warehouse_id')->references('id')->on('warehouses');
 
-            $table->integer('organization_id')->unsigned();
-            $table->foreign('organization_id')->references('id')->on('organizations');
 
             $table->decimal('qty', 20, 4)->default(0);
             $table->decimal('reserved', 20, 4)->default(0);

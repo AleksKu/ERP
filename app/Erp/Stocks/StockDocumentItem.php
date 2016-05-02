@@ -1,42 +1,53 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: newage
- * Date: 22.10.15
- * Time: 11:47
- */
 
 namespace App\Erp\Stocks;
 
+use App\Erp\Contracts\DocumentItemInterface;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Catalog\Product;
 
 
-abstract class StockDocumentItem extends Model
+abstract class StockDocumentItem extends Model implements DocumentItemInterface
 {
 
     protected $with = ['product'];
 
     protected $touches = ['stock'];
 
-    public function product()
+    public static $documentInstance;
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
+    public function document()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(static::$documentInstance);
     }
 
 
+    /**
+     * товар
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
+
+
+    /**
+     * сток
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function stock()
     {
         return $this->belongsTo(Stock::class);
     }
 
 
-    /**
-     * Возвращает документ к которуму относится данная строка документа
-     * @return StockDocument
-     */
-    public abstract function document();
 
     /**
      * активация документа
@@ -56,7 +67,7 @@ abstract class StockDocumentItem extends Model
      * @param StockDocumentItem $item
      */
 
-    public function populateByDocumentItem(StockDocumentItem $item)
+    public function populateByDocumentItem(DocumentItemInterface $item)
     {
         $this->product()->associate($item->product);
         $this->document()->associate($item->document);

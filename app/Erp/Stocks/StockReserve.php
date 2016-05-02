@@ -25,15 +25,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
-
  * @property-read \Illuminate\Database\Eloquent\Collection|StockReserveItem[] $items
  * @property-read Warehouse $warehouse
  * @property-read Organization $organization
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $reasonable
+ * @property-write mixed $status
+ * @mixin \Eloquent
  */
 class StockReserve extends  StockDocument
 {
 
-    use SoftDeletes;
+    
 
 
     protected $table = 'stock_reserves';

@@ -20,6 +20,8 @@ use App\Erp\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Erp\Stocks\Stock[] $stocks
+ * @mixin \Eloquent
  */
 class Warehouse extends Model
 {
