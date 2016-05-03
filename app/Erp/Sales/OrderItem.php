@@ -24,6 +24,37 @@ class OrderItem extends Model implements DocumentItemInterface
         'volume'
     ];
 
+    public static function boot()
+    {
+
+        parent::boot();
+
+        static::saving(function (OrderItem $orderItem) {
+            $orderItem->checkStock();
+            $orderItem->calculateTotals();
+        });
+    }
+
+
+    public function checkStock()
+    {
+        if(!is_null($this->stock_id))
+            return true;
+
+        $warehouse = $this->order->warehouse;
+        $product = $this->product;
+
+        
+
+
+    }
+    
+    public function calculateTotals()
+    {
+        
+    }
+    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

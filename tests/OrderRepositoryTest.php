@@ -123,15 +123,43 @@ class OrderRepositoryTest extends TestCase
     }
 
 
-    public function testAddProductToOrder()
+    public function testCreateOrderItem()
     {
+
         $order = factory(Order::class)->create();
+        $warehouse = $order->warehouse;
+        $product = factory(\App\Erp\Catalog\Product::class)->create(['weight'=>10]);
 
-        $product = factory(\App\Erp\Catalog\Product::class)->create();
-        $product2 = factory(\App\Erp\Catalog\Product::class)->create();
+        $stock = factory(\App\Erp\Stocks\Stock::class)->create(['warehouse_id'=>$warehouse->id,
+        'product_id'=>$product->id
+        ]);
 
-        $order->addProduct($product);
-        $order->addProduct($product2);
+        $orderItem = factory(\App\Erp\Sales\OrderItem::class)->make();
+
+        $orderItem->order_id = $order->id;
+        $orderItem->product_id = $product->id;
+
+        $orderItem->price = 1000;
+        $orderItem->qty = 5;
+
+        //если total не установлен, то считаем автоматом
+        $orderItem->save();
+        $this->assertEquals($orderItem->total, 5000);
+
+        //для StockItem сток явно не установлен, но он должен автоматом установиться на основании
+        //склада и товара
+        $this->assertEquals($orderItem->stock->id, $stock->id);
+
+
+
+        $orderItem->total = 4000;
+        $orderItem->price = 1000;
+        $orderItem->qty = 3;
+        $orderItem->save();
+        $this->assertEquals($orderItem->total, 4000);
+
+
+
 
 
     }

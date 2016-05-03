@@ -18,3 +18,5 @@ Route::resource('stockTransfers', 'StockTransferAPIController');
 Route::resource('stockReserves', 'StockReserveAPIController');
 
 Route::resource('orders', 'OrderAPIController');
+
+Route::resource('stocks', 'StockAPIController');

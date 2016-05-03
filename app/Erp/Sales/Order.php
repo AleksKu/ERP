@@ -155,5 +155,10 @@ class Order extends Model implements DocumentInterface
         $this->items()->save($item);
     }
 
+    public function add(OrderItem $item)
+    {
+        
+    }
+
 
 }
