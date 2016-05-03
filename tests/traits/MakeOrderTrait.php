@@ -40,13 +40,6 @@ trait MakeOrderTrait
      */
     public function fakeOrderData($orderFields = [])
     {
-        $fake = Faker::create();
-
-        return array_merge([
-            'code' => $fake->word,
-            'organization_id' => $fake->randomDigitNotNull,
-            'created_at' => $fake->word,
-            'updated_at' => $fake->word
-        ], $orderFields);
+        return factory(Order::class)->make($orderFields)->toArray();
     }
 }

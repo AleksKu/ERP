@@ -39,11 +39,6 @@ trait MakeStockReserveTrait
      */
     public function fakeStockReserveData($stockReserveFields = [])
     {
-        $fake = Faker::create();
-
-        return array_merge([
-            'code' => $fake->word,
-            'status'=> \App\Erp\Stocks\StockDocument::STATUS_NEW
-        ], $stockReserveFields);
+        return factory(StockReserve::class)->make($stockReserveFields)->toArray();
     }
 }

@@ -39,11 +39,10 @@ trait MakeStockTrait
      */
     public function fakeStockData($stockFields = [])
     {
-        $fake = Faker::create();
 
-        return array_merge([
-            'created_at' => $fake->word,
-            'updated_at' => $fake->word
-        ], $stockFields);
+
+        return factory(Stock::class)->make($stockFields)->toArray();
+
+
     }
 }

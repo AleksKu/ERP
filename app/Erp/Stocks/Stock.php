@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\Erp\Catalog\Product;
 use App\Erp\Organizations\Warehouse;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use InvalidArgumentException;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 
 
 /**
@@ -37,10 +40,26 @@ use InvalidArgumentException;
  * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofWarehouse($warehouse)
  * @mixin \Eloquent
  */
-class Stock extends Model
+class Stock extends Model implements Transformable
 {
 
-    protected $with = ['warehouse', 'organization'];
+    use SoftDeletes, TransformableTrait;
+
+    protected $with = ['warehouse', 'product'];
+
+    protected $fillable = [
+        'qty',
+        'available' ,
+        'reserved' ,
+        'min_qty' ,
+        'ideal_qty' ,
+        'weight' ,
+        'volume',
+        'warehouse_id',
+        'product_id',
+        'stock_code'
+    ];
+
     /**
      * @var array
      */
@@ -53,6 +72,20 @@ class Stock extends Model
         'weight' => 0,
         'volume' => 0
     );
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($stock) {
+           $exists = Stock::where('warehouse_id', $stock->warehouse_id)
+            ->where('product_id',$stock->product_id)->first();
+
+            if($exists instanceof Stock)
+                throw new StockException('Stock already exists. Use StockRepository::findOrCreate method for Stock creating');
+        });
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -73,27 +106,7 @@ class Stock extends Model
 
 
 
-
-    /**
-     * @param $query
-     * @param Product $product
-     * @return mixed
-     */
-    public function scopeOfProduct($query, Product $product)
-    {
-        return $query->whereProductId($product->getId());
-    }
-
-
-    /**
-     * @param $query
-     * @param Warehouse $warehouse
-     * @return mixed
-     */
-    public function scopeOfWarehouse($query, Warehouse $warehouse)
-    {
-        return $query->whereWarehouseId($warehouse->getId());
-    }
+    
 
 
     /**
