@@ -164,7 +164,7 @@ class Stock extends Model implements Transformable
 
 
     /**
-     *
+     * todo добавить проверку на списание свыше резервов
      * Уменьшает кол-во товара на складе
      * @param $qty
      * @return $this

@@ -4,14 +4,19 @@ namespace App\Erp\Sales;
 
 use App\Erp\Catalog\Product;
 use App\Erp\Contracts\DocumentItemInterface;
+use App\Erp\Stocks\Contracts\ReservebleItem;
+use App\Erp\Stocks\Contracts\ShouldReserve;
 use App\Erp\Stocks\Stock;
+use App\Events\ReservebleItemCreating;
+use App\Events\ReservebleItemSaving;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model implements DocumentItemInterface
+class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
 {
 
 
 
+    protected $with = ['document', 'product'];
 
     public $fillable = [
         'product_id',
@@ -29,25 +34,18 @@ class OrderItem extends Model implements DocumentItemInterface
 
         parent::boot();
 
-        static::saving(function (OrderItem $orderItem) {
-            $orderItem->checkStock();
-            $orderItem->calculateTotals();
+        static::created(function (OrderItem $orderItem) {
+          
+            event(new ReservebleItemCreating($orderItem));
+        });
+
+        static::saved(function (OrderItem $orderItem) {
+
+            event(new ReservebleItemSaving($orderItem));
         });
     }
 
-
-    public function checkStock()
-    {
-        if(!is_null($this->stock_id))
-            return true;
-
-        $warehouse = $this->order->warehouse;
-        $product = $this->product;
-
-        
-
-
-    }
+    
     
     public function calculateTotals()
     {
@@ -60,7 +58,7 @@ class OrderItem extends Model implements DocumentItemInterface
      */
     public function product()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     /**
@@ -69,7 +67,7 @@ class OrderItem extends Model implements DocumentItemInterface
      */
     public function stock()
     {
-        return $this->hasOne(Stock::class);
+        return $this->belongsTo(Stock::class);
     }
 
     /**
@@ -78,7 +76,7 @@ class OrderItem extends Model implements DocumentItemInterface
      */
     public function document()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class, 'order_id');
     }
 
     /**

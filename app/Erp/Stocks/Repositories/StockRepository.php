@@ -41,6 +41,7 @@ class StockRepository extends BaseRepository
      */
     public function findOrCreate(Warehouse $warehouse, Product $product)
     {
+        
        $result = $this->model
            ->where('warehouse_id', '=', $warehouse->id)
            ->where('product_id', '=', $product->id)

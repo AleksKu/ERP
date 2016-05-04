@@ -13,9 +13,15 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+
+        'App\Events\ReservebleItemCreating' => [
+            'App\Listeners\ItemStockCreateListener',
         ],
+        'App\Events\ReservebleItemSaving' => [
+            'App\Listeners\ItemReserveListener',
+        ]
+
+
     ];
 
     /**
