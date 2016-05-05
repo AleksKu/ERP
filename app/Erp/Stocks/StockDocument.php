@@ -3,6 +3,7 @@
 namespace App\Erp\Stocks;
 
 use App\Erp\Contracts\DocumentInterface;
+use App\Erp\Organizations\Organization;
 use App\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,18 +11,37 @@ use App\Erp\Organizations\Warehouse;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
+/**
+ * Class StockDocument
+ * @package App\Erp\Stocks
+ */
 abstract class StockDocument extends Model implements DocumentInterface
 {
 
 
     use SoftDeletes;
 
+    /**
+     *
+     */
     CONST STATUS_NEW = 'new';
+    /**
+     *
+     */
     CONST STATUS_ACTIVATED = 'activated';
+    /**
+     *
+     */
     CONST STATUS_COMPLETE = 'complete';
+    /**
+     *
+     */
     CONST STATUS_CANCELED = 'canceled';
 
 
+    /**
+     * @var array
+     */
     protected static $statuses = [
         self::STATUS_NEW,
         self::STATUS_ACTIVATED,
@@ -29,12 +49,20 @@ abstract class StockDocument extends Model implements DocumentInterface
         self::STATUS_CANCELED,
     ];
 
+    /**
+     * @var
+     */
     public static $codePrefix;
 
+    /**
+     * @var
+     */
     public static $itemInstance;
 
 
-
+    /**
+     * @var array
+     */
     protected $attributes = array(
 
         'weight' => 0,
@@ -44,6 +72,9 @@ abstract class StockDocument extends Model implements DocumentInterface
 
     );
 
+    /**
+     * @var array
+     */
     protected $with = ['items', 'warehouse'];
 
 
@@ -59,6 +90,9 @@ abstract class StockDocument extends Model implements DocumentInterface
     }
 
 
+    /**
+     *
+     */
     protected function warehouseValidate()
     {
 
@@ -75,24 +109,27 @@ abstract class StockDocument extends Model implements DocumentInterface
     }
 
 
-
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
     }
 
 
-
-
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function items()
     {
         return $this->hasMany(static::$itemInstance);
     }
 
 
-
+    /**
+     * @return $this
+     */
     public function activate()
     {
         $items = $this->items;
@@ -129,12 +166,18 @@ abstract class StockDocument extends Model implements DocumentInterface
         return $this;
     }
 
+    /**
+     *
+     */
     public function cancel()
     {
 
     }
 
 
+    /**
+     * @param StockDocument $newDocument
+     */
     public function duplicate(StockDocument $newDocument)
     {
 
@@ -146,7 +189,7 @@ abstract class StockDocument extends Model implements DocumentInterface
      */
     public function populateByDocument(DocumentInterface $document)
     {
-        $this->warehouse()->associate($document->warehouse);
+        $this->warehouse()->associate($document->getWarehouse());
 
         $this->documentable()->associate($document);
 
@@ -155,6 +198,10 @@ abstract class StockDocument extends Model implements DocumentInterface
     }
 
 
+    /**
+     * @param $status
+     * @return $this
+     */
     public function setStatusAttribute($status)
     {
         if (!in_array($status, $this->getAllStatuses()))
@@ -167,15 +214,47 @@ abstract class StockDocument extends Model implements DocumentInterface
     }
 
 
+    /**
+     * @return array
+     */
     public function getAllStatuses()
     {
         return static::$statuses;
     }
 
+    /**
+     * @return bool
+     */
     public function isActive()
     {
         return $this->status == self::STATUS_NEW;
     }
+
+    /**
+     * @return Warehouse
+     */
+    public function getWarehouse()
+    {
+        return $this->warehouse;
+    }
+
+    /**
+     * @return Organization
+     */
+    public  function getOrganization()
+    {
+        return $this->getWarehouse()->getOrganization();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+
 
 
 }

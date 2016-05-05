@@ -49,7 +49,7 @@ class ItemStockCreateListener
         $item = $event->item;
 
 
-        $stock = $this->stockRepository->findOrCreate($item->document->warehouse, $item->product);
+        $stock = $this->stockRepository->createFromDocumentItem($item);
         $item->stock()->associate($stock);
 
 

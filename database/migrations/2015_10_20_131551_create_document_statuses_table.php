@@ -25,7 +25,7 @@ class CreateDocumentStatusesTable extends Migration
 
             $table->boolean('is_system');
 
-            $table->json('document_types');  //типы документов, в которых используется статус
+            $table->text('document_types');  //типы документов, в которых используется статус
 
 
 

@@ -14,6 +14,40 @@ use App\Erp\Stocks\Stock;
  * @property-read ProductCategory $category
  * @property-read \Illuminate\Database\Eloquent\Collection|Stock[] $stocks
  * @mixin \Eloquent
+ * @property integer $id
+ * @property string $type
+ * @property string $sku
+ * @property integer $category_id
+ * @property string $title
+ * @property string $description
+ * @property integer $unit_id
+ * @property string $barcodes
+ * @property string $attributes
+ * @property float $price
+ * @property float $cost
+ * @property float $weight
+ * @property float $volume
+ * @property string $image
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereSku($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereUnitId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereBarcodes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereAttributes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product wherePrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCost($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereDeletedAt($value)
  */
 class Product extends Model implements OrderableInterface
 {

@@ -41,8 +41,8 @@ class CreateProductsTables extends Migration
 
             $table->integer('unit_id')->unsigned()->nullable(); //базовая едениу
 
-            $table->json('barcodes')->nullable();
-            $table->json('attributes')->nullable();
+            $table->text('barcodes')->nullable();
+            $table->text('attributes')->nullable();
 
             $table->decimal('price', 10, 2)->nullable()->unsigned();
             $table->decimal('cost', 10, 2)->nullable()->unsigned();

@@ -15,6 +15,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
  * @mixin \Eloquent
+ * @property integer $product_count
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereProductCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereDeletedAt($value)
  */
 class ProductCategory extends Model
 {

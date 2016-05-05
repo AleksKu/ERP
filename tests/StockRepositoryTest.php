@@ -51,17 +51,20 @@ class StockRepositoryTest extends TestCase
     /**
      * @test
      */
-    public function testFindOrCreate()
+    public function testCeateFromDocumentItem()
     {
         $warehouse = factory(Warehouse::class)->create();
         $product = factory(Product::class)->create();
-        $stock = $this->stockRepo->findOrCreate($warehouse, $product);
+
+
+
+        $stock = $this->stockRepo->createFromDocumentItem($item);
 
         $this->assertInstanceOf(Stock::class, $stock);
         $this->assertEquals($warehouse->id, $stock->warehouse_id);
         $this->assertEquals($product->id, $stock->product_id);
 
-        $stock2 = $this->stockRepo->findOrCreate($warehouse, $product);
+        $stock2 = $this->stockRepo->createFromDocumentItem($item);
         $this->assertEquals($stock->id, $stock2->id);
 
 

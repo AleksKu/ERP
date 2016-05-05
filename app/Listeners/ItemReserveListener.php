@@ -26,7 +26,7 @@ class ItemReserveListener
      * Create the event listener.
      *
      * @param OrderRepository $orderRepository
-     * @param StockReserveRepository $stockRepository
+     * @param StockReserveRepository $reserveRepository
      */
     public function __construct(OrderRepository $orderRepository, StockReserveRepository $reserveRepository)
     {

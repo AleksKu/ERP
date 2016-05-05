@@ -15,10 +15,10 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "infyomlabs/laravel-generator": "dev-master",
+        "infyomlabs/laravel-generator": "*",
         "laravelcollective/html": "5.2.*",
-        "infyomlabs/swagger-generator": "dev-master",
-        "jlapp/swaggervel": "dev-master",
+        "infyomlabs/swagger-generator": "*",
+        "jlapp/swaggervel": "*",
         "kirkbushell/eloquence": "~2.0",
         "laravelcollective/bus": "5.2.*",
         "prettus/l5-repository": "^2.5",
@@ -32,7 +32,8 @@
         "symfony/css-selector": "2.8.*|3.0.*",
         "symfony/dom-crawler": "2.8.*|3.0.*",
         "laravel/homestead": "^3.0",
-        "barryvdh/laravel-ide-helper": "^2.1"
+        "barryvdh/laravel-ide-helper": "^2.1",
+        "doctrine/dbal": "~2.3"
     },
     "autoload": {
         "classmap": [

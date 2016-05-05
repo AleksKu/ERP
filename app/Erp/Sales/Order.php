@@ -10,7 +10,9 @@ use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @SWG\Definition(
+ * App\Erp\Sales\Order
+ *
+ * @SWG\Definition (
  *      definition="Order",
  *      required={},
  *      @SWG\Property(
@@ -43,21 +45,70 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="date-time"
  *      )
  * )
+ * @property-read \App\Erp\Organizations\Warehouse $warehouse
+ * @property-read \App\Erp\Organizations\Organization $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Erp\Sales\OrderItem[] $items
+ * @mixin \Eloquent
+ * @property integer $id
+ * @property string $code
+ * @property integer $status_id
+ * @property integer $warehouse_id
+ * @property integer $organization_id
+ * @property integer $customer_id
+ * @property string $customer_name
+ * @property string $customer_email
+ * @property float $weight
+ * @property float $volume
+ * @property float $total_qty
+ * @property float $total
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereStatusId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereTotalQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereTotal($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereDeletedAt($value)
  */
 class Order extends Model implements DocumentInterface
 {
     use SoftDeletes;
 
+    /**
+     * @var string
+     */
     public $table = 'orders';
 
+    /**
+     * @var array
+     */
     public $with = ['organization', 'warehouse'];
 
 
+    /**
+     * @var array
+     */
     protected $dates = ['deleted_at', 'created_at', 'updated_at'];
 
+    /**
+     * @var
+     */
     public static $itemInstance = OrderItem::class;
 
 
+    /**
+     * @var array
+     */
     protected $attributes = [
         'weight' => 0,
         'volume' => 0,
@@ -65,6 +116,9 @@ class Order extends Model implements DocumentInterface
         'total' => 0,
     ];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'code',
         'warehouse_id',
@@ -92,6 +146,9 @@ class Order extends Model implements DocumentInterface
     ];
 
 
+    /**
+     *
+     */
     public static function boot()
     {
 
@@ -114,51 +171,64 @@ class Order extends Model implements DocumentInterface
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
     }
 
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function organization()
     {
         return $this->belongsTo(Organization::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function items()
     {
         return $this->hasMany(static::$itemInstance);
     }
 
 
+
+
     /**
-     * @param OrderableInterface $product
-     * @param int $qty
+     * @param OrderItem $item
      */
-    public function addProduct(OrderableInterface $product, $qty = 1)
-    {
-        $item = new OrderItem();
-
-       // $item->sku = $product->getSku();
-        $item->price = $product->getPrice();
-     //   $item->cost = $product->getCost();
-        $item->qty = $qty;
-        $item->weight = $product->weight;
-
-        $item->product_id = $product->id;
-
-        
-        $stock = $stockRepo->findOrCreate($product, $this->warehouse);
-
-        $item->stock_id = $stock->id;
-
-        $this->items()->save($item);
-    }
-
     public function add(OrderItem $item)
     {
         
     }
 
 
+    /**
+     * @return Organization
+     */
+    public function getOrganization()
+    {
+        return $this->getWarehouse()->organization;
+    }
+
+    /**
+     * @return Warehouse
+     */
+    public function getWarehouse()
+    {
+        return $this->warehouse;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
 }

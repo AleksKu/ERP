@@ -35,6 +35,10 @@ class StockReserveRepository extends BaseRepository
     {
         $warehouseId = $document->warehouse->id;
         $documentId = $document->id;
+        
+        $reserve = StockReserve::where('warehouse_id', $warehouseId)
+            
+            ->first();
 
 
 
@@ -44,12 +48,12 @@ class StockReserveRepository extends BaseRepository
     /**
      * Создает резерв на основании документа
      * @param DocumentInterface $document
-     * @oaran bool $activate - если true резерв создается и активируется, т.е. происходит реальный резерв. Если false -
-     * документ резерва создается но резерв не устанавилвается
      * @param bool $force форсировать создание. В таком случае, если резерв уже был создан, он будет снят и создан новый резерв
      * Если форсировать не надо, а резерв уже сущесвует для документа, то выбросит исключение
-     * @throws StockException
      * @return StockReserve
+     * @throws StockException
+     * @oaram bool $activate - если true резерв создается и активируется, т.е. происходит реальный резерв. Если false -
+     * документ резерва создается но резерв не устанавилвается
      */
     public function createFromDocument(DocumentInterface $document, $activate = true, $force = false)
     {
@@ -71,7 +75,7 @@ class StockReserveRepository extends BaseRepository
         $reserve->save();
 
 
-        return $reserve;
+        return $this->parserResult($reserve);
 
     }
 

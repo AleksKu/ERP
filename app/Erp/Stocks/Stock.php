@@ -39,6 +39,22 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofProduct($product)
  * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofWarehouse($warehouse)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereProductId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereStockCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereStockBox($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereReserved($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereAvailable($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereMinQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereIdealQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereTotal($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereDeletedAt($value)
  */
 class Stock extends Model implements Transformable
 {

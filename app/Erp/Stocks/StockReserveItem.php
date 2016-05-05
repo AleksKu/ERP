@@ -3,11 +3,11 @@
 namespace App\Erp\Stocks;
 
 
+use App\Erp\Contracts\DocumentInterface;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Catalog\Product;
-use App\Erp\Organizations\Organization as Organization;
-use App\Erp\Organizations\Warehouse;
+
 
 /**
  * AQAL\Stocks\StockReserveItem
@@ -28,6 +28,18 @@ use App\Erp\Organizations\Warehouse;
  * @property-read \App\Erp\Stocks\StockReserve $document
  * @property-read \App\Erp\Stocks\Stock $stock
  * @mixin \Eloquent
+ * @property integer $stock_reserve_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereProductId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereStockId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereStockReserveId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem wherePrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\StockReserveItem whereDeletedAt($value)
  */
 class StockReserveItem extends StockDocumentItem
 {
@@ -86,6 +98,7 @@ class StockReserveItem extends StockDocumentItem
         return $this;
 
     }
+
 
 
 }

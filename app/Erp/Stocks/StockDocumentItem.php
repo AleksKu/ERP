@@ -3,6 +3,7 @@
 namespace App\Erp\Stocks;
 
 use App\Erp\Contracts\DocumentItemInterface;
+use App\Erp\Organizations\Warehouse;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Catalog\Product;
@@ -11,7 +12,7 @@ use App\Erp\Catalog\Product;
 abstract class StockDocumentItem extends Model implements DocumentItemInterface
 {
 
-    protected $with = ['product'];
+    protected $with = ['product', 'document', 'stock'];
 
     protected $touches = ['stock'];
 
@@ -72,5 +73,37 @@ abstract class StockDocumentItem extends Model implements DocumentItemInterface
         $this->product()->associate($item->product);
         $this->document()->associate($item->document);
         $this->qty = $item->qty;
+    }
+
+    /**
+     * @return Product
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @return Stock
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * @return StockDocument
+     */
+    public function getDocument()
+    {
+        return $this->document;
+    }
+
+    /**
+     * @return Warehouse
+     */
+    public function getWarehouse()
+    {
+        return $this->getDocument()->getWarehouse();
     }
 }

@@ -22,6 +22,13 @@ use App\Erp\Stocks\Stock;
  * @property string $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Erp\Stocks\Stock[] $stocks
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereDeletedAt($value)
  */
 class Warehouse extends Model
 {
@@ -48,5 +55,10 @@ class Warehouse extends Model
     public function stocks()
     {
         return $this->hasMany(Stock::class);
+    }
+
+    public function getOrganization()
+    {
+        return $this->organization;
     }
 }
