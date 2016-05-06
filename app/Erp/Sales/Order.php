@@ -3,7 +3,6 @@
 namespace App\Erp\Sales;
 
 use App\Erp\Contracts\DocumentInterface;
-use app\Erp\Contracts\OrderableInterface;
 use App\Erp\Organizations\Organization;
 use App\Erp\Organizations\Warehouse;
 use Eloquent as Model;
@@ -230,5 +229,10 @@ class Order extends Model implements DocumentInterface
     public function getItems()
     {
         return $this->items;
+    }
+    
+    public function getId()
+    {
+        return $this->id;
     }
 }

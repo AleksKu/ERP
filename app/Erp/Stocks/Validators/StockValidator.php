@@ -18,7 +18,9 @@ class StockValidator extends LaravelValidator {
             'ideal_qty'=>'numeric',
             'volume'=>'numeric'
         ],
-        ValidatorInterface::RULE_UPDATE => [],
+        ValidatorInterface::RULE_UPDATE => [
+            'warehouse_id'=>'same:warehouse_id'
+        ],
    ];
 
 }

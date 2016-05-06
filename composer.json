@@ -1,16 +1,11 @@
 {
     "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "TLaravel 5.2 based Open Source ERP",
+    "keywords": ["erp", "russian","shopping", "", "laravel"],
     "license": "MIT",
     "type": "project",
 
-    "repositories": [
-        {
-            "url": "https://github.com/ElMiKu/Bit8_test.git",
-            "type": "git"
-        }
-    ],
+
 
     "require": {
         "php": ">=5.5.9",

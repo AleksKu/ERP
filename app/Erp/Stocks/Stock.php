@@ -94,13 +94,31 @@ class Stock extends Model implements Transformable
     {
         parent::boot();
 
-        static::creating(function ($stock) {
-           $exists = Stock::where('warehouse_id', $stock->warehouse_id)
-            ->where('product_id',$stock->product_id)->first();
-
-            if($exists instanceof Stock)
-                throw new StockException('Stock already exists. Use StockRepository::findOrCreate method for Stock creating');
+        static::creating(function (Stock $stock) {
+          $stock->checkExistsStock();
         });
+
+        static::updating(function (Stock $stock) {
+            $stock->checkChangeWarehouse();
+        });
+    }
+
+    /**
+     * todo вынести в валидатор
+     * @throws StockException
+     */
+    public  function checkExistsStock()
+    {
+        $exists = Stock::where('warehouse_id', $this->warehouse_id)
+            ->where('product_id',$this->product_id)->first();
+
+        if($exists instanceof Stock)
+            throw new StockException('Stock already exists. Use StockRepository::findOrCreate method for Stock creating');
+    }
+
+    public function checkChangeWarehouse()
+    {
+
     }
 
     /**

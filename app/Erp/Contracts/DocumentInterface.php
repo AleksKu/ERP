@@ -30,6 +30,8 @@ interface DocumentInterface
 
     public function getItems();
     
+    public function getId();
+    
     
 
 }

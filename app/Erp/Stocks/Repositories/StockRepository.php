@@ -2,9 +2,7 @@
 
 namespace App\Erp\Stocks\Repositories;
 
-use App\Erp\Catalog\Product;
 use App\Erp\Contracts\DocumentItemInterface;
-use App\Erp\Organizations\Warehouse;
 use App\Erp\Stocks\Stock;
 use App\Erp\Stocks\Validators\StockValidator;
 use InfyOm\Generator\Common\BaseRepository;
@@ -38,23 +36,49 @@ class StockRepository extends BaseRepository
     }
 
 
+
+    public function createFromProduct()
+    {
+
+    }
+
+    /**
+     * Создает сток на основании строки.
+     * Если сток уже был создан, то возвращает его
+     * @param DocumentItemInterface $item
+     * @return Stock
+     */
     public function createFromDocumentItem(DocumentItemInterface $item)
     {
         $warehouse = $item->getWarehouse();
         $product = $item->getProduct();
 
-        $result = $this->model
-            ->where('warehouse_id', '=', $warehouse->id)
-            ->where('product_id', '=', $product->id)
-            ->first();
+        $result = $this->findByDocumentItem($item);
 
         if($result instanceof Stock)
-            return $this->parserResult($result);
+            return $result;
 
         return  $this->create([
             'warehouse_id' =>  $warehouse->id,
             'product_id' => $product->id
         ]);
+    }
+
+    /**
+     * Ищем Сток по строке документа
+     * @param DocumentItemInterface $item
+     * @return Stock
+     */
+    public function findByDocumentItem(DocumentItemInterface $item)
+    {
+        $warehouse = $item->getWarehouse();
+        $product = $item->getProduct();
+        $result = $this->model
+            ->where('warehouse_id', '=', $warehouse->id)
+            ->where('product_id', '=', $product->id)
+            ->first();
+
+        return $this->parserResult($result);
     }
 
 }

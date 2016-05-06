@@ -1,11 +1,12 @@
 <?php
 
+use App\Erp\Catalog\Product;
 use App\Erp\Organizations\Organization;
 use App\Erp\Organizations\Warehouse;
 use App\Erp\Sales\Order;
+use App\Erp\Sales\OrderItem;
 use App\Erp\Sales\Repositories\OrderRepository;
-use App\Listeners\ItemReserveListener;
-use App\Listeners\ItemStockCreateListener;
+use App\Erp\Stocks\Stock;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OrderRepositoryTest extends TestCase
@@ -130,13 +131,13 @@ class OrderRepositoryTest extends TestCase
 
         $order = factory(Order::class)->create();
         $warehouse = $order->warehouse;
-        $product = factory(\App\Erp\Catalog\Product::class)->create(['weight'=>10]);
+        $product = factory(Product::class)->create(['weight'=>10]);
 
-        $stock = factory(\App\Erp\Stocks\Stock::class)->create(['warehouse_id'=>$warehouse->id,
+        $stock = factory(Stock::class)->create(['warehouse_id'=>$warehouse->id,
         'product_id'=>$product->id
         ]);
 
-        $orderItem = factory(\App\Erp\Sales\OrderItem::class)->make();
+        $orderItem = factory(OrderItem::class)->make();
 
         $orderItem->document()->associate($order);
         $orderItem->product()->associate($product);

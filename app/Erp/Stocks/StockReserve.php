@@ -2,10 +2,10 @@
 
 namespace App\Erp\Stocks;
 
-use App\Erp\Catalog\Product;
+
 use App\Erp\Organizations\Organization as Organization;
 use App\Erp\Organizations\Warehouse;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 
 /**
@@ -70,6 +70,11 @@ class StockReserve extends  StockDocument
     public function codeForLinks($prefix)
     {
         // TODO: Implement codeForLinks() method.
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 

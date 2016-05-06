@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Erp\Contracts\DocumentInterface;
 use App\Erp\Stocks\Exceptions\StockException;
-use App\Erp\Stocks\StockDocument;
 use App\Erp\Stocks\StockReserve;
 use InfyOm\Generator\Common\BaseRepository;
 
@@ -33,12 +32,14 @@ class StockReserveRepository extends BaseRepository
 
     public function findByDocument(DocumentInterface $document)
     {
-        $warehouseId = $document->warehouse->id;
-        $documentId = $document->id;
+
         
-        $reserve = StockReserve::where('warehouse_id', $warehouseId)
-            
+        $reserve = StockReserve::where('reasonable_id', $document->getId())
+            ->where('reasonable_type', get_class($document))
             ->first();
+
+
+        return $this->parserResult($reserve);
 
 
 

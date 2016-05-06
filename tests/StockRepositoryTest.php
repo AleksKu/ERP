@@ -1,7 +1,10 @@
 <?php
 
 use App\Erp\Catalog\Product;
+use App\Erp\Contracts\DocumentItemInterface;
 use App\Erp\Organizations\Warehouse;
+use App\Erp\Stocks\Exceptions\StockException;
+use App\Erp\Stocks\Presenters\StockPresenter;
 use App\Erp\Stocks\Stock;
 use App\Erp\Stocks\Repositories\StockRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -43,32 +46,69 @@ class StockRepositoryTest extends TestCase
     {
         $stock = factory(Stock::class)->create();
 
-        $this->setExpectedException(\App\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(StockException::class);
 
-        $stock2 = factory(Stock::class)->create(['warehouse_id'=>$stock->warehouse_id, 'product_id'=>$stock->product_id]);
+        $stock2 = $this->stockRepo->create(['warehouse_id'=>$stock->warehouse_id, 'product_id'=>$stock->product_id]);
     }
 
     /**
      * @test
      */
-    public function testCeateFromDocumentItem()
+    public function testCreateFromDocumentItem()
     {
+        $warehouse = factory(Warehouse::class)->create();
+        $product = factory(Product::class)->create();
+
+        $item = \Mockery::mock(DocumentItemInterface::class);
+        $item->shouldReceive('getWarehouse')->times(4)->andReturn($warehouse);
+        $item->shouldReceive('getProduct')->times(4)->andReturn($product);
+
+        $stock = $this->stockRepo->createFromDocumentItem($item);
+
+        $this->assertInstanceOf(Stock::class, $stock);
+        $this->assertEquals($warehouse->id, $stock->warehouse->id);
+        $this->assertEquals($product->id, $stock->product->id);
+
+        $stock2 = $this->stockRepo->createFromDocumentItem($item);
+
+        $item2 = \Mockery::mock(DocumentItemInterface::class);
+
+
+        $item2->shouldReceive('getWarehouse')->times(2)->andReturn($warehouse);
+        $item2->shouldReceive('getProduct')->times(2)->andReturn($product);
+        $stock2 = $this->stockRepo->createFromDocumentItem($item2);
+
+        $this->assertEquals($stock2->id, $stock->id);
+
+
+
+
+
+    }
+
+    public function testFindByDocumentItem()
+    {
+
+
+
         $warehouse = factory(Warehouse::class)->create();
         $product = factory(Product::class)->create();
 
 
 
-        $stock = $this->stockRepo->createFromDocumentItem($item);
+        $item = \Mockery::mock(DocumentItemInterface::class);
+        $item->shouldReceive('getWarehouse')->times(1)->andReturn($warehouse);
+        $item->shouldReceive('getProduct')->times(1)->andReturn($product);
+
+        $stockExists = factory(Stock::class)->create(['warehouse_id'=>$warehouse->id,'product_id'=>$product->id]);
+
+
+        $stock = $this->stockRepo->findByDocumentItem($item);
 
         $this->assertInstanceOf(Stock::class, $stock);
-        $this->assertEquals($warehouse->id, $stock->warehouse_id);
-        $this->assertEquals($product->id, $stock->product_id);
-
-        $stock2 = $this->stockRepo->createFromDocumentItem($item);
-        $this->assertEquals($stock->id, $stock2->id);
-
-
-
+        $this->assertEquals($warehouse->id, $stock->warehouse->id);
+        $this->assertEquals($product->id, $stock->product->id);
+        $this->assertEquals($stockExists->id, $stock->id);
     }
 
     /**
@@ -139,7 +179,7 @@ class StockRepositoryTest extends TestCase
     {
         $stock = $this->createStock();
 
-        $this->setExpectedException(\App\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(StockException::class);
 
         $stock->reserveQty(6);
 
@@ -165,7 +205,7 @@ class StockRepositoryTest extends TestCase
     {
         $stock = $this->createStock();
 
-        $this->setExpectedException(\App\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(StockException::class);
         $stock->removeReserveQty(8);
 
 
@@ -225,7 +265,7 @@ class StockRepositoryTest extends TestCase
         $this->assertEquals(3, $stock->available);
         $this->assertEquals(8, $stock->qty);
 
-        $this->setExpectedException(\App\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(StockException::class);
 
         $stock->decreaseQty(9);
 
@@ -241,29 +281,38 @@ class StockRepositoryTest extends TestCase
     }
 
     /**
-     * Изменить склад можно только в пределах организации
+     * Изменить склад для созданного стока нельзя
      */
-    public function testChangeWarehouseWithoutOrganization()
+    public function testChangeWarehouse()
     {
-        $this->assertTrue(false);
+        $stock = $this->createStock();
+        $newWarehouse = factory(Warehouse::class)->create();
+        $this->setExpectedException(ValidatorException::class);
+
+        $stock->warehouse()->associate($newWarehouse);
+        
+
     }
 
     public function testValidator()
     {
         $this->setExpectedException(ValidatorException::class);
 
-        $stock = $this->stockRepo->create(['weight'=>2]);
+        $this->stockRepo->create(['weight'=>'sdfsdf']);
 
 
 
     }
 
+    /**
+     *
+     */
     public function testPresenter()
     {
         $warehouse = factory(Warehouse::class)->create();
         $product = factory(Product::class)->create();
 
-        $stock = $this->stockRepo->setPresenter(\App\Erp\Stocks\Presenters\StockPresenter::class)
+        $stock = $this->stockRepo->setPresenter(StockPresenter::class)
             ->create(['weight'=>2,'product_id'=>$product->id, 'warehouse_id'=>$warehouse->id]);
 
         //временно

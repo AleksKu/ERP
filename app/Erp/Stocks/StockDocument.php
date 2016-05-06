@@ -4,7 +4,6 @@ namespace App\Erp\Stocks;
 
 use App\Erp\Contracts\DocumentInterface;
 use App\Erp\Organizations\Organization;
-use App\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Erp\Organizations\Warehouse;
@@ -84,7 +83,7 @@ abstract class StockDocument extends Model implements DocumentInterface
     public static function boot()
     {
         parent::boot();
-        static::updating(function($document) {
+        static::updating(function(StockDocument $document) {
             $document->warehouseValidate();
         });
     }
@@ -134,7 +133,7 @@ abstract class StockDocument extends Model implements DocumentInterface
     {
         $items = $this->items;
 
-        array_walk($items, function($item) {
+        array_walk($items, function(StockDocumentItem $item) {
             $item->activate();
 
         });
@@ -155,7 +154,7 @@ abstract class StockDocument extends Model implements DocumentInterface
         $items = $this->items;
 
 
-        array_walk($items, function($item) {
+        array_walk($items, function(StockDocumentItem $item) {
             $item->complete();
 
         });
@@ -191,7 +190,7 @@ abstract class StockDocument extends Model implements DocumentInterface
     {
         $this->warehouse()->associate($document->getWarehouse());
 
-        $this->documentable()->associate($document);
+        $this->reasonable()->associate($document);
 
         $this->code = $document->codeForLinks(static::$codePrefix);
 
@@ -252,6 +251,11 @@ abstract class StockDocument extends Model implements DocumentInterface
     public function getItems()
     {
         return $this->items;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 
 
