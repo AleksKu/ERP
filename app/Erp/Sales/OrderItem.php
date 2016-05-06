@@ -2,12 +2,14 @@
 
 namespace App\Erp\Sales;
 
+use App;
 use App\Erp\Catalog\Product;
 use App\Erp\Contracts\DocumentInterface;
 use App\Erp\Contracts\DocumentItemInterface;
 use App\Erp\Organizations\Warehouse;
 use App\Erp\Stocks\Contracts\ReservebleItem;
 use App\Erp\Stocks\Contracts\ShouldReserve;
+use App\Erp\Stocks\Repositories\StockRepository;
 use App\Erp\Stocks\Stock;
 use App\Events\ReservebleItemCreating;
 use App\Events\ReservebleItemSaving;
@@ -52,6 +54,12 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
 
     protected $with = ['document', 'product'];
 
+    protected $attributes = [
+        'price'=>0,
+        'total'=>0,
+        'qty'=>0,
+    ];
+
     public $fillable = [
         'product_id',
         'order_id',
@@ -63,13 +71,19 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         'volume'
     ];
 
+
+    protected $touches = ['document'];
+
     public static function boot()
     {
 
         parent::boot();
 
         static::created(function (OrderItem $orderItem) {
-          
+
+
+           $orderItem->_createStock();
+
             event(new ReservebleItemCreating($orderItem));
         });
 
@@ -77,13 +91,32 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
 
             event(new ReservebleItemSaving($orderItem));
         });
+
+        static::saving(function (OrderItem $orderItem) {
+
+            $orderItem->calculateTotals();
+        });
     }
 
-    
-    
+
+    public function _createStock()
+    {
+
+        $stock =  App::make(StockRepository::class)->createFromDocumentItem($this);
+        $this->stock()->associate($stock);
+    }
+
+
+    /**
+     *
+     */
     public function calculateTotals()
     {
-        
+        if(empty($this->attributes['total']))
+        {
+            $this->total = $this->attributes['price'] *  $this->attributes['qty'];
+
+        }
     }
     
 
@@ -96,7 +129,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     }
 
     /**
-     * 
+     *
      * @return
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -112,6 +145,11 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     public function document()
     {
         return $this->belongsTo(Order::class, 'order_id');
+    }
+
+    public function order()
+    {
+        return $this->document();
     }
 
     /**

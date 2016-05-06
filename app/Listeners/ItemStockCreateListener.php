@@ -44,13 +44,9 @@ class ItemStockCreateListener
      */
     public function handle(ReservebleItemCreating $event)
     {
-
+        
 
         $item = $event->item;
-
-
-        $stock = $this->stockRepository->createFromDocumentItem($item);
-        $item->stock()->associate($stock);
 
 
 

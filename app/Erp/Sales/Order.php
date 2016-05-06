@@ -5,6 +5,7 @@ namespace App\Erp\Sales;
 use App\Erp\Contracts\DocumentInterface;
 use App\Erp\Organizations\Organization;
 use App\Erp\Organizations\Warehouse;
+use App\Erp\Stocks\Exceptions\StockException;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -154,19 +155,33 @@ class Order extends Model implements DocumentInterface
         parent::boot();
 
         static::saving(function (Order $order) {
-            $order->checkOrganization();
+           // $order->checkOrganization();
         });
     }
 
 
     /**
-     *todo проверка на изменение органзиации
+     *
      */
     public function checkOrganization()
     {
 
-        $org = $this->warehouse->organization;
-        $this->organization()->associate($org);
+
+        $orgFromWarehouse = $this->getWarehouse()->organization;
+
+        $newWarehouseId = $this->attributes['warehouse_id'];
+
+
+        if($newWarehouseId != $this->getOriginal('warehouse_id')) {
+
+
+            $newWarehouse = Warehouse::find($newWarehouseId)->first();
+
+            if($newWarehouse->organization->id != $orgFromWarehouse->id)
+                throw new StockException('для заказ нельзя установить склад из другой организации');
+        }
+
+        $this->organization()->associate($orgFromWarehouse);
     }
 
 
@@ -192,7 +207,7 @@ class Order extends Model implements DocumentInterface
      */
     public function items()
     {
-        return $this->hasMany(static::$itemInstance);
+        return $this->hasMany(static::$itemInstance, 'order_id');
     }
 
 
@@ -203,7 +218,9 @@ class Order extends Model implements DocumentInterface
      */
     public function add(OrderItem $item)
     {
-        
+
+        $this->items()->save($item);
+        $this->load('items'); //баг в Laravel. При добавление связанного объекта, коллекция не обновляется и надо ее загрузить заново
     }
 
 

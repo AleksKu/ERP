@@ -97,7 +97,6 @@ $factory->define(\App\Erp\Sales\OrderItem::class, function (Faker\Generator $fak
     return [
         'product_id' => factory(App\Erp\Catalog\Product::class)->create()->id,
         'stock_id' => factory(\App\Erp\Stocks\Stock::class)->create()->id,
-        'order_id' => factory(\App\Erp\Sales\Order::class)->create()->id,
         'qty' => 1
 
 
