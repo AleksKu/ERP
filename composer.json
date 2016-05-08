@@ -14,7 +14,6 @@
         "laravelcollective/html": "5.2.*",
         "infyomlabs/swagger-generator": "*",
         "jlapp/swaggervel": "*",
-        "kirkbushell/eloquence": "~2.0",
         "laravelcollective/bus": "5.2.*",
         "prettus/l5-repository": "^2.5",
         "league/fractal": "^0.13.0"

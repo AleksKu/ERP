@@ -231,16 +231,23 @@ class OrderRepositoryTest extends TestCase
         $order = factory(Order::class)->create();
         $product = factory(Product::class)->create();
 
-        $orderItem = factory(OrderItem::class)->make();
+        $orderItem = factory(OrderItem::class)->make(['qty'=>1]);
         $orderItem->product()->associate($product);
         
         $order->add($orderItem);
-        $this->assertEquals($order->items->count(), 1);
-        
-        $orderItem2 = factory(OrderItem::class)->make();
+        $order->save();
+        $this->assertEquals(1, $order->items->count());
+        $this->assertEquals(1, $order->items_count);
+        $this->assertEquals(1, $order->products_qty);
+
+        $orderItem2 = factory(OrderItem::class)->make(['qty'=>2]);
         $orderItem2->product()->associate($product);
         $order->add($orderItem2);
+        $order->save();
+
         $this->assertEquals($order->items->count(), 2);
+        $this->assertEquals($order->order_item_count, 2);
+        $this->assertEquals($order->products_qty, 3);
 
         
 

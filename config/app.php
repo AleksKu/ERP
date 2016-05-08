@@ -164,8 +164,7 @@ return [
         InfyOm\Generator\InfyOmGeneratorServiceProvider::class,
         Jlapp\Swaggervel\SwaggervelServiceProvider::class,
 
-        Eloquence\EloquenceServiceProvider::class
-        
+
 
     ],
 

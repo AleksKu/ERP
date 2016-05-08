@@ -55,8 +55,11 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     protected $with = ['document', 'product'];
 
     protected $attributes = [
-        'price'=>0,
+        'base_price'=>0,
+        'base_cost'=>0,
         'total'=>0,
+        'subtotal'=>0,
+        'discount'=>0,
         'qty'=>0,
     ];
 
@@ -64,8 +67,11 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         'product_id',
         'order_id',
         'stock_id',
-        'price',
+        'base_price',
+        'base_cost',
         'qty',
+        'subtotal',
+        'discount',
         'total',
         'weight',
         'volume'
@@ -78,7 +84,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     {
 
         parent::boot();
-
+        
         static::created(function (OrderItem $orderItem) {
 
 
@@ -99,6 +105,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     }
 
 
+
     public function _createStock()
     {
 
@@ -114,8 +121,14 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     {
         if(empty($this->attributes['total']))
         {
-            $this->total = $this->attributes['price'] *  $this->attributes['qty'];
+            $this->subtotal = $this->base_price *  $this->qty;
+            $this->total = $this->subtotal;
 
+        }
+
+        if(!empty($this->attributes['discount']))
+        {
+            $this->total = $this->subtotal+$this->discount;
         }
     }
     

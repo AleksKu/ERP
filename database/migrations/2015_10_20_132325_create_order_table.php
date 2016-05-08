@@ -39,9 +39,17 @@ class CreateOrderTable extends Migration
             $table->decimal('weight', 10, 2)->nullable()->unsigned();
             $table->decimal('volume', 10, 2)->nullable()->unsigned();
 
-            $table->decimal('total_qty', 20, 2)->default(0);  //общее кол-во товаров
+            $table->integer('items_count')->default(0);  //общее кол-во товаров
+            $table->decimal('products_qty', 20, 2)->default(0);  //общее кол-во товаров
 
-            $table->decimal('total', 20, 2)->default(0);  //общая стоимость отгрузки
+            $table->decimal('subtotal', 20, 2)->default(0);  //стоимость товаров
+            $table->decimal('order_discount', 20, 2)->default(0);  //общая скидка
+            $table->decimal('shipping_amount', 20, 2)->default(0);  //стоимомость доставки
+
+            $table->decimal('grand_total', 20, 2)->default(0);  //общая стоимость заказа
+            $table->decimal('payment_total', 20, 2)->default(0);  // оплачено
+            $table->decimal('due_total', 20, 2)->default(0);  // осталось оплатить
+
 
 
 
@@ -58,6 +66,7 @@ class CreateOrderTable extends Migration
 
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
+            $table->string('sku')->nullable();
 
             $table->integer('order_id')->unsigned();
             $table->foreign('order_id')->references('id')->on('orders');
@@ -69,9 +78,13 @@ class CreateOrderTable extends Migration
 
 
 
-            $table->decimal('price', 20, 2);
+
             $table->decimal('qty', 20, 4);
-            $table->decimal('total', 20, 2)->nullable();  //общая стоимость строки
+            $table->decimal('base_price', 20, 2);
+            $table->decimal('base_cost', 20, 2);
+            $table->decimal('subtotal', 20, 2)->nullable();  //общая стоимость строки без скидок
+            $table->decimal('discount', 20, 2)->nullable();  //сумма скидки на строку
+            $table->decimal('total', 20, 2)->nullable();  //общая стоимость строки с учетом скидки
 
 
             $table->decimal('weight', 10, 2)->nullable()->unsigned();

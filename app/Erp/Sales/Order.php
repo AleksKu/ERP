@@ -112,8 +112,15 @@ class Order extends Model implements DocumentInterface
     protected $attributes = [
         'weight' => 0,
         'volume' => 0,
-        'total_qty' => 0,
-        'total' => 0,
+        'items_count' => 0,
+        'products_qty' => 0,
+        'grand_total' => 0,
+        'subtotal'=>0,
+        'shipping_amount'=>0,
+        'order_discount'=>0,
+        'payment_total'=>0,
+        'due_total'=>0,
+
     ];
 
     /**
@@ -124,8 +131,19 @@ class Order extends Model implements DocumentInterface
         'warehouse_id',
         'customer_id',
         'customer_name',
-        'customer_email'
+        'customer_email',
+        'weight',
+        'volume',
+        'items_count',
+        'products_qty',
+        'grand_total',
+        'subtotal',
+        'shipping_amount',
+        'order_discount',
+        'payment_total',
     ];
+
+    protected $guarded = ['due_total'];
 
     /**
      * The attributes that should be casted to native types.
