@@ -1,7 +1,7 @@
 <?php
 
-use App\Erp\Stocks\StockReserve;
-use App\Repositories\StockReserveRepository;
+use Torg\Erp\Stocks\StockReserve;
+use Torg\Repositories\StockReserveRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class StockReserveRepositoryTest extends TestCase
@@ -72,13 +72,13 @@ class StockReserveRepositoryTest extends TestCase
     
     public function testSaveWarehouse()
     {
-        $org1 = factory(\App\Erp\Organizations\Organization::class)->create();
+        $org1 = factory(\Torg\Erp\Organizations\Organization::class)->create();
 
-        $warehouse = factory(\App\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $warehouse2 = factory(\App\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $warehouse = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $warehouse2 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$warehouse->id]);
 
-        $this->assertInstanceOf(\App\Erp\Organizations\Warehouse::class, $reserve->warehouse);
+        $this->assertInstanceOf(\Torg\Erp\Organizations\Warehouse::class, $reserve->warehouse);
         $this->assertEquals($reserve->warehouse->id, $warehouse->id);
 
         $reserve->warehouse()->associate($warehouse2);
@@ -96,15 +96,15 @@ class StockReserveRepositoryTest extends TestCase
      */
     public function testChangeWarehouseInvalidOrganization()
     {
-        $org1 = factory(\App\Erp\Organizations\Organization::class)->create();
-        $org2 = factory(\App\Erp\Organizations\Organization::class)->create();
+        $org1 = factory(\Torg\Erp\Organizations\Organization::class)->create();
+        $org2 = factory(\Torg\Erp\Organizations\Organization::class)->create();
 
-        $w1 = factory(\App\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $w2 = factory(\App\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org2->id]);
+        $w1 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $w2 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org2->id]);
 
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$w1->id]);
 
-        $this->setExpectedException(\App\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(\Torg\Erp\Stocks\Exceptions\StockException::class);
 
         $reserve->warehouse()->associate($w2);
 

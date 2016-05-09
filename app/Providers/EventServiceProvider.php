@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Torg\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -14,11 +14,11 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
 
-        'App\Events\ReservebleItemCreating' => [
-            'App\Listeners\ItemStockCreateListener',
+        'Torg\Events\ReservebleItemCreating' => [
+            'Torg\Listeners\ItemStockCreateListener',
         ],
-        'App\Events\ReservebleItemSaving' => [
-            'App\Listeners\ItemReserveListener',
+        'Torg\Events\ReservebleItemSaving' => [
+            'Torg\Listeners\ItemReserveListener',
         ]
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Torg\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

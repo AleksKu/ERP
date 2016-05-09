@@ -4,8 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use \App\Erp\Catalog\Product;
-use \App\Erp\Catalog\ProductCategory;
+use \Torg\Erp\Catalog\Product;
+use \Torg\Erp\Catalog\ProductCategory;
 
 class ProductTest extends TestCase
 {

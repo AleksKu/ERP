@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Erp\Stocks\Transformers;
+namespace Torg\Erp\Stocks\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use App\Erp\Stocks\Stock;
+use Torg\Erp\Stocks\Stock;
 
 
 class StockTransformer extends TransformerAbstract

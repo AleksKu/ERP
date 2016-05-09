@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Events;
+namespace Torg\Events;
 
-use App\Erp\Stocks\Contracts\ReservebleItem;
-use App\Events\Event;
+use Torg\Erp\Stocks\Contracts\ReservebleItem;
+use Torg\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 

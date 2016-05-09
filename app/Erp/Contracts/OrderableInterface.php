@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\Erp\Contracts;
+namespace Torg\Erp\Contracts;
 
 
 interface OrderableInterface

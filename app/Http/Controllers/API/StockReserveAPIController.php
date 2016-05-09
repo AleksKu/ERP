@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace Torg\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateStockReserveAPIRequest;
-use App\Http\Requests\API\UpdateStockReserveAPIRequest;
-use App\Erp\Stocks\StockReserve;
-use App\Repositories\StockReserveRepository;
+use Torg\Http\Requests\API\CreateStockReserveAPIRequest;
+use Torg\Http\Requests\API\UpdateStockReserveAPIRequest;
+use Torg\Erp\Stocks\StockReserve;
+use Torg\Repositories\StockReserveRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
+use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -15,7 +15,7 @@ use Response;
 
 /**
  * Class StockReserveController
- * @package App\Http\Controllers\API
+ * @package Torg\Http\Controllers\API
  */
 
 class StockReserveAPIController extends AppBaseController

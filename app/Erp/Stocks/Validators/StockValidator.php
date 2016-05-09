@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Erp\Stocks\Validators;
+namespace Torg\Erp\Stocks\Validators;
 
 use \Prettus\Validator\Contracts\ValidatorInterface;
 use \Prettus\Validator\LaravelValidator;

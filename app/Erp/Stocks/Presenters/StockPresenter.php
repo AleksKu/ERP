@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Erp\Stocks\Presenters;
+namespace Torg\Erp\Stocks\Presenters;
 
 
-use App\Erp\Stocks\Transformers\StockTransformer;
+use Torg\Erp\Stocks\Transformers\StockTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
  * Class TestPresenter
  *
- * @package namespace App\Presenters;
+ * @package namespace Torg\Presenters;
  */
 class StockPresenter extends FractalPresenter
 {

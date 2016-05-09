@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace Torg\Http\Requests\API;
 
-use App\Erp\Stocks\StockReserve;
+use Torg\Erp\Stocks\StockReserve;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateStockReserveAPIRequest extends APIRequest

@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Factory as Faker;
-use App\Erp\Stocks\Stock;
-use App\Erp\Stocks\Repositories\StockRepository;
+use Torg\Erp\Stocks\Stock;
+use Torg\Erp\Stocks\Repositories\StockRepository;
 
 trait MakeStockTrait
 {

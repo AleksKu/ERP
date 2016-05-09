@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Erp\Stocks;
+namespace Torg\Erp\Stocks;
 
-use App\Erp\Contracts\DocumentInterface;
-use App\Erp\Organizations\Organization;
+use Torg\Erp\Contracts\DocumentInterface;
+use Torg\Erp\Organizations\Organization;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Organizations\Warehouse;
+use Torg\Erp\Organizations\Warehouse;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
  * Class StockDocument
- * @package App\Erp\Stocks
+ * @package Torg\Erp\Stocks
  */
 abstract class StockDocument extends Model implements DocumentInterface
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Erp\Stocks;
+namespace Torg\Erp\Stocks;
 
 
 

@@ -220,7 +220,7 @@ return [
     */
     'generator'  => [
         'basePath'      => app_path(),
-        'rootNamespace' => 'App\\',
+        'rootNamespace' => 'Torg\\',
         'paths'         => [
             'models'       => 'Entities',
             'repositories' => 'Repositories',

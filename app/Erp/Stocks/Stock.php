@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Erp\Stocks;
+namespace Torg\Erp\Stocks;
 
-use App\Erp\Stocks\Exceptions\StockException;
+use Torg\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Catalog\Product;
-use App\Erp\Organizations\Warehouse;
+use Torg\Erp\Catalog\Product;
+use Torg\Erp\Organizations\Warehouse;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use InvalidArgumentException;
@@ -15,7 +15,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 
 
 /**
- * App\Erp\Stocks\Stock
+ * Torg\Erp\Stocks\Stock
  *
  * @property integer $id
  * @property integer $product_id
@@ -34,27 +34,27 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @property-read \App\Erp\Catalog\Product $product
- * @property-read \App\Erp\Organizations\Warehouse $warehouse
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofProduct($product)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock ofWarehouse($warehouse)
+ * @property-read \Torg\Erp\Catalog\Product $product
+ * @property-read \Torg\Erp\Organizations\Warehouse $warehouse
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock ofProduct($product)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock ofWarehouse($warehouse)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereProductId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereStockCode($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereStockBox($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereQty($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereReserved($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereAvailable($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereMinQty($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereIdealQty($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereTotal($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Stocks\Stock whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereProductId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereStockCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereStockBox($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereReserved($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereAvailable($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereMinQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereIdealQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereTotal($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock whereDeletedAt($value)
  */
 class Stock extends Model implements Transformable
 {

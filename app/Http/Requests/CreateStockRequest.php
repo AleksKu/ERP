@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Torg\Http\Requests;
 
-use App\Http\Requests\Request;
+use Torg\Http\Requests\Request;
 
 class CreateStockRequest extends Request
 {

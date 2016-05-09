@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Jobs;
+namespace Torg\Jobs;
 
-use App\Erp\Stocks\Exceptions\StockException;
-use App\Jobs\Job;
-use App\Repositories\StockReserveRepository;
+use Torg\Erp\Stocks\Exceptions\StockException;
+use Torg\Jobs\Job;
+use Torg\Repositories\StockReserveRepository;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

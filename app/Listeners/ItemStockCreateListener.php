@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Listeners;
+namespace Torg\Listeners;
 
-use App\Erp\Sales\Repositories\OrderRepository;
-use App\Erp\Stocks\Repositories\StockRepository;
-use App\Erp\Stocks\Stock;
-use App\Events\ReservebleItemCreating;
-use App\Events\ReservebleItemSaving;
+use Torg\Erp\Sales\Repositories\OrderRepository;
+use Torg\Erp\Stocks\Repositories\StockRepository;
+use Torg\Erp\Stocks\Stock;
+use Torg\Events\ReservebleItemCreating;
+use Torg\Events\ReservebleItemSaving;
 
-use App\Repositories\StockReserveRepository;
+use Torg\Repositories\StockReserveRepository;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

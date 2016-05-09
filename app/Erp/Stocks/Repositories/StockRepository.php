@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Erp\Stocks\Repositories;
+namespace Torg\Erp\Stocks\Repositories;
 
-use App\Erp\Contracts\DocumentItemInterface;
-use App\Erp\Stocks\Stock;
-use App\Erp\Stocks\Validators\StockValidator;
+use Torg\Erp\Contracts\DocumentItemInterface;
+use Torg\Erp\Stocks\Stock;
+use Torg\Erp\Stocks\Validators\StockValidator;
 use InfyOm\Generator\Common\BaseRepository;
 
 class StockRepository extends BaseRepository

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Erp\Catalog;
+namespace Torg\Erp\Catalog;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @mixin \Eloquent
  * @property integer $product_count
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereProductCount($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\ProductCategory whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereProductCount($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\ProductCategory whereDeletedAt($value)
  */
 class ProductCategory extends Model
 {

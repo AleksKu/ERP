@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Requests\API;
+namespace Torg\Http\Requests\API;
 
-use App\Erp\Sales\Order;
+use Torg\Erp\Sales\Order;
 use InfyOm\Generator\Request\APIRequest;
 
 class CreateOrderAPIRequest extends APIRequest

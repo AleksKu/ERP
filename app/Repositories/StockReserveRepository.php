@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace Torg\Repositories;
 
-use App\Erp\Contracts\DocumentInterface;
-use App\Erp\Stocks\Exceptions\StockException;
-use App\Erp\Stocks\StockReserve;
+use Torg\Erp\Contracts\DocumentInterface;
+use Torg\Erp\Stocks\Exceptions\StockException;
+use Torg\Erp\Stocks\StockReserve;
 use InfyOm\Generator\Common\BaseRepository;
 
 class StockReserveRepository extends BaseRepository

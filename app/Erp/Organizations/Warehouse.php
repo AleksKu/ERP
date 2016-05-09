@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Erp\Organizations;
+namespace Torg\Erp\Organizations;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Stocks\Stock;
+use Torg\Erp\Stocks\Stock;
 
 
 
@@ -20,15 +20,15 @@ use App\Erp\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Erp\Stocks\Stock[] $stocks
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Stocks\Stock[] $stocks
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereOrganizationId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Organizations\Warehouse whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereDeletedAt($value)
  */
 class Warehouse extends Model
 {

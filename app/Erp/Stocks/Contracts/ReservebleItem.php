@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Erp\Stocks\Contracts;
+namespace Torg\Erp\Stocks\Contracts;
 
 
 interface ReservebleItem

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Erp\Stocks;
+namespace Torg\Erp\Stocks;
 
-use App\Erp\Contracts\DocumentItemInterface;
-use App\Erp\Organizations\Warehouse;
+use Torg\Erp\Contracts\DocumentItemInterface;
+use Torg\Erp\Organizations\Warehouse;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Catalog\Product;
+use Torg\Erp\Catalog\Product;
 
 
 abstract class StockDocumentItem extends Model implements DocumentItemInterface

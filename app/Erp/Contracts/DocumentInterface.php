@@ -1,15 +1,15 @@
 <?php
 
 
-namespace App\Erp\Contracts;
-use App\Erp\Organizations\Organization;
-use App\Erp\Organizations\Warehouse;
+namespace Torg\Erp\Contracts;
+use Torg\Erp\Organizations\Organization;
+use Torg\Erp\Organizations\Warehouse;
 
 
 /**
  *
  * Interface DocumentInterface
- * @package App\Erp\Contracts
+ * @package Torg\Erp\Contracts
  */
 interface DocumentInterface
 {

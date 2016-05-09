@@ -1,17 +1,17 @@
 <?php
 
-use App\Erp\Catalog\Product;
-use App\Erp\Organizations\Organization;
-use App\Erp\Organizations\Warehouse;
-use App\Erp\Sales\Order;
-use App\Erp\Sales\OrderItem;
-use App\Erp\Sales\Repositories\OrderRepository;
-use App\Erp\Stocks\Exceptions\StockException;
-use App\Erp\Stocks\Stock;
-use App\Events\ReservebleItemCreating;
-use App\Events\ReservebleItemSaving;
-use App\Listeners\ItemReserveListener;
-use App\Listeners\ItemStockCreateListener;
+use Torg\Erp\Catalog\Product;
+use Torg\Erp\Organizations\Organization;
+use Torg\Erp\Organizations\Warehouse;
+use Torg\Erp\Sales\Order;
+use Torg\Erp\Sales\OrderItem;
+use Torg\Erp\Sales\Repositories\OrderRepository;
+use Torg\Erp\Stocks\Exceptions\StockException;
+use Torg\Erp\Stocks\Stock;
+use Torg\Events\ReservebleItemCreating;
+use Torg\Events\ReservebleItemSaving;
+use Torg\Listeners\ItemReserveListener;
+use Torg\Listeners\ItemStockCreateListener;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OrderRepositoryTest extends TestCase

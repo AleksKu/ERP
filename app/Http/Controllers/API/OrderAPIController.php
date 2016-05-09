@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace Torg\Http\Controllers\API;
 
-use App\Http\Requests\API\CreateOrderAPIRequest;
-use App\Http\Requests\API\UpdateOrderAPIRequest;
-use App\Erp\Sales\Order;
-use App\Erp\Sales\Repositories\OrderRepository;
+use Torg\Http\Requests\API\CreateOrderAPIRequest;
+use Torg\Http\Requests\API\UpdateOrderAPIRequest;
+use Torg\Erp\Sales\Order;
+use Torg\Erp\Sales\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AppBaseController;
+use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
@@ -15,7 +15,7 @@ use Response;
 
 /**
  * Class OrderController
- * @package App\Http\Controllers\API
+ * @package Torg\Http\Controllers\API
  */
 
 class OrderAPIController extends AppBaseController

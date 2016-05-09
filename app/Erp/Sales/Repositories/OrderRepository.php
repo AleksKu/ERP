@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Erp\Sales\Repositories;
+namespace Torg\Erp\Sales\Repositories;
 
-use App\Erp\Sales\Order;
+use Torg\Erp\Sales\Order;
 use InfyOm\Generator\Common\BaseRepository;
 
 class OrderRepository extends BaseRepository

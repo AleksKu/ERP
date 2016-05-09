@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Erp\Stocks\Exceptions;
+namespace Torg\Erp\Stocks\Exceptions;
 
 
 class StockException extends \Exception

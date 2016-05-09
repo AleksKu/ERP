@@ -53,19 +53,19 @@ return [
 
     'namespace' => [
 
-        'model'             => 'App\Models',
+        'model'             => 'Torg\Models',
 
-        'datatables'        => 'App\DataTables',
+        'datatables'        => 'Torg\DataTables',
 
-        'repository'        => 'App\Repositories',
+        'repository'        => 'Torg\Repositories',
 
-        'controller'        => 'App\Http\Controllers',
+        'controller'        => 'Torg\Http\Controllers',
 
-        'api_controller'    => 'App\Http\Controllers\API',
+        'api_controller'    => 'Torg\Http\Controllers\API',
 
-        'request'           => 'App\Http\Requests',
+        'request'           => 'Torg\Http\Requests',
 
-        'api_request'       => 'App\Http\Requests\API',
+        'api_request'       => 'Torg\Http\Requests\API',
     ],
 
     /*

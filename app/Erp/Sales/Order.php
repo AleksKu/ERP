@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Erp\Sales;
+namespace Torg\Erp\Sales;
 
-use App\Erp\Contracts\DocumentInterface;
-use App\Erp\Organizations\Organization;
-use App\Erp\Organizations\Warehouse;
-use App\Erp\Stocks\Exceptions\StockException;
+use Torg\Erp\Contracts\DocumentInterface;
+use Torg\Erp\Organizations\Organization;
+use Torg\Erp\Organizations\Warehouse;
+use Torg\Erp\Stocks\Exceptions\StockException;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * App\Erp\Sales\Order
+ * Torg\Erp\Sales\Order
  *
  * @SWG\Definition (
  *      definition="Order",
@@ -45,9 +45,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="date-time"
  *      )
  * )
- * @property-read \App\Erp\Organizations\Warehouse $warehouse
- * @property-read \App\Erp\Organizations\Organization $organization
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Erp\Sales\OrderItem[] $items
+ * @property-read \Torg\Erp\Organizations\Warehouse $warehouse
+ * @property-read \Torg\Erp\Organizations\Organization $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Sales\OrderItem[] $items
  * @mixin \Eloquent
  * @property integer $id
  * @property string $code
@@ -64,21 +64,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereStatusId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereOrganizationId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCustomerEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereTotalQty($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereTotal($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Sales\Order whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereStatusId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerName($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerEmail($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereTotalQty($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereTotal($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereDeletedAt($value)
  */
 class Order extends Model implements DocumentInterface
 {

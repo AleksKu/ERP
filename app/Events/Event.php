@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Torg\Events;
 
 abstract class Event
 {

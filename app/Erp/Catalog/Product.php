@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Erp\Catalog;
+namespace Torg\Erp\Catalog;
 
-use App\Erp\Contracts\OrderableInterface;
+use Torg\Erp\Contracts\OrderableInterface;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Erp\Stocks\Stock;
+use Torg\Erp\Stocks\Stock;
 
 
 /**
@@ -31,23 +31,23 @@ use App\Erp\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereSku($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCategoryId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereUnitId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereBarcodes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereAttributes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product wherePrice($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCost($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereImage($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Erp\Catalog\Product whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereSku($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereUnitId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereBarcodes($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereAttributes($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product wherePrice($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereCost($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereWeight($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereVolume($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereImage($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Catalog\Product whereDeletedAt($value)
  */
 class Product extends Model implements OrderableInterface
 {
