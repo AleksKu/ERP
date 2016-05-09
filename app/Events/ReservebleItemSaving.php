@@ -2,7 +2,7 @@
 
 namespace Torg\Events;
 
-use Torg\Erp\Stocks\Contracts\ReservebleItem;
+use Torg\Stocks\Contracts\ReservebleItem;
 use Torg\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;

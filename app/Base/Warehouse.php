@@ -4,7 +4,7 @@ namespace Torg\Base;
 
 use Illuminate\Database\Eloquent\Model;
 
-use Torg\Erp\Stocks\Stock;
+use Torg\Stocks\Stock;
 
 
 
@@ -20,7 +20,7 @@ use Torg\Erp\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Stocks\Stock[] $stocks
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Stocks\Stock[] $stocks
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereTitle($value)

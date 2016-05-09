@@ -1,6 +1,6 @@
 <?php
 
-use Torg\Erp\Stocks\StockReserve;
+use Torg\Stocks\StockReserve;
 use Torg\Repositories\StockReserveRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -104,7 +104,7 @@ class StockReserveRepositoryTest extends TestCase
 
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$w1->id]);
 
-        $this->setExpectedException(\Torg\Erp\Stocks\Exceptions\StockException::class);
+        $this->setExpectedException(\Torg\Stocks\Exceptions\StockException::class);
 
         $reserve->warehouse()->associate($w2);
 

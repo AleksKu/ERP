@@ -4,8 +4,8 @@ namespace Torg\Http\Controllers\API;
 
 use Torg\Http\Requests\API\CreateStockAPIRequest;
 use Torg\Http\Requests\API\UpdateStockAPIRequest;
-use Torg\Erp\Stocks\Stock;
-use Torg\Erp\Stocks\Repositories\StockRepository;
+use Torg\Stocks\Stock;
+use Torg\Stocks\Repositories\StockRepository;
 use Illuminate\Http\Request;
 use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;

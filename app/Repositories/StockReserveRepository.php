@@ -2,9 +2,9 @@
 
 namespace Torg\Repositories;
 
-use Torg\Erp\Contracts\DocumentInterface;
-use Torg\Erp\Stocks\Exceptions\StockException;
-use Torg\Erp\Stocks\StockReserve;
+use Torg\Contracts\DocumentInterface;
+use Torg\Stocks\Exceptions\StockException;
+use Torg\Stocks\StockReserve;
 use InfyOm\Generator\Common\BaseRepository;
 
 class StockReserveRepository extends BaseRepository

@@ -2,9 +2,9 @@
 
 namespace Torg\Listeners;
 
-use Torg\Erp\Sales\Repositories\OrderRepository;
-use Torg\Erp\Stocks\Repositories\StockRepository;
-use Torg\Erp\Stocks\Stock;
+use Torg\Sales\Repositories\OrderRepository;
+use Torg\Stocks\Repositories\StockRepository;
+use Torg\Stocks\Stock;
 use Torg\Events\ReservebleItemCreating;
 use Torg\Events\ReservebleItemSaving;
 

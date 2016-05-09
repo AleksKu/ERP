@@ -21,7 +21,7 @@ $factory->define(Torg\User::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(Torg\Erp\Catalog\Product::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Catalog\Product::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence(4),
         'description'=>$faker->sentence(10),
@@ -32,13 +32,13 @@ $factory->define(Torg\Erp\Catalog\Product::class, function (Faker\Generator $fak
         'cost' => $faker->randomNumber(2),
         'price' => $faker->randomNumber(2),
         'unit_id' =>1,
-        'category_id' => factory(Torg\Erp\Catalog\ProductCategory::class)->create()->id,
+        'category_id' => factory(Torg\Catalog\ProductCategory::class)->create()->id,
 
     ];
 });
 
 
-$factory->define(Torg\Erp\Catalog\ProductCategory::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Catalog\ProductCategory::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence(4),
         'product_count'=>0
@@ -66,25 +66,25 @@ $factory->define(Torg\Base\Warehouse::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(Torg\Erp\Stocks\Stock::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Stocks\Stock::class, function (Faker\Generator $faker) {
     return [
-        'product_id' => factory(Torg\Erp\Catalog\Product::class)->create()->id,
+        'product_id' => factory(Torg\Catalog\Product::class)->create()->id,
         'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
         'stock_code'=>$faker->sentence(2),
 
     ];
 });
 
-$factory->define(Torg\Erp\Stocks\StockReserve::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Stocks\StockReserve::class, function (Faker\Generator $faker) {
     return [
         'code'=>$faker->sentence(2),
         'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
-        'status'=>\Torg\Erp\Stocks\StockDocument::STATUS_NEW
+        'status'=>\Torg\Stocks\StockDocument::STATUS_NEW
 
     ];
 });
 
-$factory->define(\Torg\Erp\Sales\Order::class, function (Faker\Generator $faker) {
+$factory->define(\Torg\Sales\Order::class, function (Faker\Generator $faker) {
     return [
         'code'=>$faker->sentence(2),
         'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
@@ -93,10 +93,10 @@ $factory->define(\Torg\Erp\Sales\Order::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(\Torg\Erp\Sales\OrderItem::class, function (Faker\Generator $faker) {
+$factory->define(\Torg\Sales\OrderItem::class, function (Faker\Generator $faker) {
     return [
-        'product_id' => factory(Torg\Erp\Catalog\Product::class)->create()->id,
-        'stock_id' => factory(\Torg\Erp\Stocks\Stock::class)->create()->id,
+        'product_id' => factory(Torg\Catalog\Product::class)->create()->id,
+        'stock_id' => factory(\Torg\Stocks\Stock::class)->create()->id,
         'qty' => 1
 
 

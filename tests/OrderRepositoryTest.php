@@ -1,13 +1,13 @@
 <?php
 
-use Torg\Erp\Catalog\Product;
+use Torg\Catalog\Product;
 use Torg\Base\Company;
 use Torg\Base\Warehouse;
-use Torg\Erp\Sales\Order;
-use Torg\Erp\Sales\OrderItem;
-use Torg\Erp\Sales\Repositories\OrderRepository;
-use Torg\Erp\Stocks\Exceptions\StockException;
-use Torg\Erp\Stocks\Stock;
+use Torg\Sales\Order;
+use Torg\Sales\OrderItem;
+use Torg\Sales\Repositories\OrderRepository;
+use Torg\Stocks\Exceptions\StockException;
+use Torg\Stocks\Stock;
 use Torg\Events\ReservebleItemCreating;
 use Torg\Events\ReservebleItemSaving;
 use Torg\Listeners\ItemReserveListener;

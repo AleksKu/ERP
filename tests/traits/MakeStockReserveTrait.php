@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Factory as Faker;
-use Torg\Erp\Stocks\StockReserve;
+use Torg\Stocks\StockReserve;
 use Torg\Repositories\StockReserveRepository;
 
 trait MakeStockReserveTrait

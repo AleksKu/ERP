@@ -4,8 +4,8 @@ namespace Torg\Http\Controllers\API;
 
 use Torg\Http\Requests\API\CreateOrderAPIRequest;
 use Torg\Http\Requests\API\UpdateOrderAPIRequest;
-use Torg\Erp\Sales\Order;
-use Torg\Erp\Sales\Repositories\OrderRepository;
+use Torg\Sales\Order;
+use Torg\Sales\Repositories\OrderRepository;
 use Illuminate\Http\Request;
 use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;

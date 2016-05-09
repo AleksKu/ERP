@@ -4,7 +4,7 @@ namespace Torg\Http\Controllers\API;
 
 use Torg\Http\Requests\API\CreateStockReserveAPIRequest;
 use Torg\Http\Requests\API\UpdateStockReserveAPIRequest;
-use Torg\Erp\Stocks\StockReserve;
+use Torg\Stocks\StockReserve;
 use Torg\Repositories\StockReserveRepository;
 use Illuminate\Http\Request;
 use Torg\Http\Controllers\AppBaseController;

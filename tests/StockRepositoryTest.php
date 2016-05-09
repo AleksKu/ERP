@@ -1,12 +1,12 @@
 <?php
 
-use Torg\Erp\Catalog\Product;
-use Torg\Erp\Contracts\DocumentItemInterface;
+use Torg\Catalog\Product;
+use Torg\Contracts\DocumentItemInterface;
 use Torg\Base\Warehouse;
-use Torg\Erp\Stocks\Exceptions\StockException;
-use Torg\Erp\Stocks\Presenters\StockPresenter;
-use Torg\Erp\Stocks\Stock;
-use Torg\Erp\Stocks\Repositories\StockRepository;
+use Torg\Stocks\Exceptions\StockException;
+use Torg\Stocks\Presenters\StockPresenter;
+use Torg\Stocks\Stock;
+use Torg\Stocks\Repositories\StockRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Prettus\Validator\Exceptions\ValidatorException;
 

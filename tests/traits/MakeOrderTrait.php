@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Factory as Faker;
-use Torg\Erp\Sales\Order;
+use Torg\Sales\Order;
 
-use Torg\Erp\Sales\Repositories\OrderRepository;
+use Torg\Sales\Repositories\OrderRepository;
 
 trait MakeOrderTrait
 {

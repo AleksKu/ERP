@@ -2,7 +2,7 @@
 
 namespace Torg\Jobs;
 
-use Torg\Erp\Stocks\Exceptions\StockException;
+use Torg\Stocks\Exceptions\StockException;
 use Torg\Jobs\Job;
 use Torg\Repositories\StockReserveRepository;
 use Illuminate\Queue\SerializesModels;

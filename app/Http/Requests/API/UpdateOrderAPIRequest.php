@@ -2,8 +2,8 @@
 
 namespace Torg\Http\Requests\API;
 
-use Torg\Erp\Sales\Order;
-use Torg\Erp\Sales\Repositories\OrderRepository;
+use Torg\Sales\Order;
+use Torg\Sales\Repositories\OrderRepository;
 use InfyOm\Generator\Request\APIRequest;
 
 class UpdateOrderAPIRequest extends APIRequest
