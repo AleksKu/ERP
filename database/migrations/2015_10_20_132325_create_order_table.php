@@ -23,11 +23,9 @@ class CreateOrderTable extends Migration
 
 
 
-            $table->integer('warehouse_id')->unsigned();
-            $table->foreign('warehouse_id')->references('id')->on('warehouses');
-
-            $table->integer('company_id')->unsigned();
-            $table->foreign('company_id')->references('id')->on('companies');
+            $table->integer('store_id')->unsigned();
+            $table->foreign('store_id')->references('id')->on('stores');
+            
 
 
             $table->integer('customer_id')->nullable()->unsigned();

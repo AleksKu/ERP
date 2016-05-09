@@ -20,3 +20,9 @@ Route::resource('stockReserves', 'StockReserveAPIController');
 Route::resource('orders', 'OrderAPIController');
 
 Route::resource('stocks', 'StockAPIController');
+
+Route::resource('stores', 'StoreAPIController');
+
+Route::resource('stores', 'StoreAPIController');
+
+Route::resource('accounts', 'AccountAPIController');
