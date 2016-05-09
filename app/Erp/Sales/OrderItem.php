@@ -6,7 +6,7 @@ use App;
 use Torg\Erp\Catalog\Product;
 use Torg\Erp\Contracts\DocumentInterface;
 use Torg\Erp\Contracts\DocumentItemInterface;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 use Torg\Erp\Stocks\Contracts\ReservebleItem;
 use Torg\Erp\Stocks\Contracts\ShouldReserve;
 use Torg\Erp\Stocks\Repositories\StockRepository;

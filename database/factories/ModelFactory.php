@@ -46,7 +46,7 @@ $factory->define(Torg\Erp\Catalog\ProductCategory::class, function (Faker\Genera
 });
 
 
-$factory->define(Torg\Erp\Organizations\Organization::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Base\Organization::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
         'code'=>$faker->sentence(2)
@@ -55,11 +55,11 @@ $factory->define(Torg\Erp\Organizations\Organization::class, function (Faker\Gen
     ];
 });
 
-$factory->define(Torg\Erp\Organizations\Warehouse::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Base\Warehouse::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
         'code'=>$faker->sentence(4),
-        'organization_id' => factory(Torg\Erp\Organizations\Organization::class)->create()->id,
+        'organization_id' => factory(Torg\Base\Organization::class)->create()->id,
 
 
     ];
@@ -69,7 +69,7 @@ $factory->define(Torg\Erp\Organizations\Warehouse::class, function (Faker\Genera
 $factory->define(Torg\Erp\Stocks\Stock::class, function (Faker\Generator $faker) {
     return [
         'product_id' => factory(Torg\Erp\Catalog\Product::class)->create()->id,
-        'warehouse_id' => factory(Torg\Erp\Organizations\Warehouse::class)->create()->id,
+        'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
         'stock_code'=>$faker->sentence(2),
 
     ];
@@ -78,7 +78,7 @@ $factory->define(Torg\Erp\Stocks\Stock::class, function (Faker\Generator $faker)
 $factory->define(Torg\Erp\Stocks\StockReserve::class, function (Faker\Generator $faker) {
     return [
         'code'=>$faker->sentence(2),
-        'warehouse_id' => factory(Torg\Erp\Organizations\Warehouse::class)->create()->id,
+        'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
         'status'=>\Torg\Erp\Stocks\StockDocument::STATUS_NEW
 
     ];
@@ -87,8 +87,8 @@ $factory->define(Torg\Erp\Stocks\StockReserve::class, function (Faker\Generator 
 $factory->define(\Torg\Erp\Sales\Order::class, function (Faker\Generator $faker) {
     return [
         'code'=>$faker->sentence(2),
-        'warehouse_id' => factory(Torg\Erp\Organizations\Warehouse::class)->create()->id,
-        'organization_id' => factory(Torg\Erp\Organizations\Organization::class)->create()->id
+        'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
+        'organization_id' => factory(Torg\Base\Organization::class)->create()->id
 
     ];
 });

@@ -3,8 +3,8 @@
 namespace Torg\Erp\Stocks;
 
 
-use Torg\Erp\Organizations\Organization as Organization;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Organization as Organization;
+use Torg\Base\Warehouse;
 
 
 

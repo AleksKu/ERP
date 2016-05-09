@@ -1,6 +1,6 @@
 <?php
 
-namespace Torg\Erp\Organizations;
+namespace Torg\Base;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,15 +14,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
  * @mixin \Eloquent
- * @property-read \Torg\Erp\Organizations\Warehouse $defaultWarehouse
+ * @property-read \Torg\Base\Warehouse $defaultWarehouse
  * @property integer $default_warehouse_id
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereDefaultWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Organization whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereDefaultWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereDeletedAt($value)
  */
 class Organization extends Model
 {

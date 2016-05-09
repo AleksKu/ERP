@@ -72,13 +72,13 @@ class StockReserveRepositoryTest extends TestCase
     
     public function testSaveWarehouse()
     {
-        $org1 = factory(\Torg\Erp\Organizations\Organization::class)->create();
+        $org1 = factory(\Torg\Base\Organization::class)->create();
 
-        $warehouse = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $warehouse2 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $warehouse = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $warehouse2 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$warehouse->id]);
 
-        $this->assertInstanceOf(\Torg\Erp\Organizations\Warehouse::class, $reserve->warehouse);
+        $this->assertInstanceOf(\Torg\Base\Warehouse::class, $reserve->warehouse);
         $this->assertEquals($reserve->warehouse->id, $warehouse->id);
 
         $reserve->warehouse()->associate($warehouse2);
@@ -96,11 +96,11 @@ class StockReserveRepositoryTest extends TestCase
      */
     public function testChangeWarehouseInvalidOrganization()
     {
-        $org1 = factory(\Torg\Erp\Organizations\Organization::class)->create();
-        $org2 = factory(\Torg\Erp\Organizations\Organization::class)->create();
+        $org1 = factory(\Torg\Base\Organization::class)->create();
+        $org2 = factory(\Torg\Base\Organization::class)->create();
 
-        $w1 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $w2 = factory(\Torg\Erp\Organizations\Warehouse::class)->create(['organization_id'=>$org2->id]);
+        $w1 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $w2 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org2->id]);
 
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$w1->id]);
 

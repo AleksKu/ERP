@@ -3,8 +3,8 @@
 namespace Torg\Erp\Sales;
 
 use Torg\Erp\Contracts\DocumentInterface;
-use Torg\Erp\Organizations\Organization;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Organization;
+use Torg\Base\Warehouse;
 use Torg\Erp\Stocks\Exceptions\StockException;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -45,8 +45,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="date-time"
  *      )
  * )
- * @property-read \Torg\Erp\Organizations\Warehouse $warehouse
- * @property-read \Torg\Erp\Organizations\Organization $organization
+ * @property-read \Torg\Base\Warehouse $warehouse
+ * @property-read \Torg\Base\Organization $organization
  * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Sales\OrderItem[] $items
  * @mixin \Eloquent
  * @property integer $id

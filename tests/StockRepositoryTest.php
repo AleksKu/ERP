@@ -2,7 +2,7 @@
 
 use Torg\Erp\Catalog\Product;
 use Torg\Erp\Contracts\DocumentItemInterface;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 use Torg\Erp\Stocks\Exceptions\StockException;
 use Torg\Erp\Stocks\Presenters\StockPresenter;
 use Torg\Erp\Stocks\Stock;

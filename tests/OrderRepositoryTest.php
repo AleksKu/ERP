@@ -1,8 +1,8 @@
 <?php
 
 use Torg\Erp\Catalog\Product;
-use Torg\Erp\Organizations\Organization;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Organization;
+use Torg\Base\Warehouse;
 use Torg\Erp\Sales\Order;
 use Torg\Erp\Sales\OrderItem;
 use Torg\Erp\Sales\Repositories\OrderRepository;

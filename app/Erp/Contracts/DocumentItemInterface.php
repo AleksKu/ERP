@@ -10,7 +10,7 @@ namespace Torg\Erp\Contracts;
  * @package Torg\Erp\Contracts
  */
 use Torg\Erp\Catalog\Product;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 use Torg\Erp\Stocks\Stock;
 
 /**

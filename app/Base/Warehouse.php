@@ -1,6 +1,6 @@
 <?php
 
-namespace Torg\Erp\Organizations;
+namespace Torg\Base;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,13 +22,13 @@ use Torg\Erp\Stocks\Stock;
  * @property string $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Stocks\Stock[] $stocks
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereOrganizationId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Organizations\Warehouse whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereDeletedAt($value)
  */
 class Warehouse extends Model
 {

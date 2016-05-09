@@ -6,7 +6,7 @@ use Torg\Erp\Stocks\Exceptions\StockException;
 use Illuminate\Database\Eloquent\Model;
 
 use Torg\Erp\Catalog\Product;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use InvalidArgumentException;
@@ -35,7 +35,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
  * @property-read \Torg\Erp\Catalog\Product $product
- * @property-read \Torg\Erp\Organizations\Warehouse $warehouse
+ * @property-read \Torg\Base\Warehouse $warehouse
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock ofProduct($product)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Stocks\Stock ofWarehouse($warehouse)
  * @mixin \Eloquent

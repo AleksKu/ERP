@@ -3,10 +3,10 @@
 namespace Torg\Erp\Stocks;
 
 use Torg\Erp\Contracts\DocumentInterface;
-use Torg\Erp\Organizations\Organization;
+use Torg\Base\Organization;
 use Illuminate\Database\Eloquent\Model;
 
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 

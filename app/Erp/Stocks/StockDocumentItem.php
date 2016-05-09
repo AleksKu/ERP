@@ -3,7 +3,7 @@
 namespace Torg\Erp\Stocks;
 
 use Torg\Erp\Contracts\DocumentItemInterface;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Warehouse;
 use Illuminate\Database\Eloquent\Model;
 
 use Torg\Erp\Catalog\Product;

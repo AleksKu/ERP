@@ -2,8 +2,8 @@
 
 
 namespace Torg\Erp\Contracts;
-use Torg\Erp\Organizations\Organization;
-use Torg\Erp\Organizations\Warehouse;
+use Torg\Base\Organization;
+use Torg\Base\Warehouse;
 
 
 /**
