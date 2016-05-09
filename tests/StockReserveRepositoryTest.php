@@ -72,10 +72,10 @@ class StockReserveRepositoryTest extends TestCase
     
     public function testSaveWarehouse()
     {
-        $org1 = factory(\Torg\Base\Organization::class)->create();
+        $org1 = factory(\Torg\Base\Company::class)->create();
 
-        $warehouse = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $warehouse2 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
+        $warehouse = factory(\Torg\Base\Warehouse::class)->create(['company_id'=>$org1->id]);
+        $warehouse2 = factory(\Torg\Base\Warehouse::class)->create(['company_id'=>$org1->id]);
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$warehouse->id]);
 
         $this->assertInstanceOf(\Torg\Base\Warehouse::class, $reserve->warehouse);
@@ -94,13 +94,13 @@ class StockReserveRepositoryTest extends TestCase
     /**
      * Изменить склад можно только в пределах организации
      */
-    public function testChangeWarehouseInvalidOrganization()
+    public function testChangeWarehouseInvalidCompany()
     {
-        $org1 = factory(\Torg\Base\Organization::class)->create();
-        $org2 = factory(\Torg\Base\Organization::class)->create();
+        $org1 = factory(\Torg\Base\Company::class)->create();
+        $org2 = factory(\Torg\Base\Company::class)->create();
 
-        $w1 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org1->id]);
-        $w2 = factory(\Torg\Base\Warehouse::class)->create(['organization_id'=>$org2->id]);
+        $w1 = factory(\Torg\Base\Warehouse::class)->create(['company_id'=>$org1->id]);
+        $w2 = factory(\Torg\Base\Warehouse::class)->create(['company_id'=>$org2->id]);
 
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$w1->id]);
 

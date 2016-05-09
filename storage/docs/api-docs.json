@@ -617,8 +617,8 @@
                     "description": "code",
                     "type": "string"
                 },
-                "organization_id": {
-                    "description": "organization_id",
+                "company_id": {
+                    "description": "company_id",
                     "type": "integer",
                     "format": "int32"
                 },

@@ -22,7 +22,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  * @property string $stock_code
  * @property string $stock_box
  * @property integer $warehouse_id
- * @property integer $organization_id
+ * @property integer $company_id
  * @property float $qty
  * @property float $reserved
  * @property float $available

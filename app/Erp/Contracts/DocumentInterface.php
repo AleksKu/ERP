@@ -2,7 +2,7 @@
 
 
 namespace Torg\Erp\Contracts;
-use Torg\Base\Organization;
+use Torg\Base\Company;
 use Torg\Base\Warehouse;
 
 
@@ -19,9 +19,9 @@ interface DocumentInterface
     public function items();
 
     /**
-     * @return Organization
+     * @return Company
      */
-    public function getOrganization();
+    public function getCompany();
 
     /**
      * @return Warehouse

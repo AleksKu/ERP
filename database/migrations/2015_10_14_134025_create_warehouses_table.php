@@ -19,8 +19,8 @@ class CreateWarehousesTable extends Migration
             $table->string('code');
             $table->unique('code');
             
-            $table->integer('organization_id')->unsigned();
-            $table->foreign('organization_id')->references('id')->on('organizations');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
 
             $table->timestamps();
             $table->softDeletes();

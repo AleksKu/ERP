@@ -11,12 +11,12 @@ use Torg\Erp\Stocks\Stock;
 /**
  * AQAL\Stocks\Warehouse
  *
- * @property-read Organization $organization
+ * @property-read Company $company
  * @property integer $id
  * @property string $title
  * @property string $code
- * @property boolean $is_default_for_organization
- * @property integer $organization_id
+ * @property boolean $is_default_for_company
+ * @property integer $company_id
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
@@ -25,7 +25,7 @@ use Torg\Erp\Stocks\Stock;
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereTitle($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCompanyId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereDeletedAt($value)
@@ -33,7 +33,7 @@ use Torg\Erp\Stocks\Stock;
 class Warehouse extends Model
 {
 
-    protected $with = ['organization'];
+    protected $with = ['company'];
 
     protected $attributes = array(
 
@@ -43,9 +43,9 @@ class Warehouse extends Model
      
     ];
 
-    public function organization()
+    public function company()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Company::class);
     }
 
 
@@ -57,8 +57,8 @@ class Warehouse extends Model
         return $this->hasMany(Stock::class);
     }
 
-    public function getOrganization()
+    public function getCompany()
     {
-        return $this->organization;
+        return $this->company;
     }
 }

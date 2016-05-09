@@ -3,7 +3,7 @@
 namespace Torg\Erp\Sales;
 
 use Torg\Erp\Contracts\DocumentInterface;
-use Torg\Base\Organization;
+use Torg\Base\Company;
 use Torg\Base\Warehouse;
 use Torg\Erp\Stocks\Exceptions\StockException;
 use Eloquent as Model;
@@ -27,8 +27,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          type="string"
  *      ),
  *      @SWG\Property(
- *          property="organization_id",
- *          description="organization_id",
+ *          property="company_id",
+ *          description="company_id",
  *          type="integer",
  *          format="int32"
  *      ),
@@ -46,14 +46,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  * @property-read \Torg\Base\Warehouse $warehouse
- * @property-read \Torg\Base\Organization $organization
+ * @property-read \Torg\Base\Company $company
  * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Erp\Sales\OrderItem[] $items
  * @mixin \Eloquent
  * @property integer $id
  * @property string $code
  * @property integer $status_id
  * @property integer $warehouse_id
- * @property integer $organization_id
+ * @property integer $company_id
  * @property integer $customer_id
  * @property string $customer_name
  * @property string $customer_email
@@ -68,7 +68,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCode($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereStatusId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereOrganizationId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCompanyId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerName($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Erp\Sales\Order whereCustomerEmail($value)
@@ -92,7 +92,7 @@ class Order extends Model implements DocumentInterface
     /**
      * @var array
      */
-    public $with = ['organization', 'warehouse'];
+    public $with = ['company', 'warehouse'];
 
 
     /**
@@ -173,7 +173,7 @@ class Order extends Model implements DocumentInterface
         parent::boot();
 
         static::saving(function (Order $order) {
-           // $order->checkOrganization();
+           // $order->checkCompany();
         });
     }
 
@@ -181,11 +181,11 @@ class Order extends Model implements DocumentInterface
     /**
      *
      */
-    public function checkOrganization()
+    public function checkCompany()
     {
 
 
-        $orgFromWarehouse = $this->getWarehouse()->organization;
+        $orgFromWarehouse = $this->getWarehouse()->company;
 
         $newWarehouseId = $this->attributes['warehouse_id'];
 
@@ -195,11 +195,11 @@ class Order extends Model implements DocumentInterface
 
             $newWarehouse = Warehouse::find($newWarehouseId)->first();
 
-            if($newWarehouse->organization->id != $orgFromWarehouse->id)
+            if($newWarehouse->company->id != $orgFromWarehouse->id)
                 throw new StockException('для заказ нельзя установить склад из другой организации');
         }
 
-        $this->organization()->associate($orgFromWarehouse);
+        $this->company()->associate($orgFromWarehouse);
     }
 
 
@@ -215,9 +215,9 @@ class Order extends Model implements DocumentInterface
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function organization()
+    public function company()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -243,11 +243,11 @@ class Order extends Model implements DocumentInterface
 
 
     /**
-     * @return Organization
+     * @return Company
      */
-    public function getOrganization()
+    public function getCompany()
     {
-        return $this->getWarehouse()->organization;
+        return $this->getWarehouse()->company;
     }
 
     /**

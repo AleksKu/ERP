@@ -46,7 +46,7 @@ $factory->define(Torg\Erp\Catalog\ProductCategory::class, function (Faker\Genera
 });
 
 
-$factory->define(Torg\Base\Organization::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Base\Company::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
         'code'=>$faker->sentence(2)
@@ -59,7 +59,7 @@ $factory->define(Torg\Base\Warehouse::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
         'code'=>$faker->sentence(4),
-        'organization_id' => factory(Torg\Base\Organization::class)->create()->id,
+        'company_id' => factory(Torg\Base\Company::class)->create()->id,
 
 
     ];
@@ -88,7 +88,7 @@ $factory->define(\Torg\Erp\Sales\Order::class, function (Faker\Generator $faker)
     return [
         'code'=>$faker->sentence(2),
         'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
-        'organization_id' => factory(Torg\Base\Organization::class)->create()->id
+        'company_id' => factory(Torg\Base\Company::class)->create()->id
 
     ];
 });

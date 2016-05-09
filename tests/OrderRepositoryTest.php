@@ -1,7 +1,7 @@
 <?php
 
 use Torg\Erp\Catalog\Product;
-use Torg\Base\Organization;
+use Torg\Base\Company;
 use Torg\Base\Warehouse;
 use Torg\Erp\Sales\Order;
 use Torg\Erp\Sales\OrderItem;
@@ -76,7 +76,7 @@ class OrderRepositoryTest extends TestCase
         $order = factory(Order::class)->create();
 
         $this->assertInstanceOf(Warehouse::class, $order->warehouse);
-        $this->assertInstanceOf(Organization::class, $order->organization);
+        $this->assertInstanceOf(Company::class, $order->company);
 
         $this->assertEquals(0, $order->weight);
 
@@ -91,17 +91,17 @@ class OrderRepositoryTest extends TestCase
 
 
         $warehouse = factory(Warehouse::class)->create();
-        $currentOrganization = $warehouse->organization;
+        $currentCompany = $warehouse->company;
 
 
         $order = factory(Order::class)->create(['warehouse_id' => $warehouse->id]);
 
         $this->assertInstanceOf(Warehouse::class, $order->warehouse);
-        $this->assertInstanceOf(Organization::class, $order->organization);
+        $this->assertInstanceOf(Company::class, $order->company);
 
         //когда устанавливаем склад для заказа, организация автоматоически должна устанавливаться из него
         $this->assertEquals($warehouse->id, $order->warehouse->id);
-        $this->assertEquals($currentOrganization->id, $order->organization->id);
+        $this->assertEquals($currentCompany->id, $order->company->id);
 
 
     }
@@ -112,19 +112,19 @@ class OrderRepositoryTest extends TestCase
 
 
         $warehouse = factory(Warehouse::class)->create();
-        $currentOrganization = $warehouse->organization;
+        $currentCompany = $warehouse->company;
 
 
         $order = factory(Order::class)->create(['warehouse_id' => $warehouse->id]);
         $this->assertEquals($warehouse->id, $order->getWarehouse()->id);
-        $this->assertEquals($currentOrganization->id, $order->getOrganization()->id);
+        $this->assertEquals($currentCompany->id, $order->getCompany()->id);
 
-        $warehouse2 = factory(Warehouse::class)->create(["organization_id" => $currentOrganization->id]);
+        $warehouse2 = factory(Warehouse::class)->create(["company_id" => $currentCompany->id]);
 
         $order->warehouse()->associate($warehouse2);
         $order->save();
         $this->assertEquals($warehouse2->id, $order->getWarehouse()->id);
-        $this->assertEquals($currentOrganization->id, $order->getOrganization()->id);
+        $this->assertEquals($currentCompany->id, $order->getCompany()->id);
 
 
         $warehouse3 = factory(Warehouse::class)->create();

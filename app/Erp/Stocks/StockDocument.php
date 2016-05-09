@@ -3,7 +3,7 @@
 namespace Torg\Erp\Stocks;
 
 use Torg\Erp\Contracts\DocumentInterface;
-use Torg\Base\Organization;
+use Torg\Base\Company;
 use Illuminate\Database\Eloquent\Model;
 
 use Torg\Base\Warehouse;
@@ -238,11 +238,11 @@ abstract class StockDocument extends Model implements DocumentInterface
     }
 
     /**
-     * @return Organization
+     * @return Company
      */
-    public  function getOrganization()
+    public  function getCompany()
     {
-        return $this->getWarehouse()->getOrganization();
+        return $this->getWarehouse()->getCompany();
     }
 
     /**

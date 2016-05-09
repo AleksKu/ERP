@@ -3,7 +3,7 @@
 namespace Torg\Erp\Stocks;
 
 
-use Torg\Base\Organization as Organization;
+use Torg\Base\Company as Company;
 use Torg\Base\Warehouse;
 
 
@@ -15,7 +15,7 @@ use Torg\Base\Warehouse;
  * @property string $code
  * @property string $desc
  * @property integer $warehouse_id
- * @property integer $organization_id
+ * @property integer $company_id
  * @property float $weight
  * @property float $volume
  * @property float $total
@@ -24,7 +24,7 @@ use Torg\Base\Warehouse;
  * @property string $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection|StockReserveItem[] $items
  * @property-read Warehouse $warehouse
- * @property-read Organization $organization
+ * @property-read Company $company
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $reasonable
  * @property-write mixed $status
  * @mixin \Eloquent

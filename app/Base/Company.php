@@ -16,17 +16,18 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \Torg\Base\Warehouse $defaultWarehouse
  * @property integer $default_warehouse_id
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereDefaultWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Organization whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereTitle($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereCode($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereDefaultWarehouseId($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereDeletedAt($value)
  */
-class Organization extends Model
+class Company extends Model
 {
 
+    protected $table = 'companies';
     /**
      * обновляет поле update_at при обновлении указанных связей
      * @var array

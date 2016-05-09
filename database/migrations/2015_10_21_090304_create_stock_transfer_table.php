@@ -33,11 +33,11 @@ class CreateStockTransferTable extends Migration
 
 
 
-            $table->integer('source_organization_id')->unsigned();
-            $table->foreign('source_organization_id')->references('id')->on('organizations');
+            $table->integer('source_company_id')->unsigned();
+            $table->foreign('source_company_id')->references('id')->on('companies');
 
-            $table->integer('target_organization_id')->unsigned();
-            $table->foreign('target_organization_id')->references('id')->on('organizations');
+            $table->integer('target_company_id')->unsigned();
+            $table->foreign('target_company_id')->references('id')->on('companies');
 
 
 
