@@ -33,7 +33,7 @@ use Torg\Stocks\Stock;
 class Warehouse extends Model
 {
 
-    protected $with = ['company'];
+    protected $with = [];
 
     protected $attributes = array(
 
@@ -43,9 +43,9 @@ class Warehouse extends Model
      
     ];
 
-    public function company()
+    public function account()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Account::class);
     }
 
 
@@ -57,8 +57,8 @@ class Warehouse extends Model
         return $this->hasMany(Stock::class);
     }
 
-    public function getCompany()
+    public function getAccount()
     {
-        return $this->company;
+        return $this->account;
     }
 }

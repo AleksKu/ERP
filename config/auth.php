@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Torg\User::class,
+            'model' => Torg\Base\User::class,
         ],
 
         // 'users' => [

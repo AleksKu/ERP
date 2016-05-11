@@ -1,8 +1,9 @@
 <?php
 
-namespace Torg;
+namespace Torg\Base;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Torg\Base\Account;
 
 /**
  * Torg\User
@@ -42,4 +43,22 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccount()
+    {
+        return $this->account;
+    }
+    
 }

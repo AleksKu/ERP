@@ -1,8 +1,8 @@
 <?php
 
-namespace Torg\Repositories;
+namespace Torg\Base\Repositories;
 
-use Torg\Models\Account;
+use Torg\Base\Account;
 use InfyOm\Generator\Common\BaseRepository;
 
 class AccountRepository extends BaseRepository
@@ -21,4 +21,6 @@ class AccountRepository extends BaseRepository
     {
         return Account::class;
     }
+    
+  
 }

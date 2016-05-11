@@ -1,9 +1,10 @@
 <?php
 
-namespace Torg\Models;
+namespace Torg\Base;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Torg\User;
 
 /**
  * @SWG\Definition(
@@ -65,4 +66,30 @@ class Account extends Model
     public static $rules = [
         
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+
+    }
+
+    public function stores()
+    {
+        return $this->hasMany(Store::class);
+
+    }
+
+    public function warehouses()
+    {
+        return $this->hasMany(Warehouse::class);
+
+    }
+    
+    public function customers()
+    {
+        return $this->hasMany(Customer::class);
+    }
+    
+    
+
 }

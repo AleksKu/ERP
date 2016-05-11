@@ -28,3 +28,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
         require config('infyom.laravel_generator.path.api_routes');
     });
 });
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

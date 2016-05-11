@@ -17,6 +17,8 @@ $factory->define(Torg\User::class, function (Faker\Generator $faker) {
         'email' => $faker->safeEmail,
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+        'account_id' => factory(\Torg\Base\Account::class)->create()->id,
+
     ];
 });
 
@@ -45,11 +47,22 @@ $factory->define(Torg\Catalog\ProductCategory::class, function (Faker\Generator 
     ];
 });
 
+$factory->define(Torg\Base\Account::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->company,
+        
+
+
+
+    ];
+});
 
 $factory->define(Torg\Base\Company::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
-        'code'=>$faker->sentence(2)
+        'code'=>$faker->sentence(2),
+        'account_id' => factory(\Torg\Base\Account::class)->create()->id,
+
 
 
     ];
@@ -59,11 +72,23 @@ $factory->define(Torg\Base\Warehouse::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->company,
         'code'=>$faker->sentence(4),
-        'company_id' => factory(Torg\Base\Company::class)->create()->id,
+        'account_id' => factory(\Torg\Base\Account::class)->create()->id,
 
 
     ];
 });
+
+$factory->define(Torg\Base\Store::class, function (Faker\Generator $faker) {
+    return [
+        'title' => $faker->company,
+        'code'=>$faker->sentence(4),
+        'account_id' => factory(\Torg\Base\Account::class)->create()->id,
+        'company_id' => factory(\Torg\Base\Company::class)->create()->id,
+
+
+    ];
+});
+
 
 
 $factory->define(Torg\Stocks\Stock::class, function (Faker\Generator $faker) {

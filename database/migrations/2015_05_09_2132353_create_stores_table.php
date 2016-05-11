@@ -27,7 +27,6 @@ class CreatestoresTable extends Migration
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
             
-            $table->integer('default_warehouse_id')->nullable()->unsigned();
 
 
             $table->unsignedMediumInteger('type')->default(0);

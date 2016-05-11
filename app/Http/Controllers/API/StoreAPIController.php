@@ -4,8 +4,8 @@ namespace Torg\Http\Controllers\API;
 
 use Torg\Http\Requests\API\CreateStoreAPIRequest;
 use Torg\Http\Requests\API\UpdateStoreAPIRequest;
-use Torg\Models\Store;
-use Torg\Repositories\StoreRepository;
+use Torg\Base\Store;
+use Torg\Base\Repositories\StoreRepository;
 use Illuminate\Http\Request;
 use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;

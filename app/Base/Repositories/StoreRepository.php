@@ -1,8 +1,8 @@
 <?php
 
-namespace Torg\Repositories;
+namespace Torg\Base\Repositories;
 
-use Torg\Models\Store;
+use Torg\Base\Store;
 use InfyOm\Generator\Common\BaseRepository;
 
 class StoreRepository extends BaseRepository
@@ -11,7 +11,7 @@ class StoreRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        
+
     ];
 
     /**
@@ -21,4 +21,6 @@ class StoreRepository extends BaseRepository
     {
         return Store::class;
     }
+
+
 }

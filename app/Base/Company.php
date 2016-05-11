@@ -28,29 +28,11 @@ class Company extends Model
 {
 
     protected $table = 'companies';
-    /**
-     * обновляет поле update_at при обновлении указанных связей
-     * @var array
-     */
-    protected $touches = ['warehouses'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function warehouses()
+
+    public function account()
     {
-        return $this->hasMany(Warehouse::class);
+        $this->belongsTo(Account::class);
     }
 
-
-    public function defaultWarehouse()
-    {
-        return $this->belongsTo(Warehouse::class, 'default_warehouse_id');
-    }
-
-    public function addDefaultWarehouse(Warehouse $warehouse)
-    {
-        $this->defaultWarehouse()->associate($warehouse);
-
-    }
 }
