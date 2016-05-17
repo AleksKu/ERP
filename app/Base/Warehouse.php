@@ -57,6 +57,9 @@ class Warehouse extends Model
         return $this->hasMany(Stock::class);
     }
 
+    /**
+     * @return Account
+     */
     public function getAccount()
     {
         return $this->account;

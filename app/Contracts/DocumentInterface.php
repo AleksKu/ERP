@@ -14,7 +14,7 @@ use Torg\Base\Warehouse;
 interface DocumentInterface
 {
     
-    public function warehouse();
+    public function store();
 
     public function items();
 
@@ -27,6 +27,8 @@ interface DocumentInterface
      * @return Warehouse
      */
     public function getWarehouse();
+
+    public function getStore();
 
     public function getItems();
     

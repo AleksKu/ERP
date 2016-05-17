@@ -29,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *          format="date-time"
  *      )
  * )
+ * @property Company company
  */
 class Store extends Model
 {
@@ -48,7 +49,9 @@ class Store extends Model
     const SALES_WAREHOUSE_TYPE = 3; //склад с которого ведутся отгрузки
 
 
-
+    /**
+     * @var array
+     */
     protected $with = ['defaultWarehouse'];
     /**
      * @var string
@@ -66,7 +69,7 @@ class Store extends Model
      * @var array
      */
     public $fillable = [
-        
+        'title', 'code', 'account_id', 'company_id'
     ];
 
     /**
@@ -75,7 +78,7 @@ class Store extends Model
      * @var array
      */
     protected $casts = [
-        
+
     ];
 
     /**
@@ -84,7 +87,7 @@ class Store extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
     /**
@@ -101,7 +104,8 @@ class Store extends Model
     public function defaultWarehouse()
     {
         return $this->belongsToMany(Warehouse::class)
-            ->wherePivot('type', static::DEFAULT_WAREHOUSE_TYPE);
+            ->wherePivot('type', static::DEFAULT_WAREHOUSE_TYPE)
+            ->withPivot('type');
     }
 
 
@@ -111,7 +115,8 @@ class Store extends Model
     public function salesWarehouse()
     {
         return $this->belongsToMany(Warehouse::class)
-            ->wherePivot('type', static::SALES_WAREHOUSE_TYPE);
+            ->wherePivot('type', static::SALES_WAREHOUSE_TYPE)
+            ->withPivot('type');
     }
 
 
@@ -121,30 +126,97 @@ class Store extends Model
     public function returnWarehouse()
     {
         return $this->belongsToMany(Warehouse::class)
-            ->wherePivot('type', static::RETURN_WAREHOUSE_TYPE);
+            ->wherePivot('type', static::RETURN_WAREHOUSE_TYPE)
+            ->withPivot('type');
     }
 
     /**
      * @param Warehouse $warehouse
+     * @return $this
      */
-    public function addDefaultWarehouse(Warehouse $warehouse)
+    public function setSalesWarehouse(Warehouse $warehouse)
     {
+        if ($this->getSalesWarehouse()) {
+            $id = $this->getSalesWarehouse()->id;
+            $this->warehouses()->detach([$id]);
+        }
         $id = $warehouse->id;
-        $this->warehouses()->attach([$id => ['type'=>static::DEFAULT_WAREHOUSE_TYPE]]);
+        $this->warehouses()->attach([$id => ['type' => static::SALES_WAREHOUSE_TYPE]]);
+        $this->_loadWarehousesRelations();
 
-        
+        return $this;
+
     }
-    
+
+    /**
+     * @param Warehouse $warehouse
+     * @return $this
+     */
+    public function setDefaultWarehouse(Warehouse $warehouse)
+    {
+        if ($this->getDefaultWarehouse()) {
+            $id = $this->getDefaultWarehouse()->id;
+            $this->warehouses()->detach([$id]);
+        }
+        $id = $warehouse->id;
+        $this->defaultWarehouse()->attach([$id => ['type' => static::DEFAULT_WAREHOUSE_TYPE]]);
+        $this->_loadWarehousesRelations();
+
+        return $this;
+    }
+
+    /**
+     * @return Warehouse
+     */
+    public function getDefaultWarehouse()
+    {
+        return $this->defaultWarehouse->first();
+    }
+
+    /**
+     * @return Warehouse
+     */
+    public function getSalesWarehouse()
+    {
+        return $this->salesWarehouse->first();
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account()
     {
-        $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class);
     }
-    
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function company()
     {
-        $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class);
     }
-    
-    
-    
+
+    public function setCompany(Company $company)
+    {
+        $this->company()->associate($company);
+    }
+
+    /**
+     * @return Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     *
+     */
+    private function _loadWarehousesRelations()
+    {
+        $this->load(['warehouses', 'defaultWarehouse', 'salesWarehouse', 'returnWarehouse']);
+    }
+
 }

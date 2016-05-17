@@ -112,8 +112,8 @@ $factory->define(Torg\Stocks\StockReserve::class, function (Faker\Generator $fak
 $factory->define(\Torg\Sales\Order::class, function (Faker\Generator $faker) {
     return [
         'code'=>$faker->sentence(2),
-        'warehouse_id' => factory(Torg\Base\Warehouse::class)->create()->id,
-        'company_id' => factory(Torg\Base\Company::class)->create()->id
+        'company_id' => factory(Torg\Base\Company::class)->create()->id,
+        'store_id' => factory(Torg\Base\Store::class)->create()->id
 
     ];
 });

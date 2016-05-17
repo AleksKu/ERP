@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Factory as Faker;
-use Torg\Models\Store;
-use Torg\Repositories\StoreRepository;
+use Torg\Base\Store;
+use Torg\Base\Repositories\StoreRepository;
 
 trait MakeStoreTrait
 {
