@@ -3,9 +3,11 @@ var Vue = require('vue');
 
 new Vue({
     el: '#app',
-    
+    components: {
+        alert: alert
+    },
 
     ready() {
-        alert('Vue and Vueify all set to go!');
+
     }
 });
