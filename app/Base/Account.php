@@ -4,7 +4,7 @@ namespace Torg\Base;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Torg\User;
+use Torg\Base\User;
 
 /**
  * @SWG\Definition(

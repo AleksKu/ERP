@@ -2,6 +2,7 @@
 
 namespace Torg\Sales;
 
+use Torg\Base\Store;
 use Torg\Contracts\DocumentInterface;
 use Torg\Base\Company;
 use Torg\Base\Warehouse;
@@ -64,6 +65,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
+ * @property Store store
  * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereId($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCode($value)
  * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereStatusId($value)
@@ -92,7 +94,7 @@ class Order extends Model implements DocumentInterface
     /**
      * @var array
      */
-    public $with = ['company', 'warehouse'];
+    public $with = ['company', 'store'];
 
 
     /**
@@ -169,46 +171,7 @@ class Order extends Model implements DocumentInterface
      */
     public static function boot()
     {
-
         parent::boot();
-
-        static::saving(function (Order $order) {
-           // $order->checkCompany();
-        });
-    }
-
-
-    /**
-     *
-     */
-    public function checkCompany()
-    {
-
-
-        $orgFromWarehouse = $this->getWarehouse()->company;
-
-        $newWarehouseId = $this->attributes['warehouse_id'];
-
-
-        if($newWarehouseId != $this->getOriginal('warehouse_id')) {
-
-
-            $newWarehouse = Warehouse::find($newWarehouseId)->first();
-
-            if($newWarehouse->company->id != $orgFromWarehouse->id)
-                throw new StockException('для заказ нельзя установить склад из другой организации');
-        }
-
-        $this->company()->associate($orgFromWarehouse);
-    }
-
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function warehouse()
-    {
-        return $this->belongsTo(Warehouse::class);
     }
 
 
@@ -219,6 +182,15 @@ class Order extends Model implements DocumentInterface
     {
         return $this->belongsTo(Company::class);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -247,7 +219,12 @@ class Order extends Model implements DocumentInterface
      */
     public function getCompany()
     {
-        return $this->getWarehouse()->company;
+        return $this->company;
+    }
+
+    public function getStore()
+    {
+        return $this->store;
     }
 
     /**
@@ -255,7 +232,7 @@ class Order extends Model implements DocumentInterface
      */
     public function getWarehouse()
     {
-        return $this->warehouse;
+        return $this->getStore()->getSalesWarehouse();
     }
 
     /**

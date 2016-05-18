@@ -25,11 +25,14 @@ class CreateOrderTable extends Migration
 
             $table->integer('store_id')->unsigned();
             $table->foreign('store_id')->references('id')->on('stores');
-            
+
+
+            $table->integer('company_id')->nullable()->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies');
 
 
             $table->integer('customer_id')->nullable()->unsigned();
-            $table->foreign('customer_id')->references('id')->on('users');
+            $table->foreign('customer_id')->references('id')->on('customers');
             $table->string('customer_name')->nullable();
             $table->string('customer_email')->nullable();
 

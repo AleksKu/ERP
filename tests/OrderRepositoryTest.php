@@ -1,5 +1,6 @@
 <?php
 
+use Torg\Base\Store;
 use Torg\Catalog\Product;
 use Torg\Base\Company;
 use Torg\Base\Warehouse;
@@ -75,8 +76,8 @@ class OrderRepositoryTest extends TestCase
     {
         $order = factory(Order::class)->create();
 
-        $this->assertInstanceOf(Warehouse::class, $order->warehouse);
-        $this->assertInstanceOf(Company::class, $order->company);
+        $this->assertInstanceOf(Store::class, $order->getStore());
+        $this->assertInstanceOf(Company::class, $order->getCompany());
 
         $this->assertEquals(0, $order->weight);
 
@@ -99,7 +100,7 @@ class OrderRepositoryTest extends TestCase
         $this->assertInstanceOf(Warehouse::class, $order->warehouse);
         $this->assertInstanceOf(Company::class, $order->company);
 
-        //когда устанавливаем склад для заказа, организация автоматоически должна устанавливаться из него
+        //когда устанавливаем склад для заказа, организация автоматически должна устанавливаться из него
         $this->assertEquals($warehouse->id, $order->warehouse->id);
         $this->assertEquals($currentCompany->id, $order->company->id);
 
