@@ -48,7 +48,7 @@ use Torg\Contracts\DocumentInterface;
  * )
  * @property-read \Torg\Base\Warehouse $warehouse
  * @property-read \Torg\Base\Company $company
- * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Sales\OrderItem[] $items
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Sales\OrderItemInterface[] $items
  * @mixin \Eloquent
  * @property integer $id
  * @property string $code
@@ -122,7 +122,7 @@ class Order extends Model implements DocumentInterface
     /**
      * @var
      */
-    public static $itemInstance = OrderItem::class;
+    public static $itemInstance = OrderItemInterface::class;
 
     /**
      * @var array
@@ -217,9 +217,9 @@ class Order extends Model implements DocumentInterface
     }
 
     /**
-     * @param OrderItem $item
+     * @param OrderItemInterface $item
      */
-    public function add(OrderItem $item)
+    public function add(OrderItemInterface $item)
     {
 
         $this->items()->save($item);

@@ -89,7 +89,6 @@ class StockReserveRepository extends BaseRepository
     public function updateFromDocument(DocumentInterface $document)
     {
         $existingReserve = $this->findByDocument($document);
-
         //удаляем существующий резерв
         $existingReserve->delete();
 

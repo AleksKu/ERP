@@ -118,7 +118,7 @@ $factory->define(\Torg\Sales\Order::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(\Torg\Sales\OrderItem::class, function (Faker\Generator $faker) {
+$factory->define(\Torg\Sales\OrderItemInterface::class, function (Faker\Generator $faker) {
     return [
         'product_id' => factory(Torg\Catalog\Product::class)->create()->id,
         'stock_id' => factory(\Torg\Stocks\Stock::class)->create()->id,

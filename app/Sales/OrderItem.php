@@ -11,7 +11,7 @@ use Torg\Contracts\DocumentInterface;
 use Torg\Contracts\DocumentItemInterface;
 use Torg\Events\ReservebleItemCreating;
 use Torg\Events\ReservebleItemSaving;
-use Torg\Stocks\Contracts\ReservebleItem;
+use Torg\Stocks\Contracts\ReservebleItemInterface;
 use Torg\Stocks\Repositories\StockRepository;
 use Torg\Stocks\Stock;
 
@@ -34,30 +34,30 @@ use Torg\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @method static Builder|OrderItem whereId($value)
- * @method static Builder|OrderItem whereProductId($value)
- * @method static Builder|OrderItem whereOrderId($value)
- * @method static Builder|OrderItem whereStockId($value)
- * @method static Builder|OrderItem wherePrice($value)
- * @method static Builder|OrderItem whereQty($value)
- * @method static Builder|OrderItem whereTotal($value)
- * @method static Builder|OrderItem whereWeight($value)
- * @method static Builder|OrderItem whereVolume($value)
- * @method static Builder|OrderItem whereCreatedAt($value)
- * @method static Builder|OrderItem whereUpdatedAt($value)
- * @method static Builder|OrderItem whereDeletedAt($value)
+ * @method static Builder|OrderItemInterface whereId($value)
+ * @method static Builder|OrderItemInterface whereProductId($value)
+ * @method static Builder|OrderItemInterface whereOrderId($value)
+ * @method static Builder|OrderItemInterface whereStockId($value)
+ * @method static Builder|OrderItemInterface wherePrice($value)
+ * @method static Builder|OrderItemInterface whereQty($value)
+ * @method static Builder|OrderItemInterface whereTotal($value)
+ * @method static Builder|OrderItemInterface whereWeight($value)
+ * @method static Builder|OrderItemInterface whereVolume($value)
+ * @method static Builder|OrderItemInterface whereCreatedAt($value)
+ * @method static Builder|OrderItemInterface whereUpdatedAt($value)
+ * @method static Builder|OrderItemInterface whereDeletedAt($value)
  * @property string $sku
  * @property float $base_price
  * @property float $base_cost
  * @property float $subtotal
  * @property float $discount
- * @method static Builder|OrderItem whereSku($value)
- * @method static Builder|OrderItem whereBasePrice($value)
- * @method static Builder|OrderItem whereBaseCost($value)
- * @method static Builder|OrderItem whereSubtotal($value)
- * @method static Builder|OrderItem whereDiscount($value)
+ * @method static Builder|OrderItemInterface whereSku($value)
+ * @method static Builder|OrderItemInterface whereBasePrice($value)
+ * @method static Builder|OrderItemInterface whereBaseCost($value)
+ * @method static Builder|OrderItemInterface whereSubtotal($value)
+ * @method static Builder|OrderItemInterface whereDiscount($value)
  */
-class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
+class OrderItemInterface extends Model implements DocumentItemInterface, ReservebleItemInterface
 {
 
     /**
@@ -105,7 +105,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         parent::boot();
 
         static::created(
-            function (OrderItem $orderItem) {
+            function (OrderItemInterface $orderItem) {
 
                 $orderItem->_createStock();
 
@@ -114,14 +114,14 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         );
 
         static::saved(
-            function (OrderItem $orderItem) {
+            function (OrderItemInterface $orderItem) {
 
                 event(new ReservebleItemSaving($orderItem));
             }
         );
 
         static::saving(
-            function (OrderItem $orderItem) {
+            function (OrderItemInterface $orderItem) {
 
                 $orderItem->calculateTotals();
             }

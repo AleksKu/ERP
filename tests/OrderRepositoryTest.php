@@ -8,7 +8,7 @@ use Torg\Catalog\Product;
 use Torg\Events\ReservebleItemCreating;
 use Torg\Events\ReservebleItemSaving;
 use Torg\Sales\Order;
-use Torg\Sales\OrderItem;
+use Torg\Sales\OrderItemInterface;
 use Torg\Sales\Repositories\OrderRepository;
 use Torg\Stocks\Exceptions\StockException;
 use Torg\Stocks\Stock;
@@ -136,7 +136,7 @@ class OrderRepositoryTest extends TestCase
         $warehouse = $order->getWarehouse();
         $product = factory(Product::class)->create();
 
-        $orderItem = factory(OrderItem::class)->make();
+        $orderItem = factory(OrderItemInterface::class)->make();
 
         $orderItem->document()->associate($order);
         $orderItem->product()->associate($product);
@@ -153,7 +153,7 @@ class OrderRepositoryTest extends TestCase
         static::assertEquals($orderItem->product->id, $product->id);
         static::assertEquals($orderItem->stock->product->id, $product->id);
 
-        $orderItem2 = factory(OrderItem::class)->make();
+        $orderItem2 = factory(OrderItemInterface::class)->make();
         $orderItem2->product()->associate($product);
         $orderItem2->document()->associate($order);
         $orderItem2->save();
@@ -164,7 +164,7 @@ class OrderRepositoryTest extends TestCase
 
         $product2 = factory(Product::class)->create();
 
-        $orderItem3 = factory(OrderItem::class)->make();
+        $orderItem3 = factory(OrderItemInterface::class)->make();
         $orderItem3->product()->associate($product2);
         $orderItem3->document()->associate($order);
         $orderItem3->save();
@@ -181,7 +181,7 @@ class OrderRepositoryTest extends TestCase
 
         $product = factory(Product::class)->create(['weight' => 10]);
 
-        $orderItem = factory(OrderItem::class)->create(['order_id' => $order->id]);
+        $orderItem = factory(OrderItemInterface::class)->create(['order_id' => $order->id]);
 
         static::assertEquals($orderItem->document->id, $order->id);
 
@@ -209,7 +209,7 @@ class OrderRepositoryTest extends TestCase
         $order = factory(Order::class)->create();
         $product = factory(Product::class)->create();
 
-        $orderItem = factory(OrderItem::class)->make(['qty' => 1]);
+        $orderItem = factory(OrderItemInterface::class)->make(['qty' => 1]);
         $orderItem->product()->associate($product);
 
         $order->add($orderItem);
@@ -218,7 +218,7 @@ class OrderRepositoryTest extends TestCase
         static::assertEquals(1, $order->items_count);
         static::assertEquals(1, $order->products_qty);
 
-        $orderItem2 = factory(OrderItem::class)->make(['qty' => 2]);
+        $orderItem2 = factory(OrderItemInterface::class)->make(['qty' => 2]);
         $orderItem2->product()->associate($product);
         $order->add($orderItem2);
         $order->save();

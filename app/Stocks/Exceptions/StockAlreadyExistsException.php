@@ -2,7 +2,7 @@
 
 namespace Torg\Stocks\Exceptions;
 
-class StockAlreadyExists extends StockException
+class StockAlreadyExistsException extends StockException
 {
     /**
      * @var string
@@ -12,7 +12,7 @@ class StockAlreadyExists extends StockException
     /**
      * @param string $message
      *
-     * @return StockAlreadyExists
+     * @return StockAlreadyExistsException
      */
     public function setMessage($message)
     {

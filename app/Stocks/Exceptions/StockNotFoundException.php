@@ -7,7 +7,7 @@ namespace Torg\Stocks\Exceptions;
  *
  * @package Torg\Stocks\Exceptions
  */
-class StockNotFound extends StockException
+class StockNotFoundException extends StockException
 {
     /**
      * @var string
