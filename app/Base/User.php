@@ -2,8 +2,8 @@
 
 namespace Torg\Base;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Torg\Base\Account;
 
 /**
  * Torg\User
@@ -16,13 +16,14 @@ use Torg\Base\Account;
  * @property string $remember_token
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereRememberToken($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\User whereUpdatedAt($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereName($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @property-read \Torg\Base\Account $account
  */
 class User extends Authenticatable
 {
@@ -32,7 +33,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -41,9 +44,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -60,5 +63,5 @@ class User extends Authenticatable
     {
         return $this->account;
     }
-    
+
 }

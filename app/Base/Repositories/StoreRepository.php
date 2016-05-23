@@ -2,8 +2,8 @@
 
 namespace Torg\Base\Repositories;
 
-use Torg\Base\Store;
 use InfyOm\Generator\Common\BaseRepository;
+use Torg\Base\Store;
 
 class StoreRepository extends BaseRepository
 {
@@ -16,11 +16,12 @@ class StoreRepository extends BaseRepository
 
     /**
      * Configure the Model
+     *
+     * @return string
      **/
     public function model()
     {
         return Store::class;
     }
-
 
 }

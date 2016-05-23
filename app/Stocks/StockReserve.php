@@ -2,11 +2,9 @@
 
 namespace Torg\Stocks;
 
-
-use Torg\Base\Company as Company;
+use Illuminate\Database\Query\Builder;
+use Torg\Base\Company;
 use Torg\Base\Warehouse;
-
-
 
 /**
  * AQAL\Stocks\StockReserve
@@ -30,54 +28,77 @@ use Torg\Base\Warehouse;
  * @mixin \Eloquent
  * @property integer $reasonable_id
  * @property string $reasonable_type
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereStatus($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereReasonableId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereReasonableType($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereDesc($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereTotal($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserve whereDeletedAt($value)
+ * @method static Builder|StockReserve whereId($value)
+ * @method static Builder|StockReserve whereCode($value)
+ * @method static Builder|StockReserve whereStatus($value)
+ * @method static Builder|StockReserve whereReasonableId($value)
+ * @method static Builder|StockReserve whereReasonableType($value)
+ * @method static Builder|StockReserve whereDesc($value)
+ * @method static Builder|StockReserve whereWarehouseId($value)
+ * @method static Builder|StockReserve whereWeight($value)
+ * @method static Builder|StockReserve whereVolume($value)
+ * @method static Builder|StockReserve whereTotal($value)
+ * @method static Builder|StockReserve whereCreatedAt($value)
+ * @method static Builder|StockReserve whereUpdatedAt($value)
+ * @method static Builder|StockReserve whereDeletedAt($value)
  */
-class StockReserve extends  StockDocument
+class StockReserve extends StockDocument
 {
 
-    
-
-
-    protected $table = 'stock_reserves';
-
+    /**
+     * @var string
+     */
     public static $codePrefix = 'Резерв';
 
+    /**
+     * @var array
+     */
     public static $rules = [];
-    
+
+    /**
+     * @var
+     */
+    public static $itemInstance = StockReserveItem::class;
+
+    /**
+     * @var string
+     */
+    protected $table = 'stock_reserves';
+
+    /**
+     * @var array
+     */
     protected $fillable = ['code', 'desc', 'status'];
 
-
-
-  public static $itemInstance = StockReserveItem::class;
-
-
-
-
-
-
+    /**
+     * @param $prefix
+     */
     public function codeForLinks($prefix)
     {
         // TODO: Implement codeForLinks() method.
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     */
+    public function store()
+    {
+        // TODO: Implement store() method.
+    }
 
-
-
+    /**
+     *
+     */
+    public function getStore()
+    {
+        // TODO: Implement getStore() method.
+    }
 }

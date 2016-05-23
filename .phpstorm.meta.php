@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-05-09.
+    * Generated on 2016-05-22.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -37,6 +37,8 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'debugbar' instanceof \Barryvdh\Debugbar\LaravelDebugbar,
+            'command.debugbar.clear' instanceof \Barryvdh\Debugbar\Console\ClearCommand,
             'Laracasts\Flash\SessionStore' instanceof \Laracasts\Flash\LaravelSessionStore,
             'flash' instanceof \Laracasts\Flash\FlashNotifier,
             'infyom.publish' instanceof \InfyOm\Generator\Commands\Publish\GeneratorPublishCommand,
@@ -166,6 +168,8 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'debugbar' instanceof \Barryvdh\Debugbar\LaravelDebugbar,
+            'command.debugbar.clear' instanceof \Barryvdh\Debugbar\Console\ClearCommand,
             'Laracasts\Flash\SessionStore' instanceof \Laracasts\Flash\LaravelSessionStore,
             'flash' instanceof \Laracasts\Flash\FlashNotifier,
             'infyom.publish' instanceof \InfyOm\Generator\Commands\Publish\GeneratorPublishCommand,
@@ -295,6 +299,8 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'debugbar' instanceof \Barryvdh\Debugbar\LaravelDebugbar,
+            'command.debugbar.clear' instanceof \Barryvdh\Debugbar\Console\ClearCommand,
             'Laracasts\Flash\SessionStore' instanceof \Laracasts\Flash\LaravelSessionStore,
             'flash' instanceof \Laracasts\Flash\FlashNotifier,
             'infyom.publish' instanceof \InfyOm\Generator\Commands\Publish\GeneratorPublishCommand,
@@ -424,6 +430,8 @@ namespace PHPSTORM_META {
             'view.engine.resolver' instanceof \Illuminate\View\Engines\EngineResolver,
             'view.finder' instanceof \Illuminate\View\FileViewFinder,
             'view' instanceof \Illuminate\View\Factory,
+            'debugbar' instanceof \Barryvdh\Debugbar\LaravelDebugbar,
+            'command.debugbar.clear' instanceof \Barryvdh\Debugbar\Console\ClearCommand,
             'Laracasts\Flash\SessionStore' instanceof \Laracasts\Flash\LaravelSessionStore,
             'flash' instanceof \Laracasts\Flash\FlashNotifier,
             'infyom.publish' instanceof \InfyOm\Generator\Commands\Publish\GeneratorPublishCommand,

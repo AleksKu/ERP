@@ -2,14 +2,13 @@
 
 namespace Torg\Events;
 
-use Torg\Stocks\Contracts\ReservebleItem;
-use Torg\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Torg\Stocks\Contracts\ReservebleItem;
 
 class ReservebleItemCreating extends Event
 {
     use SerializesModels;
+
     /**
      * @var ReservebleItem
      */

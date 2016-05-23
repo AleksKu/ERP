@@ -20,21 +20,25 @@ class StockReserveRepositoryTest extends TestCase
     }
 
     /**
-     * @test create
+     *  create
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testCreateStockReserve()
     {
         $stockReserve = $this->fakeStockReserveData();
         $createdStockReserve = $this->stockReserveRepo->create($stockReserve);
         $createdStockReserve = $createdStockReserve->toArray();
-        $this->assertArrayHasKey('id', $createdStockReserve);
-        $this->assertNotNull($createdStockReserve['id'], 'Created StockReserve must have id specified');
-        $this->assertNotNull(StockReserve::find($createdStockReserve['id']), 'StockReserve with given id must be in DB');
+        static::assertArrayHasKey('id', $createdStockReserve);
+        static::assertNotNull($createdStockReserve['id'], 'Created StockReserve must have id specified');
+        static::assertNotNull(StockReserve::find($createdStockReserve['id']), 'StockReserve with given id must be in DB');
         $this->assertModelData($stockReserve, $createdStockReserve);
     }
 
     /**
-     * @test read
+     *  read
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadStockReserve()
     {
@@ -45,7 +49,9 @@ class StockReserveRepositoryTest extends TestCase
     }
 
     /**
-     * @test update
+     *  update
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateStockReserve()
     {
@@ -58,14 +64,16 @@ class StockReserveRepositoryTest extends TestCase
     }
 
     /**
-     * @test delete
+     *  delete
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteStockReserve()
     {
         $stockReserve = $this->makeStockReserve();
         $resp = $this->stockReserveRepo->delete($stockReserve->id);
-        $this->assertTrue($resp);
-        $this->assertNull(StockReserve::find($stockReserve->id), 'StockReserve should not exist in DB');
+        static::assertTrue($resp);
+        static::assertNull(StockReserve::find($stockReserve->id), 'StockReserve should not exist in DB');
     }
 
     
@@ -78,11 +86,11 @@ class StockReserveRepositoryTest extends TestCase
         $warehouse2 = factory(\Torg\Base\Warehouse::class)->create(['company_id'=>$org1->id]);
         $reserve = factory(StockReserve::class)->create(['warehouse_id'=>$warehouse->id]);
 
-        $this->assertInstanceOf(\Torg\Base\Warehouse::class, $reserve->warehouse);
-        $this->assertEquals($reserve->warehouse->id, $warehouse->id);
+        static::assertInstanceOf(\Torg\Base\Warehouse::class, $reserve->warehouse);
+        static::assertEquals($reserve->warehouse->id, $warehouse->id);
 
         $reserve->warehouse()->associate($warehouse2);
-        $this->assertEquals($reserve->warehouse->id, $warehouse2->id);
+        static::assertEquals($reserve->warehouse->id, $warehouse2->id);
 
 
 

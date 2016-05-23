@@ -21,21 +21,25 @@ class StoreRepositoryTest extends TestCase
     }
 
     /**
-     * @test create
+     *  create
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testCreateStore()
     {
         $store = $this->fakeStoreData();
         $createdStore = $this->storeRepo->create($store);
         $createdStore = $createdStore->toArray();
-        $this->assertArrayHasKey('id', $createdStore);
-        $this->assertNotNull($createdStore['id'], 'Created Store must have id specified');
-        $this->assertNotNull(Store::find($createdStore['id']), 'Store with given id must be in DB');
+        static::assertArrayHasKey('id', $createdStore);
+        static::assertNotNull($createdStore['id'], 'Created Store must have id specified');
+        static::assertNotNull(Store::find($createdStore['id']), 'Store with given id must be in DB');
         $this->assertModelData($store, $createdStore);
     }
 
     /**
-     * @test read
+     *  read
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadStore()
     {
@@ -46,7 +50,9 @@ class StoreRepositoryTest extends TestCase
     }
 
     /**
-     * @test update
+     *  update
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateStore()
     {
@@ -59,14 +65,16 @@ class StoreRepositoryTest extends TestCase
     }
 
     /**
-     * @test delete
+     *  delete
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteStore()
     {
         $store = $this->makeStore();
         $resp = $this->storeRepo->delete($store->id);
-        $this->assertTrue($resp);
-        $this->assertNull(Store::find($store->id), 'Store should not exist in DB');
+        static::assertTrue($resp);
+        static::assertNull(Store::find($store->id), 'Store should not exist in DB');
     }
 
     public function testAddWarehouse()
@@ -77,18 +85,18 @@ class StoreRepositoryTest extends TestCase
         $store->setDefaultWarehouse($warehouse);
         $store->setSalesWarehouse($salesWarehouse);
 
-        $this->assertCount(2, $store->warehouses);
-        $this->assertCount(1, $store->defaultWarehouse);
-        $this->assertEquals($store->getDefaultWarehouse()->id, $warehouse->id);
-        $this->assertEquals($store->getDefaultWarehouse()->pivot->type, Store::DEFAULT_WAREHOUSE_TYPE);
-        $this->assertEquals($store->getSalesWarehouse()->id, $salesWarehouse->id);
-        $this->assertEquals($store->getSalesWarehouse()->pivot->type, Store::SALES_WAREHOUSE_TYPE);
+        static::assertCount(2, $store->warehouses);
+        static::assertCount(1, $store->defaultWarehouse);
+        static::assertEquals($store->getDefaultWarehouse()->id, $warehouse->id);
+        static::assertEquals($store->getDefaultWarehouse()->pivot->type, Store::DEFAULT_WAREHOUSE_TYPE);
+        static::assertEquals($store->getSalesWarehouse()->id, $salesWarehouse->id);
+        static::assertEquals($store->getSalesWarehouse()->pivot->type, Store::SALES_WAREHOUSE_TYPE);
 
         $warehouse2 = factory(Warehouse::class)->create();
         $store->setDefaultWarehouse($warehouse2);
-        $this->assertCount(2, $store->warehouses);
-        $this->assertCount(1, $store->defaultWarehouse);
-        $this->assertEquals($store->getDefaultWarehouse()->id, $warehouse2->id);
+        static::assertCount(2, $store->warehouses);
+        static::assertCount(1, $store->defaultWarehouse);
+        static::assertEquals($store->getDefaultWarehouse()->id, $warehouse2->id);
 
     }
 }

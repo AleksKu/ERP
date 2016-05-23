@@ -2,27 +2,31 @@
 
 namespace Torg\Http\Controllers\API;
 
-use Torg\Http\Requests\API\CreateStockAPIRequest;
-use Torg\Http\Requests\API\UpdateStockAPIRequest;
-use Torg\Stocks\Stock;
-use Torg\Stocks\Repositories\StockRepository;
 use Illuminate\Http\Request;
-use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Torg\Http\Controllers\AppBaseController;
+use Torg\Http\Requests\API\CreateStockAPIRequest;
+use Torg\Http\Requests\API\UpdateStockAPIRequest;
+use Torg\Stocks\Repositories\StockRepository;
+use Torg\Stocks\Stock;
 
 /**
  * Class StockController
  * @package Torg\Http\Controllers\API
  */
-
 class StockAPIController extends AppBaseController
 {
     /** @var  StockRepository */
     private $stockRepository;
 
+    /**
+     * StockAPIController constructor.
+     *
+     * @param StockRepository $stockRepo
+     */
     public function __construct(StockRepository $stockRepo)
     {
         $this->stockRepository = $stockRepo;
@@ -30,7 +34,9 @@ class StockAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
      *      path="/stocks",
@@ -71,7 +77,9 @@ class StockAPIController extends AppBaseController
 
     /**
      * @param CreateStockAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/stocks",
@@ -118,6 +126,7 @@ class StockAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -169,7 +178,9 @@ class StockAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateStockAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/stocks/{id}",
@@ -230,7 +241,9 @@ class StockAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/stocks/{id}",

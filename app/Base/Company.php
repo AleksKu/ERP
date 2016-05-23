@@ -3,8 +3,10 @@
 namespace Torg\Base;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 
 /**
+ * Torg\Base\Company
  *
  * @property-read \Illuminate\Database\Eloquent\Collection|Warehouse[] $warehouses
  * @property integer $id
@@ -16,23 +18,30 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property-read \Torg\Base\Warehouse $defaultWarehouse
  * @property integer $default_warehouse_id
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereDefaultWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Company whereDeletedAt($value)
+ * @method static Builder|Company whereId($value)
+ * @method static Builder|Company whereTitle($value)
+ * @method static Builder|Company whereCode($value)
+ * @method static Builder|Company whereDefaultWarehouseId($value)
+ * @method static Builder|Company whereCreatedAt($value)
+ * @method static Builder|Company whereUpdatedAt($value)
+ * @method static Builder|Company whereDeletedAt($value)
+ * @property integer $account_id
+ * @method static Builder|Company whereAccountId($value)
  */
 class Company extends Model
 {
 
+    /**
+     * @var string
+     */
     protected $table = 'companies';
 
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account()
     {
-        $this->belongsTo(Account::class);
+        return $this->belongsTo(Account::class);
     }
 
 }

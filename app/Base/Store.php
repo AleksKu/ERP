@@ -3,11 +3,16 @@
 namespace Torg\Base;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Torg\Base\Warehouse;
 
 /**
- * @SWG\Definition(
+ * Torg\Base\Store
+ *
+ * @SWG\Definition (
  *      definition="Store",
  *      required={},
  *      @SWG\Property(
@@ -30,6 +35,32 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *      )
  * )
  * @property Company company
+ * @property integer $id
+ * @property string $code
+ * @property string $title
+ * @property integer $account_id
+ * @property integer $company_id
+ * @property integer $default_warehouse_id
+ * @property integer $type
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property-read Collection|Warehouse[] $warehouses
+ * @property-read Collection|Warehouse[] $defaultWarehouse
+ * @property-read Collection|Warehouse[] $salesWarehouse
+ * @property-read Collection|Warehouse[] $returnWarehouse
+ * @property-read \Torg\Base\Account $account
+ * @method static Builder|Store whereId($value)
+ * @method static Builder|Store whereCode($value)
+ * @method static Builder|Store whereTitle($value)
+ * @method static Builder|Store whereAccountId($value)
+ * @method static Builder|Store whereCompanyId($value)
+ * @method static Builder|Store whereDefaultWarehouseId($value)
+ * @method static Builder|Store whereType($value)
+ * @method static Builder|Store whereCreatedAt($value)
+ * @method static Builder|Store whereUpdatedAt($value)
+ * @method static Builder|Store whereDeletedAt($value)
+ * @mixin \Eloquent
  */
 class Store extends Model
 {
@@ -39,37 +70,40 @@ class Store extends Model
      *
      */
     const DEFAULT_WAREHOUSE_TYPE = 1; //склад по умолчанию
+
     /**
      *
      */
     const RETURN_WAREHOUSE_TYPE = 2; //склад возврата
+
     /**
      *
      */
     const SALES_WAREHOUSE_TYPE = 3; //склад с которого ведутся отгрузки
 
-
     /**
      * @var array
      */
     protected $with = ['defaultWarehouse'];
+
     /**
      * @var string
      */
     public $table = 'stores';
-
 
     /**
      * @var array
      */
     protected $dates = ['deleted_at'];
 
-
     /**
      * @var array
      */
     public $fillable = [
-        'title', 'code', 'account_id', 'company_id'
+        'title',
+        'code',
+        'account_id',
+        'company_id',
     ];
 
     /**
@@ -108,7 +142,6 @@ class Store extends Model
             ->withPivot('type');
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -118,7 +151,6 @@ class Store extends Model
             ->wherePivot('type', static::SALES_WAREHOUSE_TYPE)
             ->withPivot('type');
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -132,6 +164,7 @@ class Store extends Model
 
     /**
      * @param Warehouse $warehouse
+     *
      * @return $this
      */
     public function setSalesWarehouse(Warehouse $warehouse)
@@ -150,6 +183,7 @@ class Store extends Model
 
     /**
      * @param Warehouse $warehouse
+     *
      * @return $this
      */
     public function setDefaultWarehouse(Warehouse $warehouse)
@@ -181,7 +215,6 @@ class Store extends Model
         return $this->salesWarehouse->first();
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -198,6 +231,9 @@ class Store extends Model
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * @param Company $company
+     */
     public function setCompany(Company $company)
     {
         $this->company()->associate($company);

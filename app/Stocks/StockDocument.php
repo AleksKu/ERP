@@ -2,41 +2,46 @@
 
 namespace Torg\Stocks;
 
-use Torg\Contracts\DocumentInterface;
-use Torg\Base\Company;
 use Illuminate\Database\Eloquent\Model;
-
-use Torg\Base\Warehouse;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Torg\Base\Company;
+use Torg\Base\Warehouse;
+use Torg\Contracts\DocumentInterface;
 
 /**
  * Class StockDocument
+ *
+ * @property string status
+ * @property string code
+ * @property StockDocumentItem[] items
+ * @property integer id
+ * @property Warehouse warehouse
  * @package Torg\Stocks
  */
 abstract class StockDocument extends Model implements DocumentInterface
 {
-
 
     use SoftDeletes;
 
     /**
      *
      */
-    CONST STATUS_NEW = 'new';
-    /**
-     *
-     */
-    CONST STATUS_ACTIVATED = 'activated';
-    /**
-     *
-     */
-    CONST STATUS_COMPLETE = 'complete';
-    /**
-     *
-     */
-    CONST STATUS_CANCELED = 'canceled';
+    const STATUS_NEW = 'new';
 
+    /**
+     *
+     */
+    const STATUS_ACTIVATED = 'activated';
+
+    /**
+     *
+     */
+    const STATUS_COMPLETE = 'complete';
+
+    /**
+     *
+     */
+    const STATUS_CANCELED = 'canceled';
 
     /**
      * @var array
@@ -58,7 +63,6 @@ abstract class StockDocument extends Model implements DocumentInterface
      */
     public static $itemInstance;
 
-
     /**
      * @var array
      */
@@ -67,7 +71,7 @@ abstract class StockDocument extends Model implements DocumentInterface
         'weight' => 0,
         'volume' => 0,
         'total' => 0,
-        'status' => self::STATUS_NEW
+        'status' => self::STATUS_NEW,
 
     );
 
@@ -76,18 +80,18 @@ abstract class StockDocument extends Model implements DocumentInterface
      */
     protected $with = ['items', 'warehouse'];
 
-
     /**
      * Boot the model.
      */
     public static function boot()
     {
         parent::boot();
-        static::updating(function(StockDocument $document) {
-            $document->warehouseValidate();
-        });
+        static::updating(
+            function (StockDocument $document) {
+                $document->warehouseValidate();
+            }
+        );
     }
-
 
     /**
      *
@@ -97,16 +101,15 @@ abstract class StockDocument extends Model implements DocumentInterface
 
     }
 
-
     /**
      * Документ на основании которого был создан данный
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function reasonable()
     {
         return $this->morphTo();
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -116,7 +119,6 @@ abstract class StockDocument extends Model implements DocumentInterface
         return $this->belongsTo(Warehouse::class);
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -125,7 +127,6 @@ abstract class StockDocument extends Model implements DocumentInterface
         return $this->hasMany(static::$itemInstance);
     }
 
-
     /**
      * @return $this
      */
@@ -133,34 +134,37 @@ abstract class StockDocument extends Model implements DocumentInterface
     {
         $items = $this->items;
 
-        array_walk($items, function(StockDocumentItem $item) {
-            $item->activate();
+        array_walk(
+            $items,
+            function (StockDocumentItem $item) {
+                $item->activate();
 
-        });
+            }
+        );
 
         $this->status = self::STATUS_ACTIVATED;
-
 
         return $this;
     }
 
-
     /**
      * Закрывает проведенный документ
+     *
      * @return $this
      */
     public function complete()
     {
         $items = $this->items;
 
+        array_walk(
+            $items,
+            function (StockDocumentItem $item) {
+                $item->complete();
 
-        array_walk($items, function(StockDocumentItem $item) {
-            $item->complete();
-
-        });
+            }
+        );
 
         $this->status = self::STATUS_COMPLETE;
-
 
         return $this;
     }
@@ -173,7 +177,6 @@ abstract class StockDocument extends Model implements DocumentInterface
 
     }
 
-
     /**
      * @param StockDocument $newDocument
      */
@@ -184,6 +187,7 @@ abstract class StockDocument extends Model implements DocumentInterface
 
     /**
      * Заполняет поля на основании документа
+     *
      * @param DocumentInterface $document
      */
     public function populateByDocument(DocumentInterface $document)
@@ -192,26 +196,24 @@ abstract class StockDocument extends Model implements DocumentInterface
 
         $this->reasonable()->associate($document);
 
-        $this->code = $document->codeForLinks(static::$codePrefix);
-
     }
 
-
     /**
-     * @param $status
+     * @param string $status
+     *
      * @return $this
+     * @throws \InvalidArgumentException
      */
     public function setStatusAttribute($status)
     {
-        if (!in_array($status, $this->getAllStatuses()))
+        if (!in_array($status, $this->getAllStatuses(), true)) {
             throw new \InvalidArgumentException('неизвестный статус документа');
-
+        }
 
         $this->attributes['status'] = $status;
 
         return $this;
     }
-
 
     /**
      * @return array
@@ -226,7 +228,7 @@ abstract class StockDocument extends Model implements DocumentInterface
      */
     public function isActive()
     {
-        return $this->status == self::STATUS_NEW;
+        return $this->status === self::STATUS_NEW;
     }
 
     /**
@@ -240,7 +242,7 @@ abstract class StockDocument extends Model implements DocumentInterface
     /**
      * @return Company
      */
-    public  function getCompany()
+    public function getCompany()
     {
         return $this->getWarehouse()->getCompany();
     }
@@ -253,12 +255,11 @@ abstract class StockDocument extends Model implements DocumentInterface
         return $this->items;
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
-
-
-
-
 }

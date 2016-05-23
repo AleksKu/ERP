@@ -2,11 +2,10 @@
 
 namespace Torg\Base;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
 use Torg\Stocks\Stock;
-
-
 
 /**
  * AQAL\Stocks\Warehouse
@@ -20,34 +19,46 @@ use Torg\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\Torg\Stocks\Stock[] $stocks
+ * @property-read Collection|Stock[] $stocks
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCompanyId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Base\Warehouse whereDeletedAt($value)
+ * @method static Builder|Warehouse whereId($value)
+ * @method static Builder|Warehouse whereTitle($value)
+ * @method static Builder|Warehouse whereCode($value)
+ * @method static Builder|Warehouse whereCompanyId($value)
+ * @method static Builder|Warehouse whereCreatedAt($value)
+ * @method static Builder|Warehouse whereUpdatedAt($value)
+ * @method static Builder|Warehouse whereDeletedAt($value)
+ * @property integer $account_id
+ * @property-read \Torg\Base\Account $account
+ * @method static Builder|Warehouse whereAccountId($value)
  */
 class Warehouse extends Model
 {
 
+    /**
+     * @var array
+     */
     protected $with = [];
 
-    protected $attributes = array(
+    /**
+     * @var array
+     */
+    protected $attributes = array();
 
-    );
-
+    /**
+     * @var array
+     */
     protected $casts = [
-     
+
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function account()
     {
         return $this->belongsTo(Account::class);
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

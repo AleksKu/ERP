@@ -1,25 +1,26 @@
 <?php
 
-
 namespace Torg\Contracts;
 
-
 /**
- * 
+ *
  * Interface DocumentInterface
  * @package Torg\Contracts
  */
-use Torg\Catalog\Product;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Torg\Base\Warehouse;
+use Torg\Catalog\Product;
 use Torg\Stocks\Stock;
 
 /**
  * Interface DocumentItemInterface
  * @package Torg\Contracts
+ *
+ * @property DocumentItemInterface $item
+ * @property Product $product
  */
 interface DocumentItemInterface
 {
-
 
     /**
      * @return mixed
@@ -34,12 +35,13 @@ interface DocumentItemInterface
 
     /**
      * Документ к которому относится данная строка
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function document();
 
     /**
      * @param DocumentItemInterface $item
+     *
      * @return mixed
      */
     public function populateByDocumentItem(DocumentItemInterface $item);
@@ -63,7 +65,5 @@ interface DocumentItemInterface
      * @return Warehouse
      */
     public function getWarehouse();
-
-    
 
 }

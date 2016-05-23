@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Account;
-use App\Repositories\AccountRepository;
+use Torg\Base\Account;
+use Torg\Base\Repositories\AccountRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AccountRepositoryTest extends TestCase
@@ -20,21 +20,25 @@ class AccountRepositoryTest extends TestCase
     }
 
     /**
-     * @test create
+     *  create
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testCreateAccount()
     {
         $account = $this->fakeAccountData();
         $createdAccount = $this->accountRepo->create($account);
         $createdAccount = $createdAccount->toArray();
-        $this->assertArrayHasKey('id', $createdAccount);
-        $this->assertNotNull($createdAccount['id'], 'Created Account must have id specified');
-        $this->assertNotNull(Account::find($createdAccount['id']), 'Account with given id must be in DB');
+        static::assertArrayHasKey('id', $createdAccount);
+        static::assertNotNull($createdAccount['id'], 'Created Account must have id specified');
+        static::assertNotNull(Account::find($createdAccount['id']), 'Account with given id must be in DB');
         $this->assertModelData($account, $createdAccount);
     }
 
     /**
-     * @test read
+     *  read
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadAccount()
     {
@@ -45,7 +49,9 @@ class AccountRepositoryTest extends TestCase
     }
 
     /**
-     * @test update
+     *  update
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateAccount()
     {
@@ -58,13 +64,15 @@ class AccountRepositoryTest extends TestCase
     }
 
     /**
-     * @test delete
+     *  delete
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteAccount()
     {
         $account = $this->makeAccount();
         $resp = $this->accountRepo->delete($account->id);
-        $this->assertTrue($resp);
-        $this->assertNull(Account::find($account->id), 'Account should not exist in DB');
+        static::assertTrue($resp);
+        static::assertNull(Account::find($account->id), 'Account should not exist in DB');
     }
 }

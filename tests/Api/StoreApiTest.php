@@ -8,7 +8,7 @@ class StoreApiTest extends TestCase
     use MakeStoreTrait, ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
 
     /**
-     * @test
+     * 
      */
     public function testCreateStore()
     {
@@ -19,7 +19,8 @@ class StoreApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadStore()
     {
@@ -30,7 +31,8 @@ class StoreApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateStore()
     {
@@ -43,7 +45,8 @@ class StoreApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteStore()
     {

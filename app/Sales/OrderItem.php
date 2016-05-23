@@ -3,17 +3,17 @@
 namespace Torg\Sales;
 
 use App;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Torg\Base\Warehouse;
 use Torg\Catalog\Product;
 use Torg\Contracts\DocumentInterface;
 use Torg\Contracts\DocumentItemInterface;
-use Torg\Base\Warehouse;
-use Torg\Stocks\Contracts\ReservebleItem;
-use Torg\Stocks\Contracts\ShouldReserve;
-use Torg\Stocks\Repositories\StockRepository;
-use Torg\Stocks\Stock;
 use Torg\Events\ReservebleItemCreating;
 use Torg\Events\ReservebleItemSaving;
-use Illuminate\Database\Eloquent\Model;
+use Torg\Stocks\Contracts\ReservebleItem;
+use Torg\Stocks\Repositories\StockRepository;
+use Torg\Stocks\Stock;
 
 /**
  * Torg\Sales\OrderItem
@@ -34,35 +34,52 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereProductId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereOrderId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereStockId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem wherePrice($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereQty($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereTotal($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\OrderItem whereDeletedAt($value)
+ * @method static Builder|OrderItem whereId($value)
+ * @method static Builder|OrderItem whereProductId($value)
+ * @method static Builder|OrderItem whereOrderId($value)
+ * @method static Builder|OrderItem whereStockId($value)
+ * @method static Builder|OrderItem wherePrice($value)
+ * @method static Builder|OrderItem whereQty($value)
+ * @method static Builder|OrderItem whereTotal($value)
+ * @method static Builder|OrderItem whereWeight($value)
+ * @method static Builder|OrderItem whereVolume($value)
+ * @method static Builder|OrderItem whereCreatedAt($value)
+ * @method static Builder|OrderItem whereUpdatedAt($value)
+ * @method static Builder|OrderItem whereDeletedAt($value)
+ * @property string $sku
+ * @property float $base_price
+ * @property float $base_cost
+ * @property float $subtotal
+ * @property float $discount
+ * @method static Builder|OrderItem whereSku($value)
+ * @method static Builder|OrderItem whereBasePrice($value)
+ * @method static Builder|OrderItem whereBaseCost($value)
+ * @method static Builder|OrderItem whereSubtotal($value)
+ * @method static Builder|OrderItem whereDiscount($value)
  */
 class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
 {
 
-
-
+    /**
+     * @var array
+     */
     protected $with = ['document', 'product'];
 
+    /**
+     * @var array
+     */
     protected $attributes = [
-        'base_price'=>0,
-        'base_cost'=>0,
-        'total'=>0,
-        'subtotal'=>0,
-        'discount'=>0,
-        'qty'=>0,
+        'base_price' => 0,
+        'base_cost' => 0,
+        'total' => 0,
+        'subtotal' => 0,
+        'discount' => 0,
+        'qty' => 0,
     ];
 
+    /**
+     * @var array
+     */
     public $fillable = [
         'product_id',
         'order_id',
@@ -74,64 +91,65 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         'discount',
         'total',
         'weight',
-        'volume'
+        'volume',
     ];
 
-
+    /**
+     * @var array
+     */
     protected $touches = ['document'];
 
     public static function boot()
     {
 
         parent::boot();
-        
-        static::created(function (OrderItem $orderItem) {
 
+        static::created(
+            function (OrderItem $orderItem) {
 
-           $orderItem->_createStock();
+                $orderItem->_createStock();
 
-            event(new ReservebleItemCreating($orderItem));
-        });
+                event(new ReservebleItemCreating($orderItem));
+            }
+        );
 
-        static::saved(function (OrderItem $orderItem) {
+        static::saved(
+            function (OrderItem $orderItem) {
 
-            event(new ReservebleItemSaving($orderItem));
-        });
+                event(new ReservebleItemSaving($orderItem));
+            }
+        );
 
-        static::saving(function (OrderItem $orderItem) {
+        static::saving(
+            function (OrderItem $orderItem) {
 
-            $orderItem->calculateTotals();
-        });
+                $orderItem->calculateTotals();
+            }
+        );
     }
-
-
 
     public function _createStock()
     {
 
-        $stock =  App::make(StockRepository::class)->createFromDocumentItem($this);
+        $stock = App::make(StockRepository::class)->createFromDocumentItem($this);
         $this->stock()->associate($stock);
     }
-
 
     /**
      *
      */
     public function calculateTotals()
     {
-        if(empty($this->attributes['total']))
-        {
-            $this->subtotal = $this->base_price *  $this->qty;
+        if (empty($this->attributes['total'])) {
+            $this->subtotal = $this->base_price * $this->qty;
             $this->total = $this->subtotal;
 
         }
 
-        if(!empty($this->attributes['discount']))
-        {
-            $this->total = $this->subtotal+$this->discount;
+        if (!empty($this->attributes['discount'])) {
+            $this->total = $this->subtotal + $this->discount;
         }
     }
-    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -142,8 +160,6 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
     }
 
     /**
-     *
-     * @return
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function stock()
@@ -160,6 +176,9 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
         return $this->belongsTo(Order::class, 'order_id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function order()
     {
         return $this->document();
@@ -167,6 +186,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
 
     /**
      * @param DocumentItemInterface $item
+     *
      * @return mixed
      */
     public function populateByDocumentItem(DocumentItemInterface $item)
@@ -195,7 +215,7 @@ class OrderItem extends Model implements DocumentItemInterface, ReservebleItem
      */
     public function getDocument()
     {
-       return $this->document;
+        return $this->document;
     }
 
     /**

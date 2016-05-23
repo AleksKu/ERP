@@ -10,9 +10,11 @@ trait MakeStockReserveTrait
      * Create fake instance of StockReserve and save it in database
      *
      * @param array $stockReserveFields
+     *
      * @return StockReserve
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function makeStockReserve($stockReserveFields = [])
+    public function makeStockReserve(array $stockReserveFields = [])
     {
         /** @var StockReserveRepository $stockReserveRepo */
         $stockReserveRepo = App::make(StockReserveRepository::class);
@@ -26,7 +28,7 @@ trait MakeStockReserveTrait
      * @param array $stockReserveFields
      * @return StockReserve
      */
-    public function fakeStockReserve($stockReserveFields = [])
+    public function fakeStockReserve(array $stockReserveFields = [])
     {
         return new StockReserve($this->fakeStockReserveData($stockReserveFields));
     }
@@ -34,10 +36,11 @@ trait MakeStockReserveTrait
     /**
      * Get fake data of StockReserve
      *
-     * @param array $postFields
+     * @param array $stockReserveFields
+     *
      * @return array
      */
-    public function fakeStockReserveData($stockReserveFields = [])
+    public function fakeStockReserveData(array $stockReserveFields = [])
     {
         return factory(StockReserve::class)->make($stockReserveFields)->toArray();
     }

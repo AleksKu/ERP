@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.2.31 on 2016-05-09.
+ * Generated for Laravel 5.2.31 on 2016-05-22.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -1339,7 +1339,7 @@ namespace {
         /**
          * Get the currently authenticated user.
          *
-         * @return \Torg\User|null 
+         * @return \Torg\Base\User|null 
          * @static 
          */
         public static function user(){
@@ -1443,7 +1443,7 @@ namespace {
          *
          * @param mixed $id
          * @param bool $remember
-         * @return \Torg\User 
+         * @return \Torg\Base\User 
          * @static 
          */
         public static function loginUsingId($id, $remember = false){
@@ -1548,7 +1548,7 @@ namespace {
         /**
          * Return the currently cached user.
          *
-         * @return \Torg\User|null 
+         * @return \Torg\Base\User|null 
          * @static 
          */
         public static function getUser(){
@@ -1590,7 +1590,7 @@ namespace {
         /**
          * Get the last user we attempted to authenticate.
          *
-         * @return \Torg\User 
+         * @return \Torg\Base\User 
          * @static 
          */
         public static function getLastAttempted(){
@@ -7733,7 +7733,7 @@ namespace {
          * Order of precedence: PATH (routing placeholders or custom attributes), GET, BODY
          *
          * @param string $key the key
-         * @param mixed $default the default value
+         * @param mixed $default the default value if the parameter key does not exist
          * @return mixed 
          * @static 
          */
@@ -8185,7 +8185,7 @@ namespace {
          * Here is the process to determine the format:
          * 
          *  * format defined by the user (with setRequestFormat())
-         *  * _format request parameter
+         *  * _format request attribute
          *  * $default
          *
          * @param string $default The default format

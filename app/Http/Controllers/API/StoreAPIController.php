@@ -2,27 +2,31 @@
 
 namespace Torg\Http\Controllers\API;
 
-use Torg\Http\Requests\API\CreateStoreAPIRequest;
-use Torg\Http\Requests\API\UpdateStoreAPIRequest;
-use Torg\Base\Store;
-use Torg\Base\Repositories\StoreRepository;
 use Illuminate\Http\Request;
-use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Torg\Base\Repositories\StoreRepository;
+use Torg\Base\Store;
+use Torg\Http\Controllers\AppBaseController;
+use Torg\Http\Requests\API\CreateStoreAPIRequest;
+use Torg\Http\Requests\API\UpdateStoreAPIRequest;
 
 /**
  * Class StoreController
  * @package Torg\Http\Controllers\API
  */
-
 class StoreAPIController extends AppBaseController
 {
     /** @var  StoreRepository */
     private $storeRepository;
 
+    /**
+     * StoreAPIController constructor.
+     *
+     * @param StoreRepository $storeRepo
+     */
     public function __construct(StoreRepository $storeRepo)
     {
         $this->storeRepository = $storeRepo;
@@ -30,7 +34,9 @@ class StoreAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
      *      path="/stores",
@@ -71,7 +77,9 @@ class StoreAPIController extends AppBaseController
 
     /**
      * @param CreateStoreAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/stores",
@@ -118,6 +126,7 @@ class StoreAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -169,7 +178,9 @@ class StoreAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateStoreAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/stores/{id}",
@@ -230,7 +241,9 @@ class StoreAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/stores/{id}",

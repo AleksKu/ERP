@@ -2,13 +2,13 @@
 
 namespace Torg\Sales;
 
-use Torg\Base\Store;
-use Torg\Contracts\DocumentInterface;
-use Torg\Base\Company;
-use Torg\Base\Warehouse;
-use Torg\Stocks\Exceptions\StockException;
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
+use Torg\Base\Company;
+use Torg\Base\Store;
+use Torg\Base\Warehouse;
+use Torg\Contracts\DocumentInterface;
 
 /**
  * Torg\Sales\Order
@@ -66,21 +66,39 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
  * @property Store store
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCode($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereStatusId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereWarehouseId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCompanyId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCustomerId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCustomerName($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCustomerEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereTotalQty($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereTotal($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Sales\Order whereDeletedAt($value)
+ * @property integer $store_id
+ * @property integer $items_count
+ * @property float $products_qty
+ * @property float $subtotal
+ * @property float $order_discount
+ * @property float $shipping_amount
+ * @property float $grand_total
+ * @property float $payment_total
+ * @property float $due_total
+ * @method static Builder|Order whereId($value)
+ * @method static Builder|Order whereCode($value)
+ * @method static Builder|Order whereStatusId($value)
+ * @method static Builder|Order whereWarehouseId($value)
+ * @method static Builder|Order whereCompanyId($value)
+ * @method static Builder|Order whereCustomerId($value)
+ * @method static Builder|Order whereCustomerName($value)
+ * @method static Builder|Order whereCustomerEmail($value)
+ * @method static Builder|Order whereWeight($value)
+ * @method static Builder|Order whereVolume($value)
+ * @method static Builder|Order whereTotalQty($value)
+ * @method static Builder|Order whereTotal($value)
+ * @method static Builder|Order whereCreatedAt($value)
+ * @method static Builder|Order whereUpdatedAt($value)
+ * @method static Builder|Order whereDeletedAt($value)
+ * @method static Builder|Order whereStoreId($value)
+ * @method static Builder|Order whereItemsCount($value)
+ * @method static Builder|Order whereProductsQty($value)
+ * @method static Builder|Order whereSubtotal($value)
+ * @method static Builder|Order whereOrderDiscount($value)
+ * @method static Builder|Order whereShippingAmount($value)
+ * @method static Builder|Order whereGrandTotal($value)
+ * @method static Builder|Order wherePaymentTotal($value)
+ * @method static Builder|Order whereDueTotal($value)
  */
 class Order extends Model implements DocumentInterface
 {
@@ -96,7 +114,6 @@ class Order extends Model implements DocumentInterface
      */
     public $with = ['company', 'store'];
 
-
     /**
      * @var array
      */
@@ -107,7 +124,6 @@ class Order extends Model implements DocumentInterface
      */
     public static $itemInstance = OrderItem::class;
 
-
     /**
      * @var array
      */
@@ -117,11 +133,11 @@ class Order extends Model implements DocumentInterface
         'items_count' => 0,
         'products_qty' => 0,
         'grand_total' => 0,
-        'subtotal'=>0,
-        'shipping_amount'=>0,
-        'order_discount'=>0,
-        'payment_total'=>0,
-        'due_total'=>0,
+        'subtotal' => 0,
+        'shipping_amount' => 0,
+        'order_discount' => 0,
+        'payment_total' => 0,
+        'due_total' => 0,
 
     ];
 
@@ -145,6 +161,9 @@ class Order extends Model implements DocumentInterface
         'payment_total',
     ];
 
+    /**
+     * @var array
+     */
     protected $guarded = ['due_total'];
 
     /**
@@ -153,7 +172,7 @@ class Order extends Model implements DocumentInterface
      * @var array
      */
     protected $casts = [
-        'code' => 'string'
+        'code' => 'string',
     ];
 
     /**
@@ -165,7 +184,6 @@ class Order extends Model implements DocumentInterface
 
     ];
 
-
     /**
      *
      */
@@ -173,7 +191,6 @@ class Order extends Model implements DocumentInterface
     {
         parent::boot();
     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -191,7 +208,6 @@ class Order extends Model implements DocumentInterface
         return $this->belongsTo(Store::class);
     }
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -200,9 +216,6 @@ class Order extends Model implements DocumentInterface
         return $this->hasMany(static::$itemInstance, 'order_id');
     }
 
-
-
-
     /**
      * @param OrderItem $item
      */
@@ -210,9 +223,10 @@ class Order extends Model implements DocumentInterface
     {
 
         $this->items()->save($item);
-        $this->load('items'); //баг в Laravel. При добавление связанного объекта, коллекция не обновляется и надо ее загрузить заново
+        $this->load(
+            'items'
+        ); //баг в Laravel. При добавление связанного объекта, коллекция не обновляется и надо ее загрузить заново
     }
-
 
     /**
      * @return Company
@@ -222,6 +236,9 @@ class Order extends Model implements DocumentInterface
         return $this->company;
     }
 
+    /**
+     * @return Store
+     */
     public function getStore()
     {
         return $this->store;
@@ -242,7 +259,10 @@ class Order extends Model implements DocumentInterface
     {
         return $this->items;
     }
-    
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;

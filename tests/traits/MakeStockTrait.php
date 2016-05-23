@@ -10,9 +10,11 @@ trait MakeStockTrait
      * Create fake instance of Stock and save it in database
      *
      * @param array $stockFields
+     *
      * @return Stock
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function makeStock($stockFields = [])
+    public function makeStock(array $stockFields = array())
     {
         /** @var StockRepository $stockRepo */
         $stockRepo = App::make(StockRepository::class);
@@ -26,7 +28,7 @@ trait MakeStockTrait
      * @param array $stockFields
      * @return Stock
      */
-    public function fakeStock($stockFields = [])
+    public function fakeStock(array $stockFields = array())
     {
         return new Stock($this->fakeStockData($stockFields));
     }
@@ -34,10 +36,11 @@ trait MakeStockTrait
     /**
      * Get fake data of Stock
      *
-     * @param array $postFields
+     * @param array $stockFields
+     *
      * @return array
      */
-    public function fakeStockData($stockFields = [])
+    public function fakeStockData(array $stockFields = array())
     {
 
 

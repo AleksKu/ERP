@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => Torg\User::class,
+        'model' => Torg\Base\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

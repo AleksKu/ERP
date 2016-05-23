@@ -2,25 +2,27 @@
 
 namespace Torg\Jobs;
 
-use Torg\Stocks\Exceptions\StockException;
-use Torg\Jobs\Job;
-use Torg\Repositories\StockReserveRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Torg\Contracts\DocumentInterface;
+use Torg\Repositories\StockReserveRepository;
+use Torg\Stocks\Contracts\ShouldReserve;
+use Torg\Stocks\Exceptions\StockException;
 
 class CreateReserve extends Job implements ShouldQueue
 {
     use InteractsWithQueue, SerializesModels;
+
     /**
-     * @var ShouldReserve
+     * @var DocumentInterface
      */
     private $document;
 
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param ShouldReserve $document
      */
     public function __construct(ShouldReserve $document)
     {
@@ -31,13 +33,15 @@ class CreateReserve extends Job implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
+     * @param StockReserveRepository $reserveRepository
+     *
+     * @throws StockException
+     * @throws \Exception
      */
     public function handle(StockReserveRepository $reserveRepository)
     {
 
         $reserveRepository->createFromDocument($this->document);
-
 
     }
 }

@@ -11,9 +11,11 @@ trait MakeOrderTrait
      * Create fake instance of Order and save it in database
      *
      * @param array $orderFields
+     *
      * @return Order
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function makeOrder($orderFields = [])
+    public function makeOrder(array $orderFields = array())
     {
         /** @var OrderRepository $orderRepo */
         $orderRepo = App::make(OrderRepository::class);
@@ -27,7 +29,7 @@ trait MakeOrderTrait
      * @param array $orderFields
      * @return Order
      */
-    public function fakeOrder($orderFields = [])
+    public function fakeOrder(array $orderFields = array())
     {
         return new Order($this->fakeOrderData($orderFields));
     }
@@ -35,10 +37,11 @@ trait MakeOrderTrait
     /**
      * Get fake data of Order
      *
-     * @param array $postFields
+     * @param array $orderFields
+     *
      * @return array
      */
-    public function fakeOrderData($orderFields = [])
+    public function fakeOrderData(array $orderFields = array())
     {
         return factory(Order::class)->make($orderFields)->toArray();
     }

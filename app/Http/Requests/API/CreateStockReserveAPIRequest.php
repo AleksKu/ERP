@@ -2,9 +2,13 @@
 
 namespace Torg\Http\Requests\API;
 
-use Torg\Stocks\StockReserve;
 use InfyOm\Generator\Request\APIRequest;
+use Torg\Stocks\StockReserve;
 
+/**
+ * Class CreateStockReserveAPIRequest
+ * @package Torg\Http\Requests\API
+ */
 class CreateStockReserveAPIRequest extends APIRequest
 {
     /**

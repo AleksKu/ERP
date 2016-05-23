@@ -2,27 +2,31 @@
 
 namespace Torg\Http\Controllers\API;
 
-use Torg\Http\Requests\API\CreateAccountAPIRequest;
-use Torg\Http\Requests\API\UpdateAccountAPIRequest;
-use Torg\Models\Account;
-use Torg\Repositories\AccountRepository;
 use Illuminate\Http\Request;
-use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Torg\Base\Repositories\AccountRepository;
+use Torg\Http\Controllers\AppBaseController;
+use Torg\Http\Requests\API\CreateAccountAPIRequest;
+use Torg\Http\Requests\API\UpdateAccountAPIRequest;
+use Torg\Base\Account;
 
 /**
  * Class AccountController
  * @package Torg\Http\Controllers\API
  */
-
 class AccountAPIController extends AppBaseController
 {
     /** @var  AccountRepository */
     private $accountRepository;
 
+    /**
+     * AccountAPIController constructor.
+     *
+     * @param AccountRepository $accountRepo
+     */
     public function __construct(AccountRepository $accountRepo)
     {
         $this->accountRepository = $accountRepo;
@@ -30,7 +34,9 @@ class AccountAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
      *      path="/accounts",
@@ -71,7 +77,9 @@ class AccountAPIController extends AppBaseController
 
     /**
      * @param CreateAccountAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/accounts",
@@ -118,6 +126,7 @@ class AccountAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -169,7 +178,9 @@ class AccountAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateAccountAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/accounts/{id}",
@@ -230,7 +241,9 @@ class AccountAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/accounts/{id}",

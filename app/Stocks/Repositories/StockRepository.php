@@ -2,10 +2,10 @@
 
 namespace Torg\Stocks\Repositories;
 
+use InfyOm\Generator\Common\BaseRepository;
 use Torg\Contracts\DocumentItemInterface;
 use Torg\Stocks\Stock;
 use Torg\Stocks\Validators\StockValidator;
-use InfyOm\Generator\Common\BaseRepository;
 
 class StockRepository extends BaseRepository
 {
@@ -13,7 +13,7 @@ class StockRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
-        
+
     ];
 
     /**
@@ -35,8 +35,6 @@ class StockRepository extends BaseRepository
         return Stock::class;
     }
 
-
-
     public function createFromProduct()
     {
 
@@ -45,8 +43,11 @@ class StockRepository extends BaseRepository
     /**
      * Создает сток на основании строки.
      * Если сток уже был создан, то возвращает его
+     *
      * @param DocumentItemInterface $item
+     *
      * @return Stock
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function createFromDocumentItem(DocumentItemInterface $item)
     {
@@ -55,18 +56,23 @@ class StockRepository extends BaseRepository
 
         $result = $this->findByDocumentItem($item);
 
-        if($result instanceof Stock)
+        if ($result instanceof Stock) {
             return $result;
+        }
 
-        return  $this->create([
-            'warehouse_id' =>  $warehouse->id,
-            'product_id' => $product->id
-        ]);
+        return $this->create(
+            [
+                'warehouse_id' => $warehouse->id,
+                'product_id' => $product->id,
+            ]
+        );
     }
 
     /**
      * Ищем Сток по строке документа
+     *
      * @param DocumentItemInterface $item
+     *
      * @return Stock
      */
     public function findByDocumentItem(DocumentItemInterface $item)

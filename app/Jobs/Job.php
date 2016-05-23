@@ -4,6 +4,10 @@ namespace Torg\Jobs;
 
 use Illuminate\Bus\Queueable;
 
+/**
+ * Class Job
+ * @package Torg\Jobs
+ */
 abstract class Job
 {
     /*

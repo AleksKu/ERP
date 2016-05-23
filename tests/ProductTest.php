@@ -20,40 +20,47 @@ class ProductTest extends TestCase
     public function testAddProductToCategory()
     {
         $category = factory(ProductCategory::class)->create()->first();
+        /** @var Product $product1 */
+        /** @var Product $product2 */
         $product1 = factory(Product::class)->create()->first();
         $product2 = factory(Product::class)->create()->first();
 
         $product1->addToCategory($category);
         //$product1->save();
-        $this->assertEquals($category->product_count, 1);
+        static::assertEquals($category->product_count, 1);
 
         $product2->addToCategory($category);
        // $product2->save();
 
-        $this->assertEquals($category->product_count, 2);
+        static::assertEquals($category->product_count, 2);
 
 
-        $this->assertEquals($product2->category->id, $category->id);
+        static::assertEquals($product2->category->id, $category->id);
 
     }
 
+    /**
+     *
+     */
     public function testRemoveProductToCategory()
     {
         $category = factory(ProductCategory::class)->create()->first();
+        /** @var Product $product1 */
+        /** @var Product $product2 */
         $product1 = factory(Product::class)->create()->first();
         $product2 = factory(Product::class)->create()->first();
 
         $product1->addToCategory($category);
         //$product1->save();
-        $this->assertEquals($category->product_count, 1);
+        static::assertEquals($category->product_count, 1);
 
         $product2->addToCategory($category);
         // $product2->save();
 
-        $this->assertEquals($category->product_count, 2);
+        static::assertEquals($category->product_count, 2);
 
 
-        $this->assertEquals($product2->category->id, $category->id);
+        static::assertEquals($product2->category->id, $category->id);
 
     }
 }

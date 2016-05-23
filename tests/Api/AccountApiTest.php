@@ -8,7 +8,7 @@ class AccountApiTest extends TestCase
     use MakeAccountTrait, ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
 
     /**
-     * @test
+     * 
      */
     public function testCreateAccount()
     {
@@ -19,7 +19,8 @@ class AccountApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadAccount()
     {
@@ -30,7 +31,8 @@ class AccountApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateAccount()
     {
@@ -43,7 +45,8 @@ class AccountApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteAccount()
     {

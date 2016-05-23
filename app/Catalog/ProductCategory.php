@@ -3,7 +3,7 @@
 namespace Torg\Catalog;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
 
 /**
  * AQAL\Stocks\ProductCategory
@@ -16,24 +16,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $deleted_at
  * @mixin \Eloquent
  * @property integer $product_count
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereProductCount($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\ProductCategory whereDeletedAt($value)
+ * @method static Builder|ProductCategory whereId($value)
+ * @method static Builder|ProductCategory whereTitle($value)
+ * @method static Builder|ProductCategory whereProductCount($value)
+ * @method static Builder|ProductCategory whereCreatedAt($value)
+ * @method static Builder|ProductCategory whereUpdatedAt($value)
+ * @method static Builder|ProductCategory whereDeletedAt($value)
  */
 class ProductCategory extends Model
 {
 
-
+    /**
+     * @var array
+     */
     protected $fillable = ['title', 'product_count'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function products()
     {
         return $this->hasMany(Product::class);
     }
-
- 
 
 }

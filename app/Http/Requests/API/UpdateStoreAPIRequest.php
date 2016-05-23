@@ -2,8 +2,8 @@
 
 namespace Torg\Http\Requests\API;
 
-use Torg\Models\Store;
 use InfyOm\Generator\Request\APIRequest;
+use Torg\Base\Store;
 
 class UpdateStoreAPIRequest extends APIRequest
 {

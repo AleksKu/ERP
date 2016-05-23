@@ -2,27 +2,31 @@
 
 namespace Torg\Http\Controllers\API;
 
-use Torg\Http\Requests\API\CreateOrderAPIRequest;
-use Torg\Http\Requests\API\UpdateOrderAPIRequest;
-use Torg\Sales\Order;
-use Torg\Sales\Repositories\OrderRepository;
 use Illuminate\Http\Request;
-use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Torg\Http\Controllers\AppBaseController;
+use Torg\Http\Requests\API\CreateOrderAPIRequest;
+use Torg\Http\Requests\API\UpdateOrderAPIRequest;
+use Torg\Sales\Order;
+use Torg\Sales\Repositories\OrderRepository;
 
 /**
  * Class OrderController
  * @package Torg\Http\Controllers\API
  */
-
 class OrderAPIController extends AppBaseController
 {
     /** @var  OrderRepository */
     private $orderRepository;
 
+    /**
+     * OrderAPIController constructor.
+     *
+     * @param OrderRepository $orderRepo
+     */
     public function __construct(OrderRepository $orderRepo)
     {
         $this->orderRepository = $orderRepo;
@@ -30,7 +34,9 @@ class OrderAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
      *      path="/orders",
@@ -71,7 +77,9 @@ class OrderAPIController extends AppBaseController
 
     /**
      * @param CreateOrderAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/orders",
@@ -118,6 +126,7 @@ class OrderAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -169,7 +178,9 @@ class OrderAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateOrderAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/orders/{id}",
@@ -230,7 +241,9 @@ class OrderAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/orders/{id}",

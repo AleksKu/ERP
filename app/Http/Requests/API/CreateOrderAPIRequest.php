@@ -2,9 +2,13 @@
 
 namespace Torg\Http\Requests\API;
 
-use Torg\Sales\Order;
 use InfyOm\Generator\Request\APIRequest;
+use Torg\Sales\Order;
 
+/**
+ * Class CreateOrderAPIRequest
+ * @package Torg\Http\Requests\API
+ */
 class CreateOrderAPIRequest extends APIRequest
 {
     /**

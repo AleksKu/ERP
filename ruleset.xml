@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ruleset name="Symfony2Relaxed">
+    <description>The Symfony2 coding standard with some sniffs excluded.</description>
+
+    <!-- There should not be any code in the bundle Resources directory. -->
+    <exclude-pattern>/public/*</exclude-pattern>
+    <exclude-pattern>/resources/*</exclude-pattern>
+    <exclude-pattern>/storage/*</exclude-pattern>
+
+    <rule ref="Symfony2">
+        <!-- We do want spaces around concatenation operator -->
+        <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
+
+        <!-- Don't force class comments -->
+        <exclude name="Symfony2.Commenting.ClassComment"/>
+
+        <!-- This one is useful only in pair with phpdoc tags aligning -->
+        <exclude name="Symfony2.Commenting.FunctionComment.SpacingAfterParamType"/>
+
+        <!-- Prefer Symfony2.WhiteSpace.DiscourageFitzinator, which ignores phpdocs -->
+        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
+
+        <!--Reports indent issues for multilined nested arrays-->
+        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
+
+        <exclude name="Symfony2.Arrays.MultiLineArrayComma"/>
+
+
+    </rule>
+</ruleset>

@@ -1,13 +1,8 @@
 <?php
 
-
 namespace Torg\Stocks;
 
-
-
- class StockDocumentStatus
+class StockDocumentStatus
 {
-
-
 
 }

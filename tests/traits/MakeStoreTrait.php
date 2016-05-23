@@ -10,9 +10,11 @@ trait MakeStoreTrait
      * Create fake instance of Store and save it in database
      *
      * @param array $storeFields
+     *
      * @return Store
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function makeStore($storeFields = [])
+    public function makeStore(array $storeFields = array())
     {
         /** @var StoreRepository $storeRepo */
         $storeRepo = App::make(StoreRepository::class);
@@ -26,7 +28,7 @@ trait MakeStoreTrait
      * @param array $storeFields
      * @return Store
      */
-    public function fakeStore($storeFields = [])
+    public function fakeStore(array $storeFields = array())
     {
         return new Store($this->fakeStoreData($storeFields));
     }
@@ -34,10 +36,11 @@ trait MakeStoreTrait
     /**
      * Get fake data of Store
      *
-     * @param array $postFields
+     * @param array $storeFields
+     *
      * @return array
      */
-    public function fakeStoreData($storeFields = [])
+    public function fakeStoreData(array $storeFields = array())
     {
         $fake = Faker::create();
 

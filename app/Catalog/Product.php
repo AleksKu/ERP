@@ -2,11 +2,10 @@
 
 namespace Torg\Catalog;
 
-use Torg\Contracts\OrderableInterface;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
+use Torg\Contracts\OrderableInterface;
 use Torg\Stocks\Stock;
-
 
 /**
  * AQAL\Stocks\Product
@@ -31,47 +30,61 @@ use Torg\Stocks\Stock;
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property string $deleted_at
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereSku($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereCategoryId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereTitle($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereDescription($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereUnitId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereBarcodes($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereAttributes($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product wherePrice($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereCost($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereImage($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Catalog\Product whereDeletedAt($value)
+ * @method static Builder|Product whereId($value)
+ * @method static Builder|Product whereType($value)
+ * @method static Builder|Product whereSku($value)
+ * @method static Builder|Product whereCategoryId($value)
+ * @method static Builder|Product whereTitle($value)
+ * @method static Builder|Product whereDescription($value)
+ * @method static Builder|Product whereUnitId($value)
+ * @method static Builder|Product whereBarcodes($value)
+ * @method static Builder|Product whereAttributes($value)
+ * @method static Builder|Product wherePrice($value)
+ * @method static Builder|Product whereCost($value)
+ * @method static Builder|Product whereWeight($value)
+ * @method static Builder|Product whereVolume($value)
+ * @method static Builder|Product whereImage($value)
+ * @method static Builder|Product whereCreatedAt($value)
+ * @method static Builder|Product whereUpdatedAt($value)
+ * @method static Builder|Product whereDeletedAt($value)
  */
 class Product extends Model implements OrderableInterface
 {
 
+    /**
+     * @var array
+     */
     protected $attributes = [
-        'weight'=>0,
-        'volume'=>0,
-        'price'=>0,
-        'cost'=>0
+        'weight' => 0,
+        'volume' => 0,
+        'price' => 0,
+        'cost' => 0,
     ];
 
+    /**
+     * @var array
+     */
+    protected $fillable = ['title', 'sku', 'weight', 'volume', 'price', 'cost', 'category_id', 'description'];
 
-    protected $fillable = ['title', 'sku','weight', 'volume','price','cost', 'category_id', 'description'];
-
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function category()
     {
         return $this->belongsTo(ProductCategory::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function stocks()
     {
         return $this->hasMany(Stock::class);
     }
 
+    /**
+     * @param ProductCategory $category
+     */
     public function addToCategory(ProductCategory $category)
     {
         $this->category()->associate($category);
@@ -81,13 +94,19 @@ class Product extends Model implements OrderableInterface
 
     }
 
+    /**
+     * @param ProductCategory $category
+     */
     public function removeFromCategory(ProductCategory $category)
     {
         $this->category()->dissociate($category);
         $category->decrement('product_count');
         $category->save();
     }
-    
+
+    /**
+     * @param ProductCategory $category
+     */
     public function moveToCategory(ProductCategory $category)
     {
         $oldCategory = $this->category();
@@ -97,17 +116,25 @@ class Product extends Model implements OrderableInterface
         $category->save();
     }
 
-
+    /**
+     * @return float
+     */
     public function getPrice()
     {
-       return $this->price;
+        return $this->price;
     }
 
+    /**
+     * @return float
+     */
     public function getCost()
     {
         return $this->cost;
     }
 
+    /**
+     * @return string
+     */
     public function getSku()
     {
         return $this->sku;

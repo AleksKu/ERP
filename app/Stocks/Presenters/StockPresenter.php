@@ -2,9 +2,8 @@
 
 namespace Torg\Stocks\Presenters;
 
-
-use Torg\Stocks\Transformers\StockTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
+use Torg\Stocks\Transformers\StockTransformer;
 
 /**
  * Class TestPresenter

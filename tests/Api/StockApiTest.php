@@ -8,7 +8,7 @@ class StockApiTest extends TestCase
     use MakeStockTrait, ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
 
     /**
-     * @test
+     * 
      */
     public function testCreateStock()
     {
@@ -19,7 +19,8 @@ class StockApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadStock()
     {
@@ -30,7 +31,8 @@ class StockApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateStock()
     {
@@ -43,7 +45,7 @@ class StockApiTest extends TestCase
     }
 
     /**
-     * @test
+     * 
      */
     public function testDeleteStock()
     {

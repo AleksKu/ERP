@@ -2,8 +2,10 @@
 
 namespace Torg\Http\Requests\API;
 
+use InfyOm\{
+    Generator\Request\APIRequest
+};
 use Torg\Stocks\StockReserve;
-use InfyOm\Generator\Request\APIRequest;
 
 class UpdateStockReserveAPIRequest extends APIRequest
 {

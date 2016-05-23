@@ -2,15 +2,9 @@
 
 namespace Torg\Listeners;
 
+use Torg\Events\ReservebleItemCreating;
 use Torg\Sales\Repositories\OrderRepository;
 use Torg\Stocks\Repositories\StockRepository;
-use Torg\Stocks\Stock;
-use Torg\Events\ReservebleItemCreating;
-use Torg\Events\ReservebleItemSaving;
-
-use Torg\Repositories\StockReserveRepository;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ItemStockCreateListener
 {
@@ -19,6 +13,7 @@ class ItemStockCreateListener
      * @var OrderRepository
      */
     private $orderRepository;
+
     /**
      * @var StockRepository
      */
@@ -39,18 +34,14 @@ class ItemStockCreateListener
     /**
      * Handle the event.
      *
-     * @param  ReservebleItemCreating  $event
+     * @param  ReservebleItemCreating $event
+     *
      * @return void
      */
     public function handle(ReservebleItemCreating $event)
     {
-        
 
         $item = $event->item;
-
-
-
-
 
     }
 }

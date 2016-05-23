@@ -8,7 +8,7 @@ class StockReserveApiTest extends TestCase
     use MakeStockReserveTrait, ApiTestTrait, WithoutMiddleware, DatabaseTransactions;
 
     /**
-     * @test
+     * 
      */
     public function testCreateStockReserve()
     {
@@ -19,7 +19,8 @@ class StockReserveApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testReadStockReserve()
     {
@@ -30,10 +31,12 @@ class StockReserveApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testUpdateStockReserve()
     {
+        /** @var \Torg\Stocks\StockReserve $stockReserve */
         $stockReserve = $this->makeStockReserve();
         $editedStockReserve = $this->fakeStockReserveData();
 
@@ -43,7 +46,8 @@ class StockReserveApiTest extends TestCase
     }
 
     /**
-     * @test
+     *
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function testDeleteStockReserve()
     {

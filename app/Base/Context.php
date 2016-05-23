@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Torg\Base;
 
 /**
@@ -12,16 +11,25 @@ namespace Torg\Base;
 class Context
 {
 
+    /**
+     *
+     */
     public function stores()
     {
 
     }
 
+    /**
+     *
+     */
     public function warehouses()
     {
 
     }
 
+    /**
+     *
+     */
     public function account()
     {
 

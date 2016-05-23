@@ -2,8 +2,8 @@
 
 namespace Torg\Http\Requests\API;
 
-use Torg\Models\Account;
 use InfyOm\Generator\Request\APIRequest;
+use Torg\Base\Account;
 
 class UpdateAccountAPIRequest extends APIRequest
 {

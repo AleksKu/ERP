@@ -3,14 +3,12 @@
 namespace Torg\Http\Controllers;
 
 use Torg\Http\Requests;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {

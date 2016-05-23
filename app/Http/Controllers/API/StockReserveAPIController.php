@@ -2,27 +2,31 @@
 
 namespace Torg\Http\Controllers\API;
 
-use Torg\Http\Requests\API\CreateStockReserveAPIRequest;
-use Torg\Http\Requests\API\UpdateStockReserveAPIRequest;
-use Torg\Stocks\StockReserve;
-use Torg\Repositories\StockReserveRepository;
 use Illuminate\Http\Request;
-use Torg\Http\Controllers\AppBaseController;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use InfyOm\Generator\Utils\ResponseUtil;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Torg\Http\Controllers\AppBaseController;
+use Torg\Http\Requests\API\CreateStockReserveAPIRequest;
+use Torg\Http\Requests\API\UpdateStockReserveAPIRequest;
+use Torg\Repositories\StockReserveRepository;
+use Torg\Stocks\StockReserve;
 
 /**
  * Class StockReserveController
  * @package Torg\Http\Controllers\API
  */
-
 class StockReserveAPIController extends AppBaseController
 {
     /** @var  StockReserveRepository */
     private $stockReserveRepository;
 
+    /**
+     * StockReserveAPIController constructor.
+     *
+     * @param StockReserveRepository $stockReserveRepo
+     */
     public function __construct(StockReserveRepository $stockReserveRepo)
     {
         $this->stockReserveRepository = $stockReserveRepo;
@@ -30,7 +34,9 @@ class StockReserveAPIController extends AppBaseController
 
     /**
      * @param Request $request
+     *
      * @return Response
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
      *
      * @SWG\Get(
      *      path="/stockReserves",
@@ -71,7 +77,9 @@ class StockReserveAPIController extends AppBaseController
 
     /**
      * @param CreateStockReserveAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Post(
      *      path="/stockReserves",
@@ -118,6 +126,7 @@ class StockReserveAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
      *
      * @SWG\Get(
@@ -169,7 +178,9 @@ class StockReserveAPIController extends AppBaseController
     /**
      * @param int $id
      * @param UpdateStockReserveAPIRequest $request
+     *
      * @return Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      *
      * @SWG\Put(
      *      path="/stockReserves/{id}",
@@ -230,7 +241,9 @@ class StockReserveAPIController extends AppBaseController
 
     /**
      * @param int $id
+     *
      * @return Response
+     * @throws \Exception
      *
      * @SWG\Delete(
      *      path="/stockReserves/{id}",

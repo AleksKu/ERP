@@ -2,12 +2,8 @@
 
 namespace Torg\Stocks;
 
-
-use Torg\Contracts\DocumentInterface;
-use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Query\Builder;
 use Torg\Catalog\Product;
-
 
 /**
  * AQAL\Stocks\StockReserveItem
@@ -29,29 +25,40 @@ use Torg\Catalog\Product;
  * @property-read \Torg\Stocks\Stock $stock
  * @mixin \Eloquent
  * @property integer $stock_reserve_id
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereProductId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereStockId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereStockReserveId($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem wherePrice($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereQty($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereWeight($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereVolume($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\Torg\Stocks\StockReserveItem whereDeletedAt($value)
+ * @method static Builder|StockReserveItem whereId($value)
+ * @method static Builder|StockReserveItem whereProductId($value)
+ * @method static Builder|StockReserveItem whereStockId($value)
+ * @method static Builder|StockReserveItem whereStockReserveId($value)
+ * @method static Builder|StockReserveItem wherePrice($value)
+ * @method static Builder|StockReserveItem whereQty($value)
+ * @method static Builder|StockReserveItem whereWeight($value)
+ * @method static Builder|StockReserveItem whereVolume($value)
+ * @method static Builder|StockReserveItem whereCreatedAt($value)
+ * @method static Builder|StockReserveItem whereUpdatedAt($value)
+ * @method static Builder|StockReserveItem whereDeletedAt($value)
  */
 class StockReserveItem extends StockDocumentItem
 {
 
+    /**
+     * @var string
+     */
     protected $table = 'stock_reserve_items';
 
+    /**
+     * @var array
+     */
     protected $with = ['product'];
 
+    /**
+     * @var array
+     */
     protected $touches = ['stock'];
 
-    public static  $documentInstance = StockReserve::class;
-
+    /**
+     * @var
+     */
+    public static $documentInstance = StockReserve::class;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -62,13 +69,13 @@ class StockReserveItem extends StockDocumentItem
         return $this->belongsTo(static::$documentInstance, 'stock_reserve_id');
     }
 
-
-
-
     /**
      * Проводит строки документа -
      * резервирует сток
+     *
      * @return $this
+     * @throws \Torg\Stocks\Exceptions\StockException
+     * @throws \InvalidArgumentException
      */
     public function activate()
     {
@@ -85,7 +92,10 @@ class StockReserveItem extends StockDocumentItem
     /**
      * Снимает резерв товара -
      * резервирует сток
+     *
      * @return $this
+     * @throws \Torg\Stocks\Exceptions\StockException
+     * @throws \InvalidArgumentException
      */
     public function complete()
     {
@@ -98,7 +108,5 @@ class StockReserveItem extends StockDocumentItem
         return $this;
 
     }
-
-
 
 }

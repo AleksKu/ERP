@@ -3,11 +3,14 @@
 namespace Torg\Base;
 
 use Eloquent as Model;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Torg\Base\User;
+use Illuminate\Database\Query\Builder;
 
 /**
- * @SWG\Definition(
+ * Torg\Base\Account
+ *
+ * @SWG\Definition (
  *      definition="Account",
  *      required={},
  *      @SWG\Property(
@@ -34,29 +37,24 @@ use Torg\Base\User;
  *          format="date-time"
  *      )
  * )
+ * @property integer $id
+ * @property string $title
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $deleted_at
+ * @property-read Collection|\Torg\Base\User[] $users
+ * @property-read Collection|\Torg\Base\Store[] $stores
+ * @property-read Collection|\Torg\Base\Warehouse[] $warehouses
+ * @method static Builder|Account whereId($value)
+ * @method static Builder|Account whereTitle($value)
+ * @method static Builder|Account whereCreatedAt($value)
+ * @method static Builder|Account whereUpdatedAt($value)
+ * @method static Builder|Account whereDeletedAt($value)
+ * @mixin \Eloquent
  */
 class Account extends Model
 {
     use SoftDeletes;
-
-    public $table = 'accounts';
-    
-
-    protected $dates = ['deleted_at'];
-
-
-    public $fillable = [
-        'title'
-    ];
-
-    /**
-     * The attributes that should be casted to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'title' => 'string'
-    ];
 
     /**
      * Validation rules
@@ -64,32 +62,61 @@ class Account extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
+    /**
+     * @var string
+     */
+    public $table = 'accounts';
+
+    /**
+     * @var array
+     */
+    public $fillable = [
+        'title',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'title' => 'string',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function users()
     {
         return $this->hasMany(User::class);
 
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function stores()
     {
         return $this->hasMany(Store::class);
 
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function warehouses()
     {
         return $this->hasMany(Warehouse::class);
 
     }
-    
-    public function customers()
-    {
-        return $this->hasMany(Customer::class);
-    }
-    
     
 
 }

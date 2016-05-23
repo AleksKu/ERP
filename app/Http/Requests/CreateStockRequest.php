@@ -2,8 +2,10 @@
 
 namespace Torg\Http\Requests;
 
-use Torg\Http\Requests\Request;
-
+/**
+ * Class CreateStockRequest
+ * @package Torg\Http\Requests
+ */
 class CreateStockRequest extends Request
 {
     /**

@@ -28,7 +28,8 @@
         "symfony/dom-crawler": "2.8.*|3.0.*",
         "laravel/homestead": "^3.0",
         "barryvdh/laravel-ide-helper": "^2.1",
-        "doctrine/dbal": "~2.3"
+        "doctrine/dbal": "~2.3",
+        "escapestudios/symfony2-coding-standard": "~2.0"
     },
     "autoload": {
         "classmap": [

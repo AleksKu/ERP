@@ -4,6 +4,10 @@ namespace Torg\Http\Middleware;
 
 use Illuminate\Cookie\Middleware\EncryptCookies as BaseEncrypter;
 
+/**
+ * Class EncryptCookies
+ * @package Torg\Http\Middleware
+ */
 class EncryptCookies extends BaseEncrypter
 {
     /**

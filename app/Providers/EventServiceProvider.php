@@ -19,15 +19,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Torg\Events\ReservebleItemSaving' => [
             'Torg\Listeners\ItemReserveListener',
-        ]
-
+        ],
 
     ];
 
     /**
      * Register any other events for your application.
      *
-     * @param  \Illuminate\Contracts\Events\Dispatcher  $events
+     * @param  \Illuminate\Contracts\Events\Dispatcher $events
+     *
      * @return void
      */
     public function boot(DispatcherContract $events)
