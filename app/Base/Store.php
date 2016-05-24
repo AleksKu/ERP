@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
-use Torg\Base\Warehouse;
 
 /**
  * Torg\Base\Store
@@ -40,7 +39,6 @@ use Torg\Base\Warehouse;
  * @property string $title
  * @property integer $account_id
  * @property integer $company_id
- * @property integer $default_warehouse_id
  * @property integer $type
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
@@ -49,13 +47,12 @@ use Torg\Base\Warehouse;
  * @property-read Collection|Warehouse[] $defaultWarehouse
  * @property-read Collection|Warehouse[] $salesWarehouse
  * @property-read Collection|Warehouse[] $returnWarehouse
- * @property-read \Torg\Base\Account $account
+ * @property-read Account $account
  * @method static Builder|Store whereId($value)
  * @method static Builder|Store whereCode($value)
  * @method static Builder|Store whereTitle($value)
  * @method static Builder|Store whereAccountId($value)
  * @method static Builder|Store whereCompanyId($value)
- * @method static Builder|Store whereDefaultWarehouseId($value)
  * @method static Builder|Store whereType($value)
  * @method static Builder|Store whereCreatedAt($value)
  * @method static Builder|Store whereUpdatedAt($value)
@@ -66,30 +63,56 @@ class Store extends Model
 {
     use SoftDeletes;
 
+    const RETAIL_TYPE = 1;
+
+    const IM_TYPE = 2;
+
+    const TYPES = [
+        self::RETAIL_TYPE,
+        self::IM_TYPE,
+    ];
+
     /**
-     *
+     * склад по умолчанию
      */
-    const DEFAULT_WAREHOUSE_TYPE = 1; //склад по умолчанию
+    const DEFAULT_WAREHOUSE_TYPE = 1;
+
+    /**
+     * склад возврата
+     */
+    const RETURN_WAREHOUSE_TYPE = 2;
+
+    /**
+     * склад с которого ведутся отгрузки
+     */
+    const SALES_WAREHOUSE_TYPE = 3;
 
     /**
      *
      */
-    const RETURN_WAREHOUSE_TYPE = 2; //склад возврата
+    const WAREHOUSE_TYPES = [
+        self::DEFAULT_WAREHOUSE_TYPE,
+        self::SALES_WAREHOUSE_TYPE,
+        self::RETURN_WAREHOUSE_TYPE,
+    ];
 
-    /**
-     *
-     */
-    const SALES_WAREHOUSE_TYPE = 3; //склад с которого ведутся отгрузки
 
     /**
      * @var array
      */
-    protected $with = ['defaultWarehouse'];
+    protected $with = ['defaultWarehouse', 'salesWarehouse'];
 
     /**
      * @var string
      */
     public $table = 'stores';
+
+    protected static $singleTableTypeField = 'type';
+
+    protected static $singleTableSubclasses = [
+        self::IM_TYPE => ImStore::class,
+        self::RETAIL_TYPE => RetailStore::class
+    ];
 
     /**
      * @var array
@@ -102,6 +125,7 @@ class Store extends Model
     public $fillable = [
         'title',
         'code',
+        'type',
         'account_id',
         'company_id',
     ];
@@ -129,15 +153,39 @@ class Store extends Model
      */
     public function warehouses()
     {
-        return $this->belongsToMany(Warehouse::class)->withPivot('type');
+        return $this->belongsToMany(Warehouse::class, 'store_warehouse', 'store_id')->withPivot('type');
     }
+
+    /**
+     * Create a new model instance that is existing.
+     *
+     * @param  array $attributes
+     * @param  string|null $connection
+     * @return static
+     * @throws \LogicException
+     */
+    public function newFromBuilder($attributes = [], $connection = null)
+    {
+        $type = $attributes->{self::$singleTableTypeField};
+        if (!array_key_exists($type, self::$singleTableSubclasses)) {
+            throw new \LogicException('invalid type given');
+        }
+        $class = self::$singleTableSubclasses[$type];
+        /** @var Store $model */
+        $model = (new $class)->newInstance([], true);
+        $model->setRawAttributes((array) $attributes, true);
+        $model->setConnection($connection ?: $this->connection);
+
+        return $model;
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function defaultWarehouse()
     {
-        return $this->belongsToMany(Warehouse::class)
+        return $this->belongsToMany(Warehouse::class, 'store_warehouse', 'store_id')
             ->wherePivot('type', static::DEFAULT_WAREHOUSE_TYPE)
             ->withPivot('type');
     }
@@ -147,7 +195,7 @@ class Store extends Model
      */
     public function salesWarehouse()
     {
-        return $this->belongsToMany(Warehouse::class)
+        return $this->belongsToMany(Warehouse::class, 'store_warehouse', 'store_id')
             ->wherePivot('type', static::SALES_WAREHOUSE_TYPE)
             ->withPivot('type');
     }
@@ -157,7 +205,7 @@ class Store extends Model
      */
     public function returnWarehouse()
     {
-        return $this->belongsToMany(Warehouse::class)
+        return $this->belongsToMany(Warehouse::class, 'store_warehouse', 'store_id')
             ->wherePivot('type', static::RETURN_WAREHOUSE_TYPE)
             ->withPivot('type');
     }
@@ -216,6 +264,14 @@ class Store extends Model
     }
 
     /**
+     * @return Collection|Warehouse[]
+     */
+    public function getWarehouses()
+    {
+        return $this->warehouses;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function account()
@@ -247,6 +303,47 @@ class Store extends Model
         return $this->company;
     }
 
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
     /**
      *
      */
@@ -255,4 +352,19 @@ class Store extends Model
         $this->load(['warehouses', 'defaultWarehouse', 'salesWarehouse', 'returnWarehouse']);
     }
 
+    /**
+     * @return int
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param int $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 }

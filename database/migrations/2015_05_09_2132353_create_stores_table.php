@@ -17,20 +17,12 @@ class CreatestoresTable extends Migration
             $table->increments('id');
             $table->string('code');
             $table->unique('code');
-
             $table->string('title')->nullable();
-
-
             $table->integer('account_id')->unsigned();
             $table->foreign('account_id')->references('id')->on('accounts');
-
             $table->integer('company_id')->unsigned();
             $table->foreign('company_id')->references('id')->on('companies');
-            
-
-
-            $table->unsignedMediumInteger('type')->default(0);
-            
+            $table->unsignedMediumInteger('type');
             $table->timestamps();
             $table->softDeletes();
         });

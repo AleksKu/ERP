@@ -1,5 +1,9 @@
 <?php
 
+use Prettus\Validator\Exceptions\ValidatorException;
+use Torg\Base\Account;
+use Torg\Base\Company;
+use Torg\Base\ImStore;
 use Torg\Base\Store;
 use Torg\Base\Repositories\StoreRepository;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -7,7 +11,8 @@ use Torg\Base\Warehouse;
 
 class StoreRepositoryTest extends TestCase
 {
-    use MakeStoreTrait, ApiTestTrait, DatabaseTransactions;
+    // use MakeStoreTrait, ApiTestTrait, DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * @var StoreRepository
@@ -17,13 +22,13 @@ class StoreRepositoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->storeRepo = App::make(StoreRepository::class);
+        // $this->storeRepo = App::make(StoreRepository::class);
     }
 
     /**
      *  create
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function testCreateStore()
     {
@@ -39,7 +44,7 @@ class StoreRepositoryTest extends TestCase
     /**
      *  read
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function testReadStore()
     {
@@ -52,7 +57,7 @@ class StoreRepositoryTest extends TestCase
     /**
      *  update
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function testUpdateStore()
     {
@@ -67,7 +72,7 @@ class StoreRepositoryTest extends TestCase
     /**
      *  delete
      *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     * @throws ValidatorException
      */
     public function testDeleteStore()
     {
@@ -75,6 +80,43 @@ class StoreRepositoryTest extends TestCase
         $resp = $this->storeRepo->delete($store->id);
         static::assertTrue($resp);
         static::assertNull(Store::find($store->id), 'Store should not exist in DB');
+    }
+
+    public function testInheritanceStore()
+    {
+        $im = new Store(
+            [
+                'code' => 'test',
+                'title' => 'test title',
+                'company_id' => factory(Company::class)->create()->id,
+                'account_id' => factory(Account::class)->create()->id,
+                'type' => Store::IM_TYPE,
+            ]
+        );
+
+        $im->save();
+        $im = $im->fresh();
+        static::assertInstanceOf(ImStore::class, $im);
+        static::assertEquals(Store::IM_TYPE, $im->getType());
+        static::assertEquals('test', $im->getCode());
+
+        $imSaved = Store::findOrFail($im->id);
+        static::assertInstanceOf(ImStore::class, $imSaved);
+        static::assertEquals(Store::IM_TYPE, $imSaved->getType());
+
+        $im = new Store(
+            [
+                'code' => 'test',
+                'title' => 'test title',
+                'company_id' => factory(Company::class)->create()->id,
+                'account_id' => factory(Account::class)->create()->id,
+                'type' => 454 //not valid
+            ]
+        );
+
+        $this->setExpectedException(\LogicException::class);
+        $im->save();
+
     }
 
     public function testAddWarehouse()
