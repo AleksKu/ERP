@@ -106,17 +106,17 @@ class StoreRepositoryTest extends TestCase
 
         $im = new Store(
             [
-                'code' => 'test',
+                'code' => 'test2',
                 'title' => 'test title',
                 'company_id' => factory(Company::class)->create()->id,
                 'account_id' => factory(Account::class)->create()->id,
-                'type' => 454 //not valid
+                'type' => 454 //is not valid
             ]
         );
 
         $this->setExpectedException(\LogicException::class);
-        $im->save();
-
+        $im->save(); //Store
+        $im->fresh(); //subclass Store
     }
 
     public function testAddWarehouse()
