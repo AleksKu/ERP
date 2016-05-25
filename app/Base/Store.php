@@ -280,6 +280,14 @@ class Store extends Model
     }
 
     /**
+     * @param Account $account
+     */
+    public function setAccount(Account $account)
+    {
+        $this->account()->associate($account);
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
