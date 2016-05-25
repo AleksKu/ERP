@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2016-05-22.
+    * Generated on 2016-05-25.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -57,6 +57,8 @@ namespace PHPSTORM_META {
             'infyom.scaffold.requests' instanceof \InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand,
             'infyom.scaffold.views' instanceof \InfyOm\Generator\Commands\Scaffold\ViewsGeneratorCommand,
             'infyom.rollback' instanceof \InfyOm\Generator\Commands\RollbackGeneratorCommand,
+            'workspace.driver.session' instanceof \Torg\Base\Workspace\SessionDriver,
+            'Torg\Base\Workspace\WorkspaceManager' instanceof \Torg\Base\Workspace\WorkspaceManager,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -188,6 +190,8 @@ namespace PHPSTORM_META {
             'infyom.scaffold.requests' instanceof \InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand,
             'infyom.scaffold.views' instanceof \InfyOm\Generator\Commands\Scaffold\ViewsGeneratorCommand,
             'infyom.rollback' instanceof \InfyOm\Generator\Commands\RollbackGeneratorCommand,
+            'workspace.driver.session' instanceof \Torg\Base\Workspace\SessionDriver,
+            'Torg\Base\Workspace\WorkspaceManager' instanceof \Torg\Base\Workspace\WorkspaceManager,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -319,6 +323,8 @@ namespace PHPSTORM_META {
             'infyom.scaffold.requests' instanceof \InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand,
             'infyom.scaffold.views' instanceof \InfyOm\Generator\Commands\Scaffold\ViewsGeneratorCommand,
             'infyom.rollback' instanceof \InfyOm\Generator\Commands\RollbackGeneratorCommand,
+            'workspace.driver.session' instanceof \Torg\Base\Workspace\SessionDriver,
+            'Torg\Base\Workspace\WorkspaceManager' instanceof \Torg\Base\Workspace\WorkspaceManager,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,
@@ -450,6 +456,8 @@ namespace PHPSTORM_META {
             'infyom.scaffold.requests' instanceof \InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand,
             'infyom.scaffold.views' instanceof \InfyOm\Generator\Commands\Scaffold\ViewsGeneratorCommand,
             'infyom.rollback' instanceof \InfyOm\Generator\Commands\RollbackGeneratorCommand,
+            'workspace.driver.session' instanceof \Torg\Base\Workspace\SessionDriver,
+            'Torg\Base\Workspace\WorkspaceManager' instanceof \Torg\Base\Workspace\WorkspaceManager,
             'blade.compiler' instanceof \Illuminate\View\Compilers\BladeCompiler,
             'translation.loader' instanceof \Illuminate\Translation\FileLoader,
             'translator' instanceof \Illuminate\Translation\Translator,

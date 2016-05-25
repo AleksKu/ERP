@@ -5,7 +5,7 @@ namespace Torg\Base\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Torg\Base\Context;
+use Torg\Base\Workspace;
 
 class StoresScope implements Scope
 {
@@ -19,7 +19,7 @@ class StoresScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $context = Context::userContext();
+        $context = Workspace::userContext();
 
         return $builder->whereIn('store_id', $context->stores());
     }

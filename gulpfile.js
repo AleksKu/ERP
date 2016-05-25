@@ -14,7 +14,8 @@ require('laravel-elixir-vueify');
  */
 
 elixir(function(mix) {
-    mix.browserify('app.js');
+    mix.browserify('app.js')
+        .version('public/js/app.js');
 
 
 });

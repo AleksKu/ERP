@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(Torg\User::class, function (Faker\Generator $faker) {
+$factory->define(Torg\Base\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,

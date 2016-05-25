@@ -11,12 +11,7 @@
 |
 */
 
-Route::get(
-    '/',
-    function () {
-        return view('welcome');
-    }
-);
+Route::get('/', 'HomeController@index');
 
 /*
 |--------------------------------------------------------------------------
@@ -38,4 +33,4 @@ Route::group(
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+

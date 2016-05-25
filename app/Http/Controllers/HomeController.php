@@ -22,6 +22,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+       echo \Workspace::current()->account;
+
         return view('home');
     }
 }
