@@ -17,7 +17,8 @@
         "laravelcollective/bus": "5.2.*",
         "prettus/l5-repository": "^2.5",
         "league/fractal": "^0.13.0",
-        "barryvdh/laravel-debugbar": "^2.2"
+        "lavary/laravel-menu": "^1.6"
+
 
     },
     "require-dev": {
@@ -29,7 +30,8 @@
         "laravel/homestead": "^3.0",
         "barryvdh/laravel-ide-helper": "^2.1",
         "doctrine/dbal": "~2.3",
-        "escapestudios/symfony2-coding-standard": "~2.0"
+        "escapestudios/symfony2-coding-standard": "~2.0",
+        "barryvdh/laravel-debugbar": "^2.2"
     },
     "autoload": {
         "classmap": [

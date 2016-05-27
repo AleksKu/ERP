@@ -14,8 +14,16 @@ require('laravel-elixir-vueify');
  */
 
 elixir(function(mix) {
-    mix.browserify('app.js')
-        .version('public/js/app.js');
 
+    mix.copy(
+        'resources/assets/fonts',
+        'public/fonts'
+    );
+
+    mix.browserify('app.js');
+
+    mix.less('app.less');
+
+    mix.version(['public/css/app.css', 'public/js/app.js']);
 
 });

@@ -33,7 +33,7 @@ class WorkspaceMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $this->workspaceManager->init($this->auth->user());
+     //   $this->workspaceManager->init($this->auth->user());
 
         return $next($request);
     }
