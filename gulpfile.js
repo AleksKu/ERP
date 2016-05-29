@@ -20,6 +20,11 @@ elixir(function(mix) {
         'public/fonts'
     );
 
+    mix.copy(
+        'resources/assets/vendor/bower_components/material-design-iconic-font/dist/fonts',
+        'public/fonts'
+    );
+
     mix.browserify('app.js');
 
     mix.less('app.less');

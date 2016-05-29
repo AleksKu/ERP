@@ -11,3 +11,4 @@ composer.lock
 /public/css
 /public/fonts
 /public/js
+/resources/assets/vendors
